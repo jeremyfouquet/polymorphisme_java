@@ -8,21 +8,23 @@ import java.util.Scanner;
 public class Utilisateur {
 	private Scanner sc;
 	private HashMap<String, NbPoints> choix;
-	private List<List<Segment>> dessins;
+	private List<Segment> segments;
+	private List<Figure> figures;
 
 	public Utilisateur() {
 		this.sc = new Scanner(System.in);
-		choix = new HashMap<String, NbPoints>();
+		this.choix = new HashMap<String, NbPoints>();
+		this.segments = new ArrayList<Segment>();
+		this.figures = new ArrayList<Figure>();
 		for (NbPoints nbPoints : NbPoints.values()) {
 			choix.put(nbPoints.getVal(), nbPoints);
 		}
-		dessins = new ArrayList<List<Segment>>();
-		tracer();
+		choix();
 		this.sc.close();
 	}
 	
 	
-	public void tracer() {
+	public void choix() {
 		String reponse = "";
 		System.out.printf("%s\n", "Combien de points souhaitez vous dessiner ?");
 		for (NbPoints nbPoints : NbPoints.values()) {
@@ -32,19 +34,28 @@ public class Utilisateur {
 			reponse = sc.nextLine();
 		}
 		NbPoints choixFinal = this.choix.get(reponse);
-		List<Segment> dessin = new ArrayList<Segment>(choixFinal.getNumVal());
-		dessins.add(dessin);
-		for (int i = 0; i < choixFinal.getNumSegment(); i++) {
-			dessin.add(new Segment(choixFinal));
-		}
-//		dessin.get(0).afficherCoordonnnees();
-//		System.out.printf("distance = %.1f\n", dessin.get(0).calculerLongueur());
-//		System.out.printf("%s\n", this.toString());
+		tracer(choixFinal);
 	}
-
-	@Override
-	public String toString() {
-		return "Page [dessin=" + dessins + "]";
+	
+	public void tracer(NbPoints nbPoints) {
+		switch (nbPoints) {
+		case deux:
+			Segment segment = new Segment();
+			segments.add(segment);
+			break;
+		case trois:
+			Triangle triangle = new Triangle();
+			triangle.calculerAire();
+			triangle.calculerLongueurTotal();
+			triangle.calculerNombreAngles();
+			triangle.calculerPerimetre();
+			figures.add(triangle);
+			break;
+		case quatre:
+			break;
+		default:
+			break;
+		}
 	}
 
 }

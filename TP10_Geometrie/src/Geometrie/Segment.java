@@ -6,19 +6,9 @@ import java.util.List;
 public class Segment {
 	private List<Point> points = new ArrayList<Point>(2);
 
-	public Segment(NbPoints nbPoints) {
+	public Segment() {
 		points.add(new Point(0, 0));
 		points.add(new Point(0, 10));
-		switch (nbPoints) {
-			case deux:
-				break;
-			case trois:
-				break;
-			case quatre:
-				break;
-			default :
-				break;
-		}
 	}
 
 	protected void afficherCoordonnnees() {
