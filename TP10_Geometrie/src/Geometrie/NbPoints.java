@@ -2,7 +2,7 @@ package Geometrie;
 
 public enum NbPoints {
     deux("2", 2, 1),
-    trois("3", 3, 2),
+    trois("3", 3, 3),
 	quatre("4", 4, 4);
 
     private String Val;

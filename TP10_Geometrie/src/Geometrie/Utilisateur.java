@@ -32,12 +32,14 @@ public class Utilisateur {
 			reponse = sc.nextLine();
 		}
 		NbPoints choixFinal = this.choix.get(reponse);
-		dessins.add(new ArrayList<Segment>(choixFinal.getNumVal()));
-		List<Segment> dessin = dessins.get(dessins.size()-1);
+		List<Segment> dessin = new ArrayList<Segment>(choixFinal.getNumVal());
+		dessins.add(dessin);
 		for (int i = 0; i < choixFinal.getNumSegment(); i++) {
 			dessin.add(new Segment(choixFinal));
 		}
-		System.out.printf("%s\n", this.toString());
+//		dessin.get(0).afficherCoordonnnees();
+//		System.out.printf("distance = %.1f\n", dessin.get(0).calculerLongueur());
+//		System.out.printf("%s\n", this.toString());
 	}
 
 	@Override
