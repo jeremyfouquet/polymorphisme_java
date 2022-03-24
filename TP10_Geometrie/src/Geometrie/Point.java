@@ -1,40 +1,49 @@
 package Geometrie;
 
-public class Point {
-	private int x; // Coordonnée de l'axe des abscisses
-	private int y; // Coordonnée de l'axe des ordonnées
 
-	public Point(int x, int y) {
+public class Point {
+	private double x; // Coordonnée de l'axe des abscisses
+	private double y; // Coordonnée de l'axe des ordonnées
+
+	public Point(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 	
 	// http://www.codeurjava.com/2015/04/droite-et-distance-entre-deux-points-en-java.html#:~:text=La%20th%C3%A9or%C3%A8me%20de%20Pythagore%20est,sqrt().
-	public double distance(Point p){
-		return Math.sqrt((p.getX()-this.getX()) + (p.getY()-this.getY()));
+	protected double distance(Point p){
+		return Math.sqrt(sqr(p.getX()-this.x) + sqr(p.getY()-this.y));
 	}
-	// https://askcodez.com/java-le-calcul-de-langle-entre-deux-points-en-degres.html
-	public double getAngle(Point p) {
-	    double angle = Math.toDegrees(Math.atan2(p.y - y, p.x - x));
-	    if(angle < 0){
-	        angle += 360;
-	    }
-	    return angle;
-	}
+    private double sqr(double a) {
+        return a*a;
+    }
 	// GETTERS ET SETTERS
-	public int getX() {
+
+	public double getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Point other = (Point) obj;
+		return x == other.x && y == other.y;
+	}
+
+	public void setY(double y) {
 		this.y = y;
 	}
 

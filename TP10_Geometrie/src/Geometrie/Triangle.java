@@ -1,26 +1,105 @@
 package Geometrie;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Triangle extends Figure {
 
-	public Triangle() {
-		super();
-		super.getSegments().add(new Segment());
-		super.getSegments().add(new Segment());
-		super.getSegments().add(new Segment());
-		// TODO Auto-generated constructor stub
+	public Triangle(NbPoints nbPoints) {
+		super(nbPoints);
+		List<Double> S2 = new ArrayList<Double>(4);
+		List<Double> S3 = new ArrayList<Double>(4);
+		double x3 = 0;
+		double y3 = 0;
+		Segment segmentBase = getSegments().get(0);
+		switch (getTypefigure()) {
+			case Isocele:
+				x3 = segmentBase.getPoints().get(1).getX()/2;
+				y3 = segmentBase.getPoints().get(1).getX();
+				break;
+			case Equilateral:
+				x3 = segmentBase.getPoints().get(1).getX()/2;
+				y3 = pointEquilateral(segmentBase.calculerLongueur());
+				break;
+			case Rectangle:
+				x3 = segmentBase.getPoints().get(0).getX();
+				y3 = segmentBase.getPoints().get(1).getX()/2;
+				break;
+			default :
+				break;
+		}
+		S2.add(segmentBase.getPoints().get(0).getX());
+		S2.add(segmentBase.getPoints().get(0).getY());
+		S2.add(x3);
+		S2.add(y3);
+		S3.add(x3);
+		S3.add(y3);
+		S3.add(segmentBase.getPoints().get(1).getX());
+		S3.add(segmentBase.getPoints().get(1).getY());
+		getSegments().add(new Segment(S2));
+		getSegments().add(new Segment(S3));
 	}
 	
-	// Une méthode abstraite permettant de calculer l'aire de chaque figure
-	protected int calculerAire() {
-		return 0;
+	protected double calculerAire() {
+		Segment segment1 = getSegments().get(0);
+		Segment segment2 = getSegments().get(1);
+		Segment segment3 = getSegments().get(2);
+		double base = 0;
+		double hauteur = 0;
+		switch (getTypefigure()) {
+			case Equilateral:
+				base = segment1.calculerLongueur();
+				hauteur = hauteur(base);
+				break;
+			case Isocele:
+				base = 
+					segment1.calculerLongueur() == segment2.calculerLongueur() ? segment3.calculerLongueur() :
+					segment1.calculerLongueur() == segment3.calculerLongueur() ? segment2.calculerLongueur() :
+					segment1.calculerLongueur();
+				hauteur = hauteur(base);
+				break;
+			case Rectangle:
+				List<Segment> segmentRectangle = segmentRectangle(getSegments());
+				base = segmentRectangle.get(0).calculerLongueur();
+				hauteur = segmentRectangle.get(1).calculerLongueur();
+				break;
+			default :
+				break;
+		}
+		hauteur = getTypefigure().equals(TypeFigure.Rectangle) ? getSegments().get(1).calculerLongueur() : hauteur(base) ;
+		double aire = 0.5 * base * hauteur;
+		return aire;
 	};
 	
-	// Une méthode permettant de calculer le périmètre total d'une figure
-	protected double calculerPerimetre() {
-		double perimetre = super.getSegments().get(0).calculerLongueur() + super.getSegments().get(1).calculerLongueur() + super.getSegments().get(2).calculerLongueur();
-		System.out.printf("Perimetre : %.1f\n", perimetre);
-		return perimetre;
-	};
+	protected List<Segment> segmentRectangle(List<Segment> segments) {
+		List<Point> angleDroit = new ArrayList<Point>();
+		List<Segment> segmentRectangle = new ArrayList<Segment>();
+		double angleRectangle = 90;
+		int index = 1;
+		for (Segment segment : getSegments()) {
+			Point oppose = getSegments().get(index).getPoints().get(1);
+			if(index == getSegments().size()) {
+				oppose = getSegments().get(0).getPoints().get(0);
+			}
+			if (segment.calculateAngle(oppose) == angleRectangle && !angleDroit.contains(oppose)) {
+				angleDroit.add(oppose);
+			};
+			index++;
+
+		}
+		for (Segment segment :getSegments()) {
+			if(segment.getPoints().contains(angleDroit.get(0))) {
+				segmentRectangle.add(segment);
+			};
+			
+		}
+		return segmentRectangle;
+	}
+	
+	private double pointEquilateral(double base) {
+		double hauteur =  Math.pow(base, 2) - Math.pow(base/2, 2);
+		return Math.sqrt(hauteur);
+	}
 	
 
 }
