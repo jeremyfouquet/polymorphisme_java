@@ -20,9 +20,10 @@ public class Segment {
 	protected void afficherCoordonnnees() {
 		char lettre = 'A';
 		for (Point point :this.points) {
-			System.out.printf("%s %c :\n", "Coordonnées du point", lettre);
-			System.out.printf("%s=%.1f\n", "x", point.getX());
-			System.out.printf("%s=%.1f\n", "y", point.getY());
+			System.out.printf("Les coordonnées du point %c sont : ", lettre);
+			System.out.printf("x = %.1f ", point.getX());
+			System.out.printf("y = %.1f\n", point.getY());
+			System.out.println();
 			lettre++;
 		}		
 	}
@@ -33,7 +34,8 @@ public class Segment {
 	}
 	
 	protected void afficherLongueur() {
-		System.out.printf("La longueur du segment est de %.1f\n", this.calculerLongueur());
+		System.out.printf("La longueur du segment est de %.1f cm\n", this.calculerLongueur());
+		System.out.println();
 	}
 	
 	// https://stackoverflow.com/questions/1211212/how-to-calculate-an-angle-from-three-points

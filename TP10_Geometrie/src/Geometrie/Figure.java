@@ -55,9 +55,20 @@ public abstract class Figure {
 		double hauteur = (base/2) * Math.sqrt(3);
 		return hauteur;
 	}
+	protected double hauteur(Segment segment, Point point) {
+		List<Double> points = new ArrayList<Double>(4);
+		points.add(point.getX());
+		points.add(segment.getPoints().get(0).getY());
+		points.add(point.getX());
+		points.add(point.getY());
+		Segment segmentHauteur = new Segment(points);
+		double hauteur = segmentHauteur.calculerLongueur();
+		return hauteur;
+	}
 
 	protected void afficheAire() {
-		System.out.printf("L'aire est de %.1f\n", calculerAire());
+		System.out.printf("L'aire est de %.1f cm3\n", calculerAire());
+		System.out.println();
 	};
 
 	// Une méthode abstraite ?? permettant de calculer le nombre d'angles
@@ -78,7 +89,8 @@ public abstract class Figure {
 	}
 	
 	protected void afficheNombreAngles() {
-		System.out.printf("Nombre total d'angles %d\n", this.calculerNombreAngles());
+		System.out.printf("Nombre total d'angles est %d\n", this.calculerNombreAngles());
+		System.out.println();
 	}
 	// Une méthode pouvant calculer la longueur de chacun des segments
 	protected double calculerLongueurSegment(boolean... affiche) {
@@ -89,7 +101,7 @@ public abstract class Figure {
 		int index = 1;
 		double longueurTotal = 0;
 		for (Segment segment :this.segments) {
-			if(afficher) {System.out.printf("Segment %d : ", index);};
+			if(afficher) {System.out.printf("Segment n°%d : ", index);};
 			double longueur = segment.calculerLongueur();
 			if(afficher) {segment.afficherLongueur();};
 			longueurTotal += longueur;
@@ -106,7 +118,8 @@ public abstract class Figure {
 	
 	// Une méthode permettant de calculer le périmètre total d'une figure
 	protected void affichePerimetre() {
-		System.out.printf("Le perimetre est de %.1f\n", this.calculerPerimetre());
+		System.out.printf("Le perimetre est de %.1f cm\n", this.calculerPerimetre());
+		System.out.println();
 	}
 	
 	// GETTERS ET SETTERS

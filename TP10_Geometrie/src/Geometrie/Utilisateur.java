@@ -23,12 +23,10 @@ public class Utilisateur {
 		try {
 			while(Main.STOP != true) {
 				choixNbPoints();
-				System.out.println();
 			}
 		} catch(MonException e) {
 			System.out.printf("%s\n", e.getMessage());
 		} finally {
-			System.out.printf("%s\n", "ICI");
 			Main.sc.close();
 		}
 	}
@@ -45,7 +43,7 @@ public class Utilisateur {
 			reponse = Main.sc.nextLine();
 			if (reponse.equals("STOP")) {
 				Main.STOP = true;
-				throw new MonException("Vous souhaitez arretez ! Au revoir !");
+				throw new MonException("Au revoir !");
 			}
 		}
 		NbPoints choixFinal = this.choix.get(reponse);
@@ -58,6 +56,7 @@ public class Utilisateur {
 			Segment segment = new Segment();
 			segments.add(segment);
 			System.out.printf("%s\n", "Le segment à été dessiné avec succes");
+			System.out.println();
 			segment.afficherCoordonnnees();
 			segment.afficherLongueur();
 			break;

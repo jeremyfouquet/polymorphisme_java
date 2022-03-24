@@ -15,7 +15,7 @@ public class Triangle extends Figure {
 		switch (getTypefigure()) {
 			case Isocele:
 				x3 = segmentBase.getPoints().get(1).getX()/2;
-				y3 = segmentBase.getPoints().get(1).getX();
+				y3 = 20;
 				break;
 			case Equilateral:
 				x3 = segmentBase.getPoints().get(1).getX()/2;
@@ -56,30 +56,31 @@ public class Triangle extends Figure {
 					segment1.calculerLongueur() == segment2.calculerLongueur() ? segment3.calculerLongueur() :
 					segment1.calculerLongueur() == segment3.calculerLongueur() ? segment2.calculerLongueur() :
 					segment1.calculerLongueur();
-				hauteur = hauteur(base);
+				hauteur = hauteur(segment1, segment2.getPoints().get(1));
 				break;
 			case Rectangle:
-				List<Segment> segmentRectangle = segmentRectangle(getSegments());
+				List<Segment> segmentRectangle = segmentRectangle();
 				base = segmentRectangle.get(0).calculerLongueur();
 				hauteur = segmentRectangle.get(1).calculerLongueur();
 				break;
 			default :
 				break;
 		}
-		hauteur = getTypefigure().equals(TypeFigure.Rectangle) ? getSegments().get(1).calculerLongueur() : hauteur(base) ;
 		double aire = 0.5 * base * hauteur;
 		return aire;
 	};
 	
-	protected List<Segment> segmentRectangle(List<Segment> segments) {
+	protected List<Segment> segmentRectangle() {
 		List<Point> angleDroit = new ArrayList<Point>();
 		List<Segment> segmentRectangle = new ArrayList<Segment>();
 		double angleRectangle = 90;
 		int index = 1;
 		for (Segment segment : getSegments()) {
-			Point oppose = getSegments().get(index).getPoints().get(1);
+			Point oppose = null;
 			if(index == getSegments().size()) {
 				oppose = getSegments().get(0).getPoints().get(0);
+			} else {
+				oppose = getSegments().get(index).getPoints().get(1);
 			}
 			if (segment.calculateAngle(oppose) == angleRectangle && !angleDroit.contains(oppose)) {
 				angleDroit.add(oppose);
