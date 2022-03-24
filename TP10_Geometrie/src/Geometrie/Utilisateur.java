@@ -55,7 +55,7 @@ public class Utilisateur {
 		case deux:
 			Segment segment = new Segment();
 			segments.add(segment);
-			System.out.printf("%s\n", "Le segment à été dessiné avec succes");
+			System.out.printf("Le %s à été dessiné avec succes\n", segment.getClass().getSimpleName());
 			System.out.println();
 			segment.afficherCoordonnnees();
 			segment.afficherLongueur();
@@ -64,6 +64,7 @@ public class Utilisateur {
 		case quatre:
 			Figure figure = nbPoints == NbPoints.trois ? new Triangle(nbPoints) : new Rectangle(nbPoints);
 			System.out.printf("Le %s %s à été dessiné avec succes\n", figure.getClass().getSimpleName(), figure.getTypefigure());
+			System.out.println();
 			figure.calculerLongueurSegment(true);
 			figure.afficheNombreAngles();
 			figure.afficheAire();

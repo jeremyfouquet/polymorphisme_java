@@ -103,7 +103,10 @@ public abstract class Figure {
 		for (Segment segment :this.segments) {
 			if(afficher) {System.out.printf("Segment n°%d : ", index);};
 			double longueur = segment.calculerLongueur();
-			if(afficher) {segment.afficherLongueur();};
+			if(afficher) {
+				segment.afficherLongueur();
+				segment.afficherCoordonnnees();
+			};
 			longueurTotal += longueur;
 			index++;
 		};

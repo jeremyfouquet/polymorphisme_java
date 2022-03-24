@@ -23,9 +23,9 @@ public class Segment {
 			System.out.printf("Les coordonnées du point %c sont : ", lettre);
 			System.out.printf("x = %.1f ", point.getX());
 			System.out.printf("y = %.1f\n", point.getY());
-			System.out.println();
 			lettre++;
-		}		
+		}	
+		System.out.println();	
 	}
 	
 	protected double calculerLongueur() {
