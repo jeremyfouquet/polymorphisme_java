@@ -1,3 +1,6 @@
+/** 
+ * Jeremy Fouquet
+ */
 package Geometrie;
 
 import java.util.ArrayList;
@@ -5,18 +8,26 @@ import java.util.List;
 import java.util.Objects;
 
 public class Segment {
-	private List<Point> points = new ArrayList<Point>(2);
+	private List<Point> points = new ArrayList<Point>(2); // liste des 2 points composants le segment
 
 	public Segment() {
 		points.add(new Point(0, 0));
 		points.add(new Point(10, 0));
 	}
 	
+	/**
+	 * @param points liste des valeurs x1, y1, x2, y2
+	 */
 	public Segment(List<Double> points) {
 		this.points.add(new Point(points.get(0), points.get(1)));
 		this.points.add(new Point(points.get(2), points.get(3)));
 	}
 
+	/** 
+	 * 
+	 * Affiche les coordonnees x et y des 2 points du segment
+	 * 
+	 */
 	protected void afficherCoordonnnees() {
 		char lettre = 'A';
 		for (Point point :this.points) {
@@ -27,18 +38,38 @@ public class Segment {
 		}	
 		System.out.println();	
 	}
-	
+
+	/** 
+	 * 
+	 * Calcule la longeur du segment
+	 * 
+	 * @return double distance du segment
+	 * @see Point#distance(Point)
+	 */
 	protected double calculerLongueur() {
 		double distance = this.points.get(0).distance(this.points.get(1));
 		return distance;
 	}
-	
+
+	/** 
+	 * 
+	 * Affiche la longeur du segment
+	 * 
+	 * @see #calculerLongueur()
+	 */
 	protected void afficherLongueur() {
 		System.out.printf("La longueur du segment est de %.1f cm\n", this.calculerLongueur());
 		System.out.println();
 	}
 	
-	// https://stackoverflow.com/questions/1211212/how-to-calculate-an-angle-from-three-points
+	/** 
+	 * 
+	 * Calcule un angle à partir de 3 points
+	 * SRC : https://stackoverflow.com/questions/1211212/how-to-calculate-an-angle-from-three-points
+	 * 
+	 * @param oppose point oppose au segment et qui represente le centre de l'angle
+	 * @return double angle calculé à partir des 3 points
+	 */
 	protected double calculateAngle(Point oppose){
     	double CentreX = oppose.getX();
     	double CentreY = oppose.getY();
@@ -57,18 +88,13 @@ public class Segment {
         return angleDeg;
     }
 	
-
-
-	//GETTERS ET SETTERS
-
+	// GETTERS, SETTERS, EQUALS
 	public List<Point> getPoints() {
 		return points;
 	}
-
 	public void setPoints(List<Point> points) {
 		this.points = points;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -1,9 +1,12 @@
+/** 
+ * Jeremy Fouquet
+ */
 package Geometrie;
 
 public enum TypeFigure {
-	Isocele,
-	Equilateral,
-	Rectangle,
 	Losange,
-	Carre
+	Carre,
+	Rectangle,
+	Isocele,
+	Equilateral
 }

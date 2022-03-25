@@ -1,32 +1,23 @@
+/** 
+ * Jeremy Fouquet
+ */
 package Geometrie;
 
 public enum NbPoints {
-    deux("2", 2, 1, "Segment"),
-    trois("3", 3, 3, "Triangle"),
-	quatre("4", 4, 4, "Quadrilatere");
+    deux("2","Segment"),
+    trois("3","Triangle"),
+	quatre("4","Quadrilatere");
 
-    private String Val;
-    private int NumVal;
-    private int NumSegment;
-    private String Forme;
+    private String Val; // Valeur proposé dans l'input select
+    private String Forme; // Nom du type de forme correspondant
 
-    NbPoints(String Val, int NumVal, int NumSegment, String Forme) {
+    NbPoints(String Val, String Forme) {
         this.Val = Val;
-        this.NumVal = NumVal;
-        this.NumSegment = NumSegment;
         this.Forme = Forme;
     }
 
     public String getVal() {
         return this.Val;
-    }
-
-    public int getNumVal() {
-        return this.NumVal;
-    }
-
-    public int getNumSegment() {
-        return this.NumSegment;
     }
     
     public String getForme() {

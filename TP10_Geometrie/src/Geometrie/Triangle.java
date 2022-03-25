@@ -1,3 +1,6 @@
+/** 
+ * Jeremy Fouquet
+ */	
 package Geometrie;
 
 import java.util.ArrayList;
@@ -5,8 +8,11 @@ import java.util.List;
 
 public class Triangle extends Figure {
 
-	public Triangle(NbPoints nbPoints) {
-		super(nbPoints);
+	/**
+	 * @param nbPoint
+	 */
+	public Triangle(NbPoints nbPoint) {
+		super(nbPoint);
 		List<Double> S2 = new ArrayList<Double>(4);
 		List<Double> S3 = new ArrayList<Double>(4);
 		double x3 = 0;
@@ -69,8 +75,14 @@ public class Triangle extends Figure {
 		double aire = 0.5 * base * hauteur;
 		return aire;
 	};
-	
-	protected List<Segment> segmentRectangle() {
+
+	/** 
+	 * 
+	 * Trouve les 2 segments adjacents à un angle droit pour un triangle rectangle
+	 * 
+	 * @return List<Segment> liste des segments adjacents à l'angle droit
+	 */	
+	private List<Segment> segmentRectangle() {
 		List<Point> angleDroit = new ArrayList<Point>();
 		List<Segment> segmentRectangle = new ArrayList<Segment>();
 		double angleRectangle = 90;
@@ -96,7 +108,14 @@ public class Triangle extends Figure {
 		}
 		return segmentRectangle;
 	}
-	
+
+	/** 
+	 * 
+	 * Calcule la distance la valeur du point du sommet du triangle equilateral
+	 * 
+	 * @param base longueur de la base du triangle equilateral
+	 * @return double liste des segments adjacents à l'angle droit
+	 */
 	private double pointEquilateral(double base) {
 		double hauteur =  Math.pow(base, 2) - Math.pow(base/2, 2);
 		return Math.sqrt(hauteur);

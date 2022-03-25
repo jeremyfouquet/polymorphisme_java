@@ -1,3 +1,6 @@
+/** 
+ * Jeremy Fouquet
+ */
 package Geometrie;
 
 import java.util.ArrayList;
@@ -7,14 +10,43 @@ import java.util.Objects;
 
 
 public abstract class Figure {
-	private List<Segment> segments = new ArrayList<Segment>();
-	private TypeFigure typefigure;
+	private List<Segment> segments = new ArrayList<Segment>(); // Liste des segments formant la figure
+	private TypeFigure typefigure; // type de triangle ou de quadrilatere
 
+	/**
+	 * @param nbPoints
+	 */
 	public Figure(NbPoints nbPoints) {
 		this.segments.add(new Segment());
 		this.typefigure = choixFigure(nbPoints);
 	}
-	
+
+	/** 
+	 * 
+	 * Permet de calculer l'aire de la figure
+	 * 
+	 * @return double l'aire calculé
+	 */	
+	protected abstract double calculerAire();
+
+	/** 
+	 * 
+	 * Affiche l'aire calculé
+	 * 
+	 * @see #calculerAire()
+	 */
+	protected void afficheAire() {
+		System.out.printf("L'aire est de %.1f cm3\n", calculerAire());
+		System.out.println();
+	};
+
+	/** 
+	 * 
+	 * Propose de choisir parmis une type de triangle ou un type de quadrilatere
+	 * 
+	 * @param nbPoints determine la forme triangle ou quadrilatere
+	 * @return TypeFigure type choise par l'utilisateur
+	 */
 	private TypeFigure choixFigure(NbPoints nbPoints) {
 		List<TypeFigure> choix = new ArrayList<TypeFigure>();
 		List<String> selection = Arrays.asList("oui", "non");
@@ -47,14 +79,29 @@ public abstract class Figure {
 		}
 		return choixFinal;
 	}
-
-	// Une méthode abstraite permettant de calculer l'aire de chaque figure
-	protected abstract double calculerAire();
 	
+	/** 
+	 * 
+	 * Calcule la hauteur d'une figure
+	 * SURCHARGE DE METHODE
+	 * 
+	 * @param base segment representant la base d'un triangle
+	 * @return double la hauteur calculé
+	 */
 	protected double hauteur(double base) {
 		double hauteur = (base/2) * Math.sqrt(3);
 		return hauteur;
 	}
+
+	/** 
+	 * 
+	 * Calcule la hauteur d'une figure
+	 * SURCHARGE DE METHODE
+	 * 
+	 * @param segment sert de repere pour le point n°1
+	 * @param point sert de repere pour le point n°2
+	 * @return double la hauteur calculé
+	 */
 	protected double hauteur(Segment segment, Point point) {
 		List<Double> points = new ArrayList<Double>(4);
 		points.add(point.getX());
@@ -66,12 +113,12 @@ public abstract class Figure {
 		return hauteur;
 	}
 
-	protected void afficheAire() {
-		System.out.printf("L'aire est de %.1f cm3\n", calculerAire());
-		System.out.println();
-	};
-
-	// Une méthode abstraite ?? permettant de calculer le nombre d'angles
+	/** 
+	 * 
+	 * Calcule le nombre d'angle de la figure
+	 * 
+	 * @return int nombre total d'angle de la figure
+	 */
 	protected int calculerNombreAngles() {
 		List<Point> points = new ArrayList<Point>();
 		for (Segment segment : this.segments) {
@@ -88,11 +135,27 @@ public abstract class Figure {
 		return nbAngle;
 	}
 	
+	/** 
+	 * 
+	 * Affiche le nombre d'angle calculé
+	 * 
+	 * @see #afficheNombreAngles()
+	 */
 	protected void afficheNombreAngles() {
 		System.out.printf("Nombre total d'angles est %d\n", this.calculerNombreAngles());
 		System.out.println();
 	}
-	// Une méthode pouvant calculer la longueur de chacun des segments
+	
+	/** 
+	 * 
+	 * Calcule la somme total de tous les segments de la figure
+	 * 
+	 * @param affiche optionnel ce boolean lorqu'il est à true affiche en plus la longueur de chaque segment et les coordonnées des points associés
+	 * @return double somme de la longueur de chaque segment de la figure
+	 * @see Segment#afficherLongueur()
+	 * @see Segment#afficherCoordonnes()
+	 * @see Segment#calculerLongueur()
+	 */
 	protected double calculerLongueurSegment(boolean... affiche) {
 		boolean afficher = false;
 		for (boolean a : affiche) {
@@ -113,36 +176,42 @@ public abstract class Figure {
 		return longueurTotal;
 	};
 
-	// Une méthode permettant de calculer le périmètre total d'une figure
+	/** 
+	 * 
+	 * Calcule le perimetre de la figure
+	 * 
+	 * @return double perimetre de la figure
+	 * @see Figure#calculerLongueurSegment(boolean...)
+	 */	
 	protected double calculerPerimetre() {
 		double perimetre = this.calculerLongueurSegment(false);
 		return perimetre;
 	}
 	
-	// Une méthode permettant de calculer le périmètre total d'une figure
+	/** 
+	 * 
+	 * Affiche le permimetre calculé
+	 * 
+	 * @see #calculerPerimetre()
+	 */	
 	protected void affichePerimetre() {
 		System.out.printf("Le perimetre est de %.1f cm\n", this.calculerPerimetre());
 		System.out.println();
 	}
 	
-	// GETTERS ET SETTERS
-
+	// GETTERS, SETTERS, EQUALS
 	public List<Segment> getSegments() {
 		return segments;
 	}
-
 	public void setSegments(List<Segment> segments) {
 		this.segments = segments;
 	}
-
 	public TypeFigure getTypefigure() {
 		return typefigure;
 	}
-
 	public void setTypefigure(TypeFigure typefigure) {
 		this.typefigure = typefigure;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

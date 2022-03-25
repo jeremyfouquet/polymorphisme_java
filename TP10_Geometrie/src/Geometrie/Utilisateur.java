@@ -1,3 +1,6 @@
+/** 
+ * @author	Jeremy Fouquet
+ */
 package Geometrie;
 
 import java.util.ArrayList;
@@ -8,9 +11,10 @@ import java.util.Scanner;
 import exception.MonException;
 
 public class Utilisateur {
-	private HashMap<String, NbPoints> choix;
-	private List<Segment> segments;
-	private List<Figure> figures;
+	private HashMap<String, NbPoints> choix; // HashMap utilisé pour choixNbPoints(), permet de traduire le choix de l'utilisateur en NbPoints
+	private List<Segment> segments; // liste des segments realisés sans figure
+	private List<Figure> figures; // liste des figures réalisés
+
 
 	public Utilisateur() {
 		Main.sc = new Scanner(System.in);
@@ -21,7 +25,7 @@ public class Utilisateur {
 			choix.put(nbPoints.getVal(), nbPoints);
 		}
 		try {
-			while(Main.STOP != true) {
+			while(Main.STOP != true) { // le programme tourne en boucle tant que l'utilisateur ne l'interrompte pas
 				choixNbPoints();
 			}
 		} catch(MonException e) {
@@ -31,7 +35,13 @@ public class Utilisateur {
 		}
 	}
 	
-	
+	/** 
+	 * 
+	 * Propose à l'utilisateur de choisir entre 2, 3 ou 4 points
+	 * 
+	 * @exception MonException Si l'utilisateur ecrit "STOP"
+	 * @see	#tracer(NbPoints)
+	 */
 	public void choixNbPoints() throws MonException  {
 		String reponse = "";
 		System.out.printf("%s\n", "Combien de points souhaitez vous dessiner ?");
@@ -50,29 +60,41 @@ public class Utilisateur {
 		tracer(choixFinal);
 	}
 	
+	/** 
+	 * 
+	 * Dessine un segment, un triangle ou un quadrilatere puis l'ajout dans sa liste avant d'afficher ses detailles
+	 * 
+	 * @param nbPoints choix de l'utilisateur qui determine le nombre de points et de segments
+	 * @see Segment#afficherCoordonnnees()
+	 * @see	Segment#afficherLongueur()
+	 * @see	Figure#calculerLongueurSegment(boolean...)
+	 * @see	Figure#afficheNombreAngles()
+	 * @see	Figure#afficheAire()
+	 * @see	Figure#affichePerimetre()
+	 */
 	public void tracer(NbPoints nbPoints) {
 		switch (nbPoints) {
-		case deux:
-			Segment segment = new Segment();
-			segments.add(segment);
-			System.out.printf("Le %s à été dessiné avec succes\n", segment.getClass().getSimpleName());
-			System.out.println();
-			segment.afficherCoordonnnees();
-			segment.afficherLongueur();
-			break;
-		case trois:
-		case quatre:
-			Figure figure = nbPoints == NbPoints.trois ? new Triangle(nbPoints) : new Rectangle(nbPoints);
-			System.out.printf("Le %s %s à été dessiné avec succes\n", figure.getClass().getSimpleName(), figure.getTypefigure());
-			System.out.println();
-			figure.calculerLongueurSegment(true);
-			figure.afficheNombreAngles();
-			figure.afficheAire();
-			figure.affichePerimetre();
-			figures.add(figure);
-			break;
-		default:
-			break;
+			case deux:
+				Segment segment = new Segment();
+				segments.add(segment);
+				System.out.printf("Le %s à été dessiné avec succes\n", segment.getClass().getSimpleName());
+				System.out.println();
+				segment.afficherCoordonnnees();
+				segment.afficherLongueur();
+				break;
+			case trois:
+			case quatre:
+				Figure figure = nbPoints == NbPoints.trois ? new Triangle(nbPoints) : new Rectangle(nbPoints);
+				figures.add(figure);
+				System.out.printf("Le %s %s à été dessiné avec succes\n", figure.getClass().getSimpleName(), figure.getTypefigure());
+				System.out.println();
+				figure.calculerLongueurSegment(true);
+				figure.afficheNombreAngles();
+				figure.afficheAire();
+				figure.affichePerimetre();
+				break;
+			default:
+				break;
 		}
 	}
 
