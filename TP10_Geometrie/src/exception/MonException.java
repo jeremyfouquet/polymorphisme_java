@@ -1,3 +1,6 @@
+/** 
+ * @author	Jeremy Fouquet
+ */
 package exception;
 
 public class MonException extends Exception {

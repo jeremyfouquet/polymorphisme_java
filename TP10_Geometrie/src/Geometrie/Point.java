@@ -63,5 +63,9 @@ public class Point {
 		Point other = (Point) obj;
 		return x == other.x && y == other.y;
 	}
+	@Override
+	public String toString() {
+		return "Point [x=" + x + ", y=" + y + "]";
+	}
 
 }

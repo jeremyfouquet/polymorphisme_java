@@ -94,7 +94,7 @@ public class Triangle extends Figure {
 			} else {
 				oppose = getSegments().get(index).getPoints().get(1);
 			}
-			if (segment.calculateAngle(oppose) == angleRectangle && !angleDroit.contains(oppose)) {
+			if (segment.calculerAngle(oppose) == angleRectangle && !angleDroit.contains(oppose)) {
 				angleDroit.add(oppose);
 			};
 			index++;

@@ -10,6 +10,7 @@ import java.util.Objects;
 
 
 public abstract class Figure {
+
 	private List<Segment> segments = new ArrayList<Segment>(); // Liste des segments formant la figure
 	private TypeFigure typefigure; // type de triangle ou de quadrilatere
 
@@ -18,7 +19,21 @@ public abstract class Figure {
 	 */
 	public Figure(NbPoints nbPoints) {
 		this.segments.add(new Segment());
-		this.typefigure = choixFigure(nbPoints);
+		List<TypeFigure> choix = new ArrayList<TypeFigure>();
+		choix.add(TypeFigure.Rectangle);
+		switch (nbPoints) {
+			case trois:
+				choix.add(TypeFigure.Isocele);
+				choix.add(TypeFigure.Equilateral);
+				break;
+			case quatre:
+				choix.add(TypeFigure.Carre);
+				choix.add(TypeFigure.Losange);
+				break;
+			default:
+				break;
+		};
+		this.typefigure = choixFigure(nbPoints, choix);
 	}
 
 	/** 
@@ -47,22 +62,8 @@ public abstract class Figure {
 	 * @param nbPoints determine la forme triangle ou quadrilatere
 	 * @return TypeFigure type choise par l'utilisateur
 	 */
-	private TypeFigure choixFigure(NbPoints nbPoints) {
-		List<TypeFigure> choix = new ArrayList<TypeFigure>();
+	private TypeFigure choixFigure(NbPoints nbPoints, List<TypeFigure> choix) {
 		List<String> selection = Arrays.asList("oui", "non");
-		choix.add(TypeFigure.Rectangle);
-		switch (nbPoints) {
-			case trois:
-				choix.add(TypeFigure.Isocele);
-				choix.add(TypeFigure.Equilateral);
-				break;
-			case quatre:
-				choix.add(TypeFigure.Carre);
-				choix.add(TypeFigure.Losange);
-				break;
-			default:
-				break;
-		};
 		TypeFigure choixFinal = null;
 		while (choix.contains(choixFinal) != true) {
 			for(int i=0; i < choix.size() && choix.contains(choixFinal) != true; i++) {
@@ -199,7 +200,7 @@ public abstract class Figure {
 		System.out.println();
 	}
 	
-	// GETTERS, SETTERS, EQUALS
+	// GETTERS, SETTERS, EQUALS, TOSTRING
 	public List<Segment> getSegments() {
 		return segments;
 	}
@@ -222,6 +223,10 @@ public abstract class Figure {
 			return false;
 		Figure other = (Figure) obj;
 		return Objects.equals(segments, other.segments) && typefigure == other.typefigure;
+	}	
+	@Override
+	public String toString() {
+		return "Figure [segments=" + segments + ", typefigure=" + typefigure + "]";
 	}
 
 }

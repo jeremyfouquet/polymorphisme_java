@@ -70,7 +70,7 @@ public class Segment {
 	 * @param oppose point oppose au segment et qui represente le centre de l'angle
 	 * @return double angle calculé à partir des 3 points
 	 */
-	protected double calculateAngle(Point oppose){
+	protected double calculerAngle(Point oppose){
     	double CentreX = oppose.getX();
     	double CentreY = oppose.getY();
     	double P2X = this.getPoints().get(0).getX();
@@ -88,7 +88,7 @@ public class Segment {
         return angleDeg;
     }
 	
-	// GETTERS, SETTERS, EQUALS
+	// GETTERS, SETTERS, EQUALS, TOSTRING
 	public List<Point> getPoints() {
 		return points;
 	}
@@ -105,5 +105,9 @@ public class Segment {
 			return false;
 		Segment other = (Segment) obj;
 		return Objects.equals(points, other.points);
+	}
+	@Override
+	public String toString() {
+		return "Segment [points=" + points + "]";
 	}
 }
