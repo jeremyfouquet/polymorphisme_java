@@ -8,19 +8,18 @@ public abstract class Animaux extends Especes implements Vivipare, Ovipare {
 	double taille;
 	double poids;
 	int esv;
-
+	public Animaux(Sexe sexe, double taille, double poids, int esv) {
+		this.sexe = sexe;
+		this.taille = taille;
+		this.poids = poids;
+		this.esv = esv;
+		EcoSysteme.especes.add(this);
+	}
 	public Animaux() {
 		this.sexe = Arrays.asList(Sexe.values()).get(aleatoire());
 		this.taille = 1.0;
 		this.poids = 100;
 		this.esv = 8;
-		EcoSysteme.especes.add(this);
-	}
-	public Animaux(double taille, double poids, int esv) {
-		this.sexe = Arrays.asList(Sexe.values()).get(aleatoire());
-		this.taille = taille;
-		this.poids = poids;
-		this.esv = esv;
 		EcoSysteme.especes.add(this);
 	}
 		

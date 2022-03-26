@@ -8,8 +8,8 @@ public class Carnivores extends Animaux {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Carnivores(double taille, double poids, int esv) {
-		super(taille, poids, esv);
+	public Carnivores(Sexe sexe, double taille, double poids, int esv) {
+		super(sexe, taille, poids, esv);
 		setEspece(EspecesAnimale.Carnivore);
 	}
 	//	• Les carnivores sont des animaux pouvant manger des herbivores

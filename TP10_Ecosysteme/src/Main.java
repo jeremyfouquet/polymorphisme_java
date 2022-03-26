@@ -20,6 +20,9 @@ public class Main {
 		test.testSeNourirCarnivore("SeNourir(Herbivores|Carnivore)");
 		
 		test.testSeReproduireOvipare("SeReproduire(Ovipare)");
+		test.testSeReproduireVivipare("SeReproduire(Vivipare)");
+		test.testFertiliseOeuf("Fertilise(Oeuf)");
+		
 	}
 
 

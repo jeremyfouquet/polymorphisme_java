@@ -23,21 +23,22 @@ public interface Ovipare {
 		List<Double> ltailles = Arrays.asList(this.getTaille(), partenaire.getTaille()); 
 		List<Double> lpoids = Arrays.asList(this.getPoids(), partenaire.getPoids()); 
 		List<Integer> lesv = Arrays.asList(this.getEsperanceDeVie(), partenaire.getEsperanceDeVie()); 
+		Sexe sexe = Arrays.asList(Sexe.values()).get(aleatoire());
 		double taille = ltailles.get(aleatoire());
 		double poids = lpoids.get(aleatoire());
 		int esv = lesv.get(aleatoire());
 		switch (getEspece()) {
 			case Carnivore:
-				new Carnivores(taille, poids, esv);
+				new Carnivores(sexe, taille, poids, esv);
 				break;
 			case Omnivore:
-				new Omnivores(taille, poids, esv);
+				new Omnivores(sexe, taille, poids, esv);
 				break;
 			case Herbivore:
-				new Herbivores(taille, poids, esv);
+				new Herbivores(sexe, taille, poids, esv);
 				break;
 			case Charognard:
-				new Charognards(taille, poids, esv);
+				new Charognards(sexe, taille, poids, esv);
 				break;
 			default:
 				break;

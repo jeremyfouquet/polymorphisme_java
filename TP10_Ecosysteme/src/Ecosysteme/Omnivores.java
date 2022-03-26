@@ -6,9 +6,9 @@ public class Omnivores extends Animaux {
 		super();
 		setEspece(EspecesAnimale.Omnivore);
 	}
-	public Omnivores(double taille, double poids, int esv) {
-		super(taille, poids, esv);
-		setEspece(EspecesAnimale.Carnivore);
+	public Omnivores(Sexe sexe, double taille, double poids, int esv) {
+		super(sexe, taille, poids, esv);
+		setEspece(EspecesAnimale.Omnivore);
 	}
 
 	//	• Les omnivores eux peuvent manger des carnivores, des herbivores
@@ -22,8 +22,8 @@ public class Omnivores extends Animaux {
 	public void seNourir(Vegetaux nourriture) {
 		nourriture.estMange();
 	}
-//	public void seNourir(Object nourriture) {
-//	nourriture.estMange();
-//	}
+	public void seNourir(Oeuf nourriture) {
+		nourriture.estMange();
+	}
 
 }

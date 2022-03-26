@@ -10,9 +10,9 @@ public class Charognards extends Animaux {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Charognards(double taille, double poids, int esv) {
-		super(taille, poids, esv);
-		setEspece(EspecesAnimale.Carnivore);
+	public Charognards(Sexe sexe, double taille, double poids, int esv) {
+		super(sexe, taille, poids, esv);
+		setEspece(EspecesAnimale.Charognard);
 	}
 	
 	//	• Les charognards sont des animaux mangeant des animaux morts.

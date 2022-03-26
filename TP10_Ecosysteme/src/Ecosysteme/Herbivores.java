@@ -8,9 +8,9 @@ public class Herbivores extends Animaux {
 		setEspece(EspecesAnimale.Herbivore);
 		// TODO Auto-generated constructor stub
 	}
-	public Herbivores(double taille, double poids, int esv) {
-		super(taille, poids, esv);
-		setEspece(EspecesAnimale.Carnivore);
+	public Herbivores(Sexe sexe, double taille, double poids, int esv) {
+		super(sexe, taille, poids, esv);
+		setEspece(EspecesAnimale.Herbivore);
 	}
 	
 	//	Les herbivores sont des animaux pouvant manger des végétaux de
