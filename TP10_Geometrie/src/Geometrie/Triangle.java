@@ -34,14 +34,14 @@ public class Triangle extends Figure {
 			default :
 				break;
 		}
-		S2.add(segmentBase.getPoints().get(0).getX());
-		S2.add(segmentBase.getPoints().get(0).getY());
 		S2.add(x3);
 		S2.add(y3);
-		S3.add(x3);
-		S3.add(y3);
+		S2.add(segmentBase.getPoints().get(0).getX());
+		S2.add(segmentBase.getPoints().get(0).getY());
 		S3.add(segmentBase.getPoints().get(1).getX());
 		S3.add(segmentBase.getPoints().get(1).getY());
+		S3.add(x3);
+		S3.add(y3);
 		getSegments().add(new Segment(S2));
 		getSegments().add(new Segment(S3));
 	}
@@ -62,7 +62,7 @@ public class Triangle extends Figure {
 					segment1.calculerLongueur() == segment2.calculerLongueur() ? segment3.calculerLongueur() :
 					segment1.calculerLongueur() == segment3.calculerLongueur() ? segment2.calculerLongueur() :
 					segment1.calculerLongueur();
-				hauteur = hauteur(segment1, segment2.getPoints().get(1));
+				hauteur = hauteur(segment1, segment2.getPoints().get(0));
 				break;
 			case Rectangle:
 				List<Segment> segmentRectangle = segmentRectangle();
@@ -75,6 +75,23 @@ public class Triangle extends Figure {
 		double aire = 0.5 * base * hauteur;
 		return aire;
 	};
+	
+	protected void afficheDegreeAngles() {
+		int index = 0;
+		for (Segment segment : getSegments()) {
+			Point oppose = null;
+			if (index >= getSegments().size()-1) {
+				oppose = getSegments().get(0).getPoints().get(0);
+			} else {
+				oppose = getSegments().get(index+1).getPoints().get(0);
+			}
+			double degreeAngle = segment.calculerAngle(oppose);
+			System.out.printf("Angle n°%d %.1f degree\n", index+1, degreeAngle);
+			index++;
+		}
+		System.out.println();
+
+	}
 
 	/** 
 	 * 

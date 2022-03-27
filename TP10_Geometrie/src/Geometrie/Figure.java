@@ -46,6 +46,12 @@ public abstract class Figure {
 
 	/** 
 	 * 
+	 * Affiche le degree de chaque angles
+	 * 
+	 */
+	protected abstract void afficheDegreeAngles();
+	/** 
+	 * 
 	 * Affiche l'aire calculé
 	 * 
 	 * @see #calculerAire()

@@ -90,6 +90,7 @@ public class Utilisateur {
 				System.out.println();
 				figure.calculerLongueurSegment(true);
 				figure.afficheNombreAngles();
+				figure.afficheDegreeAngles();
 				figure.afficheAire();
 				figure.affichePerimetre();
 				break;
