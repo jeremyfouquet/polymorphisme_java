@@ -18,12 +18,20 @@ public abstract class Animaux extends Especes implements Vivipare, Ovipare {
 		this.esv = esv;
 		EcoSysteme.ajouterEspece(this);
 	}
-	public Animaux() {
+	public Animaux(String... oeuf) {
 		this.sexe = Arrays.asList(Sexe.values()).get(aleatoire());
 		this.taille = 1.0;
 		this.poids = 100;
 		this.esv = 8;
-		EcoSysteme.ajouterEspece(this);
+		boolean ajouter = true;
+		for (String o :oeuf) {
+			if(o.equals("oeuf") == true) {
+				ajouter = false;
+			}
+		}
+		if (ajouter) {
+			EcoSysteme.ajouterEspece(this);
+		}
 	}
 		
 	//GETTERS, SETTERS, EQUALS, TOSTRING
@@ -56,7 +64,7 @@ public abstract class Animaux extends Especes implements Vivipare, Ovipare {
 	}
 	public void setEsperanceDeVie(int esperanceDeVie) {
 		this.esv = esperanceDeVie;
-	} 
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -73,7 +81,8 @@ public abstract class Animaux extends Especes implements Vivipare, Ovipare {
 	@Override
 	public String toString() {
 		return "Animaux [espece=" + espece + ", sexe=" + sexe + ", taille=" + taille + ", poids=" + poids + ", esv="
-				+ esv + "]";
+				+ esv + ", isVivant()=" + isVivant() + ", getTypeEspece()=" + getTypeEspece() + ", toString()="
+				+ super.toString() + ", getClass()=" + getClass() +"]";
 	}
 
 }

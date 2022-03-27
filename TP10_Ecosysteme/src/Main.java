@@ -22,7 +22,7 @@ public class Main {
 		test.testSeReproduireVivipare("SeReproduireVivipare()");
 		test.testFertiliseOeuf("Fertilise(Oeuf)");
 		
-		test.testAll("all()");
+		test.testAjouterEtVoir("ajouterEtVoir()");
 		
 	}
 

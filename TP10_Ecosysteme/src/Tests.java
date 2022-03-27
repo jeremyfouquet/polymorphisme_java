@@ -2,28 +2,15 @@
  * @author Jeremy Fouquet
  */
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import Ecosysteme.Carnivores;
-import Ecosysteme.Charognards;
-import Ecosysteme.EcoSysteme;
-import Ecosysteme.Especes;
-import Ecosysteme.EspecesAnimale;
-import Ecosysteme.Fleurs;
-import Ecosysteme.Herbivores;
-import Ecosysteme.Legumes;
-import Ecosysteme.Oeuf;
-import Ecosysteme.Omnivores;
-import Ecosysteme.Ovipare;
-import Ecosysteme.Sexe;
-import Ecosysteme.Vegetaux;
-import Ecosysteme.Vivipare;
+import Ecosysteme.*;
 import exception.MonException;
 
 public class Tests {
-	private EcoSysteme eco;
 	
 	public Tests() {
-		eco = new EcoSysteme();
+		new EcoSysteme();
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -469,37 +456,25 @@ public class Tests {
 		System.out.println();
 	}
 	
-	public void testAll(String nom) {
+	public void testAjouterEtVoir(String nom) {
 		System.out.printf("TEST : %s\n",nom);			
 		System.out.println();
 		System.out.printf("%s %s\n", "CAS 1", "NORMAL");
 		int avant = EcoSysteme.especes.size();
-		Vivipare Carnivore = new Carnivores();
-		Ovipare Herbivore = new Herbivores();
-		Vivipare Charognard = new Charognards();
-		Vivipare Omnivore = new Omnivores();
-		Vegetaux Fleur = new Fleurs();
-		Vegetaux Legume = new Legumes();
+		int size = Arrays.asList(TypeEspece.values()).size();
+		new Carnivores();
+		new Herbivores();
+		new Charognards();
+		new Omnivores();
+		new Fleurs();
+		new Legumes();
+		new Oeuf(EspecesAnimale.Carnivore);
 		int apres = EcoSysteme.especes.size();
-		boolean conditionTestSucces = 6 == apres;
-		System.out.printf("DETAILS DU TEST: L'ecosysteme avant est de : %s, apres est de : %s\n", avant, apres);
+		boolean conditionTestSucces = avant == apres - size;
+		System.out.printf("DETAILS DU TEST: L'ecosysteme avant avoir ajouté les %d types d'especes différentes est de : %d, apres est de : %d\n", size, avant, apres);
+		EcoSysteme.voirEspeces();
 		System.out.printf("SUCCES : %b \n", conditionTestSucces);
 		System.out.println();
-		eco.voirEspeces();
-//		System.out.printf("%s %s\n", "CAS 2", "NORMAL");
-//		avant = EcoSysteme.especes.size();
-//		eco.retirerEspece(Herbivore);
-//		Ovipare Herbivore = new Herbivores();
-//		Vivipare Charognard = new Charognards();
-//		Vivipare Omnivore = new Omnivores();
-//		Vegetaux Fleur = new Fleurs();
-//		Vegetaux Legume = new Legumes();
-//		int apres = EcoSysteme.especes.size();
-//		boolean conditionTestSucces = 6 == apres;
-//		System.out.printf("DETAILS DU TEST: L'ecosysteme avant est de : %s, apres est de : %s\n", avant, apres);
-//		System.out.printf("SUCCES : %b \n", conditionTestSucces);
-//		System.out.println();
-		eco.voirEspeces();
 		EcoSysteme.especes = new ArrayList<Especes>();
 		System.out.printf("%s\n", "-----------------------------------");
 		System.out.println();

@@ -12,16 +12,14 @@ public class EcoSysteme {
 //	d'espèces (végétal + animal) et pourra ajouter, retirer ou afficher les
 //	espèces de cette liste.
 	public EcoSysteme() {
-//		Animaux monCarnivore = new Animaux(EspecesAnimale.Carnivore);
-//		Animaux monOmnivore = new Animaux(EspecesAnimale.Omnivore);
-//		Animaux monHerbivore = new Animaux(EspecesAnimale.Herbivore);
-//		Animaux monCharognad = new Animaux(EspecesAnimale.Charognard);
-
 	}
 	
-	public void voirEspeces() {
+	public static void voirEspeces() {
+		System.out.println("\nListe des especes presentes dans l'Écosystème :\n");
+		int index = 0;
 		for (Especes espece : especes) {
-			System.out.printf("Espece : %s\n", espece.getClass().getSimpleName());
+			index++;
+			System.out.printf("Espece %d: %s (%s)\n", index, espece.getTypeEspece(), espece.isVivant()?"vivant":"mort");
 		}
 	}
 	
@@ -32,5 +30,11 @@ public class EcoSysteme {
 	public static void retirerEspece(Especes espece) {
 		especes.remove(espece);
 	}
+	
+	public static void remplacerEspece(Oeuf oeuf, Especes espece) {
+		int index = especes.indexOf(oeuf);
+		especes.set(index, espece);
+	}
+	
 
 }

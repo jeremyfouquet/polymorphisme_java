@@ -24,6 +24,11 @@ public interface Ovipare {
 		}	
 	}
 	
+	default int aleatoire() {
+		int r = (int) (Math.random() * 2);
+		return r;
+	}
+	
 	private void caracteristiques(Ovipare partenaire) {
 		List<Double> ltailles = Arrays.asList(this.getTaille(), partenaire.getTaille()); 
 		List<Double> lpoids = Arrays.asList(this.getPoids(), partenaire.getPoids()); 
@@ -48,11 +53,6 @@ public interface Ovipare {
 			default:
 				break;
 		}
-	}
-	
-	default int aleatoire() {
-		int r = (int) (Math.random() * 2);
-		return r;
 	}
 	
 	public EspecesAnimale getEspece();

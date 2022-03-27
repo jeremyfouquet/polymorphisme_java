@@ -21,13 +21,14 @@ public abstract class Vegetaux extends Especes {
 	}
 	@Override
 	public String toString() {
-		return "Vegetaux [graineEtPollen=" + graineEtPollen + "]";
+		return "Vegetaux [graineEtPollen=" + graineEtPollen + ", isVivant()=" + isVivant() + ", getTypeEspece()="
+				+ getTypeEspece() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
 	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;

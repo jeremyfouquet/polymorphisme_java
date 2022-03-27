@@ -9,6 +9,7 @@ public class Legumes extends Vegetaux {
 
 	public Legumes() {
 		super();
+		setTypeEspece(TypeEspece.Legumes);
 	}
 
 	//	Les fleurs utiliseront une quantité de pollen qui se divisera par 2 à
@@ -31,7 +32,8 @@ public class Legumes extends Vegetaux {
 	@Override
 	public String toString() {
 		return "Legumes [getGraineEtPollen()=" + getGraineEtPollen() + ", toString()=" + super.toString()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+				+ ", isVivant()=" + isVivant() + ", getTypeEspece()=" + getTypeEspece() + ", getClass()=" + getClass()
+				+ "]";
 	}
 	@Override
 	public boolean equals(Object obj) {

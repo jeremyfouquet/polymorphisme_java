@@ -12,28 +12,30 @@ public class Oeuf extends Especes {
 	//	À noter que celui-ci peut être consommé par les animaux omnivores.
 	public Oeuf(EspecesAnimale espece) {
 		this.espece = espece;
+		setTypeEspece(TypeEspece.Oeuf);
 		EcoSysteme.ajouterEspece(this);
 	}
 
 	public void eclos() {
 		this.eclos = true;
+		Especes eclosion = null;
 		switch (this.espece) {
 			case Carnivore:
-				new Carnivores();
+				eclosion = new Carnivores("oeuf");
 				break;
 			case Omnivore:
-				new Omnivores();
+				eclosion = new Omnivores("oeuf");
 				break;
 			case Herbivore:
-				new Herbivores();
+				eclosion = new Herbivores("oeuf");
 				break;
 			case Charognard:
-				new Charognards();
+				eclosion = new Charognards("oeuf");
 				break;
 			default:
 				break;
 		}
-		EcoSysteme.retirerEspece(this);
+		EcoSysteme.remplacerEspece(this, eclosion);
 	}
 
 	//GETTERS, SETTERS, EQUALS, TOSTRING
@@ -65,7 +67,8 @@ public class Oeuf extends Especes {
 	}
 	@Override
 	public String toString() {
-		return "Oeuf [eclos=" + eclos + ", espece=" + espece + "]";
+		return "Oeuf [eclos=" + eclos + ", espece=" + espece + ", isVivant()=" + isVivant() + ", getTypeEspece()="
+				+ getTypeEspece() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
 	}
 
 

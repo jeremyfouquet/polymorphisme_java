@@ -3,15 +3,15 @@
  */
 package Ecosysteme;
 
-
 public abstract class Especes {
+	private TypeEspece typeEspece;
 	private boolean vivant = true;
 
 	public Especes() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void estMange() {
+	protected void estMange() {
 		mourir();
 		EcoSysteme.retirerEspece(this);
 	}
@@ -26,11 +26,17 @@ public abstract class Especes {
 	}
 	public void setVivant(boolean vivant) {
 		this.vivant = vivant;
-	}	
+	}
+	public TypeEspece getTypeEspece() {
+		return typeEspece;
+	}
+
+	public void setTypeEspece(TypeEspece typeEspece) {
+		this.typeEspece = typeEspece;
+	}
 	@Override
 	public String toString() {
-		return "Especes [vivant=" + vivant + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+		return "Especes [typeEspece=" + typeEspece + ", vivant=" + vivant + "]";
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -41,7 +47,7 @@ public abstract class Especes {
 		if (getClass() != obj.getClass())
 			return false;
 		Especes other = (Especes) obj;
-		return vivant == other.vivant;
+		return typeEspece == other.typeEspece && vivant == other.vivant;
 	}
 		
 }
