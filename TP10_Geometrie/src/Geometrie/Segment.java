@@ -70,15 +70,29 @@ public class Segment {
 	 * @param oppose point oppose au segment et qui represente le centre de l'angle
 	 * @return double angle calculé à partir des 3 points
 	 */
-	protected double calculerAngle(Point oppose){
+	protected double calculerAngle(Point oppose, String... rectangle){
     	double CentreX = oppose.getX();
     	double CentreY = oppose.getY();
-    	double P2X = this.getPoints().get(0).getX();
-    	double P2Y = this.getPoints().get(0).getY();
-    	double P3X = this.getPoints().get(1).getX();
-    	double P3Y = this.getPoints().get(1).getY();
-        double numerator = P2Y*(CentreX-P3X) + CentreY*(P3X-P2X) + P3Y*(P2X-CentreX);
-        double denominator = (P2X-CentreX)*(CentreX-P3X) + (P2Y-CentreY)*(CentreY-P3Y);
+    	double P1X = this.getPoints().get(0).getX();
+    	double P1Y = this.getPoints().get(0).getY();
+    	double P2X = this.getPoints().get(1).getX();
+    	double P2Y = this.getPoints().get(1).getY();
+    	boolean refact = false;
+    	for (String r : rectangle) {
+			if(r.equals("rectangle")) {
+				refact = true;
+			}
+		}
+    	if(refact) {
+    		CentreX = this.getPoints().get(0).getX();
+        	CentreY = this.getPoints().get(0).getY();
+        	P1X = oppose.getX();
+        	P1Y = oppose.getY();
+        	P2X = this.getPoints().get(1).getX();
+        	P2Y = this.getPoints().get(1).getY();
+    	}
+        double numerator = P2Y*(CentreX-P1X) + CentreY*(P1X-P2X) + P1Y*(P2X-CentreX);
+        double denominator = (P2X-CentreX)*(CentreX-P1X) + (P2Y-CentreY)*(CentreY-P1Y);
         double ratio = numerator/denominator;
         double angleRad = Math.atan(ratio);
         double angleDeg = (angleRad*180)/Math.PI;

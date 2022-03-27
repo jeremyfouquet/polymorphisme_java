@@ -24,9 +24,6 @@ public class Rectangle extends Figure {
 			S2.add(segmentBase.getPoints().get(0).getX());
 			S2.add(segmentBase.getPoints().get(0).getY());
 			S3.add(segmentBase.getPoints().get(1).getX());
-			S3.add(S2.get(1));
-			S3.add(S2.get(0));
-			S3.add(S2.get(1));
 			break;
 		case Carre:
 			S2.add(segmentBase.getPoints().get(0).getX());
@@ -34,9 +31,6 @@ public class Rectangle extends Figure {
 			S2.add(segmentBase.getPoints().get(0).getX());
 			S2.add(segmentBase.getPoints().get(0).getY());
 			S3.add(segmentBase.getPoints().get(1).getX());
-			S3.add(S2.get(1));
-			S3.add(S2.get(0));
-			S3.add(S2.get(1));
 			break;
 		case Losange:
 			S2.add(-(segmentBase.getPoints().get(1).getX()/2));
@@ -44,13 +38,13 @@ public class Rectangle extends Figure {
 			S2.add(segmentBase.getPoints().get(0).getX());
 			S2.add(segmentBase.getPoints().get(0).getY());
 			S3.add(segmentBase.getPoints().get(1).getX()/2);
-			S3.add(S2.get(1));
-			S3.add(S2.get(0));
-			S3.add(S2.get(1));
 			break;
 		default :
 			break;
 		}
+		S3.add(S2.get(1));
+		S3.add(S2.get(0));
+		S3.add(S2.get(1));
 		S4.add(segmentBase.getPoints().get(1).getX());
 		S4.add(segmentBase.getPoints().get(1).getY());
 		S4.add(S3.get(0));
@@ -74,7 +68,7 @@ public class Rectangle extends Figure {
 			} else {
 				oppose = getSegments().get(index+1).getPoints().get(0);
 			}
-			double degreeAngle = segment.calculerAngle(oppose);
+			double degreeAngle = segment.calculerAngle(oppose, "rectangle");
 			System.out.printf("Angle n°%d %.1f degree\n", index+1, degreeAngle);
 			index++;
 		}

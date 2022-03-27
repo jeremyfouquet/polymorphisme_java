@@ -46,7 +46,7 @@ public abstract class Figure {
 
 	/** 
 	 * 
-	 * Affiche le degree de chaque angles
+	 * Affiche le degree de chaques angles
 	 * 
 	 */
 	protected abstract void afficheDegreeAngles();

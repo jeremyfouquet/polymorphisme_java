@@ -106,10 +106,10 @@ public class Triangle extends Figure {
 		int index = 1;
 		for (Segment segment : getSegments()) {
 			Point oppose = null;
-			if(index == getSegments().size()) {
+			if (index == getSegments().size()) {
 				oppose = getSegments().get(0).getPoints().get(0);
 			} else {
-				oppose = getSegments().get(index).getPoints().get(1);
+				oppose = getSegments().get(index).getPoints().get(0);
 			}
 			if (segment.calculerAngle(oppose) == angleRectangle && !angleDroit.contains(oppose)) {
 				angleDroit.add(oppose);
@@ -117,11 +117,10 @@ public class Triangle extends Figure {
 			index++;
 
 		}
-		for (Segment segment :getSegments()) {
+		for (Segment segment : getSegments()) {
 			if(segment.getPoints().contains(angleDroit.get(0))) {
 				segmentRectangle.add(segment);
 			};
-			
 		}
 		return segmentRectangle;
 	}
