@@ -1,3 +1,6 @@
+/**
+ * @author Jeremy Fouquet
+ */
 package Ecosysteme;
 
 import exception.MonException;
@@ -8,6 +11,8 @@ public interface Vivipare {
 	default void seReproduire() throws MonException {		
 		if (this.getSexe() == Sexe.male) {
 			throw new MonException("Reproduction impossible : Les males ne pondent pas d'oeuf !");
+		} else if (this.isVivant() != true) {
+			throw new MonException("Reproduction impossible : L'animal est mort !");
 		} else {
 			new Oeuf(getEspece());
 		}
@@ -20,6 +25,8 @@ public interface Vivipare {
 			throw new MonException("Fertilisation echoué : L'animale n'est pas de la même espece que l'oeuf !");
 		} else if (oeuf.isVivant() != true) {
 			throw new MonException("Fertilisation echoué : L'oeuf est mort !");
+		} else if (this.isVivant() != true){
+			throw new MonException("Fertilisation echoué : L'animal est mort !");
 		} else {
 			oeuf.eclos();
 		}
@@ -27,5 +34,6 @@ public interface Vivipare {
 
 	public Sexe getSexe();
 	public EspecesAnimale getEspece();
+	public boolean isVivant();
 
 }

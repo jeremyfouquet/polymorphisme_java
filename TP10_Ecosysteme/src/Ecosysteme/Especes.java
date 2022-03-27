@@ -1,3 +1,6 @@
+/**
+ * @author Jeremy Fouquet
+ */
 package Ecosysteme;
 
 
@@ -10,7 +13,7 @@ public abstract class Especes {
 	
 	public void estMange() {
 		mourir();
-		EcoSysteme.especes.remove(this);
+		EcoSysteme.retirerEspece(this);
 	}
 
 	public void mourir() {

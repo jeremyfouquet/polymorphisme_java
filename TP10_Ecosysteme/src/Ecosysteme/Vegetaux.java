@@ -1,11 +1,13 @@
+/**
+ * @author Jeremy Fouquet
+ */
 package Ecosysteme;
 
 public abstract class Vegetaux extends Especes {
 	private int graineEtPollen = 1;
 
 	public Vegetaux() {
-		EcoSysteme.especes.add(this);
-		// TODO Auto-generated constructor stub
+		EcoSysteme.ajouterEspece(this);
 	}
 	
 	protected abstract void enleveGraineEtPollen();

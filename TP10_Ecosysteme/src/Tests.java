@@ -1,3 +1,6 @@
+/**
+ * @author Jeremy Fouquet
+ */
 import java.util.ArrayList;
 
 import Ecosysteme.Carnivores;
@@ -10,8 +13,10 @@ import Ecosysteme.Herbivores;
 import Ecosysteme.Legumes;
 import Ecosysteme.Oeuf;
 import Ecosysteme.Omnivores;
+import Ecosysteme.Ovipare;
 import Ecosysteme.Sexe;
 import Ecosysteme.Vegetaux;
+import Ecosysteme.Vivipare;
 import exception.MonException;
 
 public class Tests {
@@ -81,8 +86,24 @@ public class Tests {
 			System.out.printf("SUCCES : %b \n", conditionTestSucces);
 			System.out.println();
 		}
+		System.out.printf("%s %s\n", "CAS 5", "PARTICULIER");
+		Fleurs maFleur3 = new Fleurs();
+		nbFleursAvant = EcoSysteme.especes.size();
+		maFleur3.mourir();
+		try {
+			maFleur2.seReproduire(maFleur3);
+		} catch (MonException e) {
+			System.out.printf("%s \n", e.getMessage());
+		} finally {
+			int nbFleursApres = EcoSysteme.especes.size();
+			boolean conditionTestSucces = nbFleursAvant == nbFleursApres;
+			System.out.printf("DETAILS DU TEST: nombre de fleurs avant reproduction:%s , nb de fleurs apres:%s\n", nbFleursAvant, nbFleursApres);
+			System.out.printf("SUCCES : %b \n", conditionTestSucces);
+			System.out.println();
+		}
 		EcoSysteme.especes = new ArrayList<Especes>();
 		System.out.printf("%s\n", "-----------------------------------");
+		System.out.println();
 	}
 
 	public void testSeReproduireLegume(String nom) {
@@ -117,6 +138,7 @@ public class Tests {
 		}
 		EcoSysteme.especes = new ArrayList<Especes>();
 		System.out.printf("%s\n", "-----------------------------------");
+		System.out.println();
 	}
 	
 	public void testSeNourirHerbivore(String nom) {
@@ -132,7 +154,6 @@ public class Tests {
 		System.out.printf("DETAILS DU TEST: Presence du vegetale dans la liste des especes de l'ecosysteme avant : %b, apres : %b\n", avant, apres);
 		System.out.printf("SUCCES : %b \n", conditionTestSucces);
 		System.out.println();
-		System.out.printf("%s\n", "-----------------------------------");
 		System.out.printf("%s %s\n", "CAS 2", "NORMAL");
 		Fleurs maFleur = new Fleurs();
 		avant = EcoSysteme.especes.contains(maFleur);
@@ -144,6 +165,7 @@ public class Tests {
 		System.out.println();
 		EcoSysteme.especes = new ArrayList<Especes>();
 		System.out.printf("%s\n", "-----------------------------------");
+		System.out.println();
 	}
 	
 	public void testSeNourirCharognard(String nom) {
@@ -165,7 +187,6 @@ public class Tests {
 			System.out.println();
 
 		}
-		System.out.printf("%s\n", "-----------------------------------");
 		System.out.printf("%s %s\n", "CAS 2", "NORMAL");
 		monAnimale2.mourir();
 		avant = EcoSysteme.especes.contains(monAnimale2);
@@ -183,6 +204,7 @@ public class Tests {
 		}
 		EcoSysteme.especes = new ArrayList<Especes>();
 		System.out.printf("%s\n", "-----------------------------------");
+		System.out.println();
 	}
 	
 	public void testSeNourirOmnivore(String nom) {
@@ -198,7 +220,6 @@ public class Tests {
 		System.out.printf("DETAILS DU TEST: Presence du vegetale dans la liste des especes de l'ecosysteme avant : %b, apres : %b\n", avant, apres);
 		System.out.printf("SUCCES : %b \n", conditionTestSucces);
 		System.out.println();
-		System.out.printf("%s\n", "-----------------------------------");
 		System.out.printf("%s %s\n", "CAS 2", "NORMAL");
 		Herbivores monAnimale2 = new Herbivores();
 		avant = EcoSysteme.especes.contains(monAnimale2);
@@ -208,7 +229,6 @@ public class Tests {
 		System.out.printf("DETAILS DU TEST: Presence de l'animal dans la liste des especes de l'ecosysteme avant : %b, apres : %b\n", avant, apres);
 		System.out.printf("SUCCES : %b \n", conditionTestSucces);
 		System.out.println();
-		System.out.printf("%s\n", "-----------------------------------");
 		System.out.printf("%s %s\n", "CAS 3", "NORMAL");
 		Carnivores monAnimale3 = new Carnivores();
 		avant = EcoSysteme.especes.contains(monAnimale3);
@@ -218,7 +238,6 @@ public class Tests {
 		System.out.printf("DETAILS DU TEST: Presence de l'animal dans la liste des especes de l'ecosysteme avant : %b, apres : %b\n", avant, apres);
 		System.out.printf("SUCCES : %b \n", conditionTestSucces);
 		System.out.println();
-		System.out.printf("%s\n", "-----------------------------------");
 		System.out.printf("%s %s\n", "CAS 4", "NORMAL");
 		Oeuf monOeuf = new Oeuf(EspecesAnimale.Herbivore);
 		avant = EcoSysteme.especes.contains(monOeuf);
@@ -228,8 +247,9 @@ public class Tests {
 		System.out.printf("DETAILS DU TEST: Presence de l'oeuf dans la liste des especes de l'ecosysteme avant : %b, apres : %b\n", avant, apres);
 		System.out.printf("SUCCES : %b \n", conditionTestSucces);
 		System.out.println();
-		System.out.printf("%s\n", "-----------------------------------");
 		EcoSysteme.especes = new ArrayList<Especes>();
+		System.out.printf("%s\n", "-----------------------------------");
+		System.out.println();
 	}
 	
 	public void testSeNourirCarnivore(String nom) {
@@ -245,7 +265,6 @@ public class Tests {
 		System.out.printf("DETAILS DU TEST: Presence de l'animal dans la liste des especes de l'ecosysteme avant : %b, apres : %b\n", avant, apres);
 		System.out.printf("SUCCES : %b \n", conditionTestSucces);
 		System.out.println();
-		System.out.printf("%s\n", "-----------------------------------");
 		System.out.printf("%s %s\n", "CAS 2", "NORMAL");
 		Herbivores monAnimale3 = new Herbivores();
 		avant = EcoSysteme.especes.contains(monAnimale3);
@@ -255,20 +274,21 @@ public class Tests {
 		System.out.printf("DETAILS DU TEST: Presence de l'animal dans la liste des especes de l'ecosysteme avant : %b, apres : %b\n", avant, apres);
 		System.out.printf("SUCCES : %b \n", conditionTestSucces);
 		System.out.println();
-		System.out.printf("%s\n", "-----------------------------------");
 		EcoSysteme.especes = new ArrayList<Especes>();
+		System.out.printf("%s\n", "-----------------------------------");
+		System.out.println();
 	}
 	
 	public void testSeReproduireOvipare(String nom) {
 		System.out.printf("TEST : %s\n",nom);			
 		System.out.println();
-		System.out.printf("%s %s\n", "CAS 1", "NORMAL|PARTICULIER");
-		Herbivores monAnimale = new Herbivores();
-		Herbivores monAnimale2 = new Herbivores();
+		System.out.printf("%s %s\n", "CAS 1", "NORMAL");
+		Herbivores monAnimaleF = new Herbivores(Sexe.femelle, 1.0, 100, 8);
+		Herbivores monAnimaleM = new Herbivores(Sexe.male, 1.0, 100, 8);
 		int avant = EcoSysteme.especes.size();
 		Herbivores enfant = null;
 		try {
-			monAnimale.seReproduire(monAnimale2);
+			monAnimaleF.seReproduire(monAnimaleM);
 			enfant = (Herbivores) EcoSysteme.especes.get(EcoSysteme.especes.size()-1);
 		} catch (MonException e) {
 			System.out.printf("%s \n", e.getMessage());
@@ -278,16 +298,48 @@ public class Tests {
 			System.out.printf("DETAILS DU TEST: Nombre d'animal avant reproduction:%d , nb apres:%d\n", avant, apres);
 			System.out.printf("SUCCES : %b \n", conditionTestSucces);
 			System.out.println();
-			System.out.printf("%s\n", "-----------------------------------");
+		}
+		System.out.printf("%s %s\n", "CAS 2", "PARTICULIER");
+		avant = EcoSysteme.especes.size();
+		enfant = null;
+		try {
+			monAnimaleF.seReproduire(monAnimaleF);
+			enfant = (Herbivores) EcoSysteme.especes.get(EcoSysteme.especes.size()-1);
+		} catch (MonException e) {
+			System.out.printf("%s \n", e.getMessage());
+		} finally {
+			int apres = EcoSysteme.especes.size();
+			boolean conditionTestSucces = enfant == null ? avant == apres : avant == apres-1;
+			System.out.printf("DETAILS DU TEST: Nombre d'animal avant reproduction:%d , nb apres:%d\n", avant, apres);
+			System.out.printf("SUCCES : %b \n", conditionTestSucces);
+			System.out.println();
+		}
+		System.out.printf("%s %s\n", "CAS 3", "PARTICULIER");
+		monAnimaleM.mourir();
+		avant = EcoSysteme.especes.size();
+		enfant = null;
+		try {
+			monAnimaleF.seReproduire(monAnimaleM);
+			enfant = (Herbivores) EcoSysteme.especes.get(EcoSysteme.especes.size()-1);
+		} catch (MonException e) {
+			System.out.printf("%s \n", e.getMessage());
+		} finally {
+			int apres = EcoSysteme.especes.size();
+			boolean conditionTestSucces = enfant == null ? avant == apres : avant == apres-1;
+			System.out.printf("DETAILS DU TEST: Nombre d'animal avant reproduction:%d , nb apres:%d\n", avant, apres);
+			System.out.printf("SUCCES : %b \n", conditionTestSucces);
+			System.out.println();
 		}
 		EcoSysteme.especes = new ArrayList<Especes>();
+		System.out.printf("%s\n", "-----------------------------------");
+		System.out.println();
 	}
 	
 	public void testSeReproduireVivipare(String nom) {
 		System.out.printf("TEST : %s\n",nom);			
 		System.out.println();
-		System.out.printf("%s %s\n", "CAS 1", "NORMAL|PARTICULIER");
-		Omnivores monAnimale = new Omnivores();
+		System.out.printf("%s %s\n", "CAS 1", "NORMAL");
+		Omnivores monAnimale = new Omnivores(Sexe.femelle, 1.0, 100, 8);
 		int avant = EcoSysteme.especes.size();
 		Oeuf oeuf = null;
 		try {
@@ -301,9 +353,42 @@ public class Tests {
 			System.out.printf("DETAILS DU TEST: Nombre d'espece avant reproduction:%d , nb apres:%d\n", avant, apres);
 			System.out.printf("SUCCES : %b \n", conditionTestSucces);
 			System.out.println();
-			System.out.printf("%s\n", "-----------------------------------");
+		}
+		System.out.printf("%s %s\n", "CAS 2", "PARTICULIER");
+		monAnimale.mourir();
+		avant = EcoSysteme.especes.size();
+		oeuf = null;
+		try {
+			monAnimale.seReproduire();
+			oeuf = (Oeuf) EcoSysteme.especes.get(EcoSysteme.especes.size()-1);
+		} catch (MonException e) {
+			System.out.printf("%s \n", e.getMessage());
+		} finally {
+			int apres = EcoSysteme.especes.size();
+			boolean conditionTestSucces = oeuf == null ? avant == apres : avant == apres-1;
+			System.out.printf("DETAILS DU TEST: Nombre d'espece avant reproduction:%d , nb apres:%d\n", avant, apres);
+			System.out.printf("SUCCES : %b \n", conditionTestSucces);
+			System.out.println();
+		}
+		System.out.printf("%s %s\n", "CAS 3", "PARTICULIER");
+		Omnivores monAnimale2 = new Omnivores(Sexe.male, 1.0, 100, 8);
+		avant = EcoSysteme.especes.size();
+		oeuf = null;
+		try {
+			monAnimale2.seReproduire();
+			oeuf = (Oeuf) EcoSysteme.especes.get(EcoSysteme.especes.size()-1);
+		} catch (MonException e) {
+			System.out.printf("%s \n", e.getMessage());
+		} finally {
+			int apres = EcoSysteme.especes.size();
+			boolean conditionTestSucces = oeuf == null ? avant == apres : avant == apres-1;
+			System.out.printf("DETAILS DU TEST: Nombre d'espece avant reproduction:%d , nb apres:%d\n", avant, apres);
+			System.out.printf("SUCCES : %b \n", conditionTestSucces);
+			System.out.println();
 		}
 		EcoSysteme.especes = new ArrayList<Especes>();
+		System.out.printf("%s\n", "-----------------------------------");
+		System.out.println();
 	}
 	
 	public void testFertiliseOeuf(String nom) {
@@ -325,7 +410,6 @@ public class Tests {
 			System.out.printf("DETAILS DU TEST: L'Oeuf avant la fertilisation est un %s, apres est un %s\n", oeuf.getClass().getSimpleName(), enfant.getClass().getSimpleName());
 			System.out.printf("SUCCES : %b \n", conditionTestSucces);
 			System.out.println();
-			System.out.printf("%s\n", "-----------------------------------");
 		}
 		System.out.printf("%s %s\n", "CAS 2", "PARTICULIER");
 		Omnivores monAnimale2 = new Omnivores(Sexe.femelle, 1.0, 100, 8);
@@ -344,7 +428,6 @@ public class Tests {
 			System.out.printf("DETAILS DU TEST: L'Oeuf avant la fertilisation est un %s, apres est un %s\n", espece.getClass().getSimpleName(), espece.getClass().getSimpleName());
 			System.out.printf("SUCCES : %b \n", conditionTestSucces);
 			System.out.println();
-			System.out.printf("%s\n", "-----------------------------------");
 		}
 		System.out.printf("%s %s\n", "CAS 3", "PARTICULIER");
 		size = EcoSysteme.especes.size() - 1;
@@ -362,9 +445,64 @@ public class Tests {
 			System.out.printf("DETAILS DU TEST: L'Oeuf avant la fertilisation est un %s, apres est un %s\n", espece.getClass().getSimpleName(), espece.getClass().getSimpleName());
 			System.out.printf("SUCCES : %b \n", conditionTestSucces);
 			System.out.println();
-			System.out.printf("%s\n", "-----------------------------------");
+		}
+		System.out.printf("%s %s\n", "CAS 4", "PARTICULIER");
+		new Oeuf(monAnimale.getEspece());
+		size = EcoSysteme.especes.size() - 1;
+		oeuf = (Oeuf) EcoSysteme.especes.get(size);
+		monAnimale.mourir();
+		enfant = null;
+		try {
+			monAnimale.fertilise(oeuf);
+			enfant = (Omnivores) EcoSysteme.especes.get(size);
+		} catch (MonException e) {
+			System.out.printf("%s \n", e.getMessage());
+		} finally {
+			Especes espece = EcoSysteme.especes.get(size);
+			boolean conditionTestSucces = enfant == null ? EcoSysteme.especes.get(size).equals(oeuf) : EcoSysteme.especes.get(size).equals(enfant);
+			System.out.printf("DETAILS DU TEST: L'Oeuf avant la fertilisation est un %s, apres est un %s\n", espece.getClass().getSimpleName(), espece.getClass().getSimpleName());
+			System.out.printf("SUCCES : %b \n", conditionTestSucces);
+			System.out.println();
 		}
 		EcoSysteme.especes = new ArrayList<Especes>();
+		System.out.printf("%s\n", "-----------------------------------");
+		System.out.println();
+	}
+	
+	public void testAll(String nom) {
+		System.out.printf("TEST : %s\n",nom);			
+		System.out.println();
+		System.out.printf("%s %s\n", "CAS 1", "NORMAL");
+		int avant = EcoSysteme.especes.size();
+		Vivipare Carnivore = new Carnivores();
+		Ovipare Herbivore = new Herbivores();
+		Vivipare Charognard = new Charognards();
+		Vivipare Omnivore = new Omnivores();
+		Vegetaux Fleur = new Fleurs();
+		Vegetaux Legume = new Legumes();
+		int apres = EcoSysteme.especes.size();
+		boolean conditionTestSucces = 6 == apres;
+		System.out.printf("DETAILS DU TEST: L'ecosysteme avant est de : %s, apres est de : %s\n", avant, apres);
+		System.out.printf("SUCCES : %b \n", conditionTestSucces);
+		System.out.println();
+		eco.voirEspeces();
+//		System.out.printf("%s %s\n", "CAS 2", "NORMAL");
+//		avant = EcoSysteme.especes.size();
+//		eco.retirerEspece(Herbivore);
+//		Ovipare Herbivore = new Herbivores();
+//		Vivipare Charognard = new Charognards();
+//		Vivipare Omnivore = new Omnivores();
+//		Vegetaux Fleur = new Fleurs();
+//		Vegetaux Legume = new Legumes();
+//		int apres = EcoSysteme.especes.size();
+//		boolean conditionTestSucces = 6 == apres;
+//		System.out.printf("DETAILS DU TEST: L'ecosysteme avant est de : %s, apres est de : %s\n", avant, apres);
+//		System.out.printf("SUCCES : %b \n", conditionTestSucces);
+//		System.out.println();
+		eco.voirEspeces();
+		EcoSysteme.especes = new ArrayList<Especes>();
+		System.out.printf("%s\n", "-----------------------------------");
+		System.out.println();
 	}
 
 }

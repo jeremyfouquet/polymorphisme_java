@@ -8,7 +8,6 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Tests test = new Tests();
 		
 		test.testSeReproduireFleur("SeReproduire(Fleurs)");
@@ -20,8 +19,10 @@ public class Main {
 		test.testSeNourirCarnivore("SeNourir(Herbivores|Carnivore)");
 		
 		test.testSeReproduireOvipare("SeReproduire(Ovipare)");
-		test.testSeReproduireVivipare("SeReproduire(Vivipare)");
+		test.testSeReproduireVivipare("SeReproduireVivipare()");
 		test.testFertiliseOeuf("Fertilise(Oeuf)");
+		
+		test.testAll("all()");
 		
 	}
 

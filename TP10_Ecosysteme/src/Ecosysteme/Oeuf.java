@@ -1,3 +1,6 @@
+/**
+ * @author Jeremy Fouquet
+ */
 package Ecosysteme;
 
 public class Oeuf extends Especes {
@@ -9,7 +12,7 @@ public class Oeuf extends Especes {
 	//	À noter que celui-ci peut être consommé par les animaux omnivores.
 	public Oeuf(EspecesAnimale espece) {
 		this.espece = espece;
-		EcoSysteme.especes.add(this);
+		EcoSysteme.ajouterEspece(this);
 	}
 
 	public void eclos() {
@@ -30,7 +33,7 @@ public class Oeuf extends Especes {
 			default:
 				break;
 		}
-		EcoSysteme.especes.remove(this);
+		EcoSysteme.retirerEspece(this);
 	}
 
 	//GETTERS, SETTERS, EQUALS, TOSTRING

@@ -1,3 +1,6 @@
+/**
+ * @author Jeremy Fouquet
+ */
 package Ecosysteme;
 
 import exception.MonException;
@@ -20,6 +23,8 @@ public class Fleurs extends Vegetaux {
 			throw new MonException("Reproduction impossible : Pollen insuffisant !");
 		} else if (this.equals(fleur)) {
 			throw new MonException("Reproduction impossible : Une fleur ne peut se reproduire avec elle même !");
+		} else if (this.isVivant() != true || fleur.isVivant() != true) {
+			throw new MonException("Reproduction impossible : La fleur est morte !");
 		} else {
 			new Fleurs();
 			enleveGraineEtPollen();

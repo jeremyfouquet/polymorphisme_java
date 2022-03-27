@@ -8,7 +8,9 @@ import java.util.List;
 
 public class EcoSysteme {
 	public static List<Especes> especes = new ArrayList<Especes>();
-
+//	Implémenter votre environnement, celui-ci possédera une liste
+//	d'espèces (végétal + animal) et pourra ajouter, retirer ou afficher les
+//	espèces de cette liste.
 	public EcoSysteme() {
 //		Animaux monCarnivore = new Animaux(EspecesAnimale.Carnivore);
 //		Animaux monOmnivore = new Animaux(EspecesAnimale.Omnivore);
@@ -17,12 +19,18 @@ public class EcoSysteme {
 
 	}
 	
-	public void voirEcoSysteme() {
+	public void voirEspeces() {
 		for (Especes espece : especes) {
-//			Carnivores c = (Carnivores) espece;
-			System.out.printf("%s\n", espece.getClass().getSimpleName());
-//			System.out.printf("%s\n", c.getSexe());
+			System.out.printf("Espece : %s\n", espece.getClass().getSimpleName());
 		}
+	}
+	
+	public static void ajouterEspece(Especes espece) {
+		especes.add(espece);
+	}
+	
+	public static void retirerEspece(Especes espece) {
+		especes.remove(espece);
 	}
 
 }

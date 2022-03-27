@@ -1,3 +1,6 @@
+/**
+ * @author Jeremy Fouquet
+ */
 package Ecosysteme;
 
 import java.util.Arrays;
@@ -14,6 +17,8 @@ public interface Ovipare {
 	default void seReproduire(Ovipare partenaire) throws MonException {
 		if (partenaire.getSexe() == this.getSexe()) {
 			throw new MonException("Reproduction impossible : Les partenaires sont de même sexe !");
+		} else if (this.isVivant() != true || partenaire.isVivant() != true) {
+			throw new MonException("Reproduction impossible : L'animal est mort !");
 		} else {
 			caracteristiques(partenaire);
 		}	
@@ -55,5 +60,6 @@ public interface Ovipare {
 	public double getTaille();
 	public double getPoids();
 	public int getEsperanceDeVie();
+	public boolean isVivant();
 
 }
