@@ -7,16 +7,24 @@ import exception.MonException;
 
 public class Fleurs extends Vegetaux {
 
-	private boolean eclos = false;
+	private boolean eclos = false; // false par defaut, la reproduction n'est possible que l'orsque cet attribut est true
 
 	public Fleurs() {
 		super();
 		setTypeEspece(TypeEspece.Fleurs);
 	}
 	
-	//	Les fleurs utiliseront une quantité de pollen qui se divisera par 2 à
-	//	chaque reproduction. De plus, pour réaliser cela elles nécessiteront
-	//	une autre fleur.
+	/** 
+	 * 
+	 * Créé une nouvelle instance de Fleurs
+	 * 
+	 * @param fleur l'espece à ajouter à la place de l'oeuf
+	 * @see #enleveGraineEtPollen()
+	 * @exception MonException Si eclos est false
+	 * @exception MonException Si plus de graineEtPollen
+	 * @exception MonException Si this.equals(fleur)
+	 * @exception MonException Si this ou fleur est mort
+	 */
 	public void seReproduire(Fleurs fleur) throws MonException {
 		if(this.eclos != true) {
 			throw new MonException("Reproduction impossible : La fleur n'est pas eclos !");
@@ -32,8 +40,13 @@ public class Fleurs extends Vegetaux {
 		}
 	}
 	
-	public void eclore(boolean eclore) {
-		this.eclos = eclore;
+	/** 
+	 * 
+	 * Fait eclore la fleur
+	 * 
+	 */
+	public void eclore() {
+		this.eclos = true;
 	}
 	
 	protected void enleveGraineEtPollen() {

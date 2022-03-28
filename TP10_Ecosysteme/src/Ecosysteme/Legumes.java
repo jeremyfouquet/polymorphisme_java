@@ -12,9 +12,13 @@ public class Legumes extends Vegetaux {
 		setTypeEspece(TypeEspece.Legumes);
 	}
 
-	//	Les fleurs utiliseront une quantité de pollen qui se divisera par 2 à
-	//	chaque reproduction. De plus, pour réaliser cela elles nécessiteront
-	//	une autre fleur.
+	/** 
+	 * 
+	 * Créé une nouvelle instance de Legumes
+	 * 
+	 * @see #enleveGraineEtPollen()
+	 * @exception MonException Si plus de graineEtPollen
+	 */
 	public void seReproduire() throws MonException {
 		if (getGraineEtPollen() == 0) {
 			throw new MonException("Reproduction impossible : Il n'y a plus de graine !");
@@ -27,6 +31,7 @@ public class Legumes extends Vegetaux {
 	protected void enleveGraineEtPollen() {
 		setGraineEtPollen(getGraineEtPollen()-1);
 	}
+
 	//GETTERS, SETTERS, EQUALS, TOSTRING
 
 	@Override

@@ -4,12 +4,18 @@
 package Ecosysteme;
 
 public abstract class Vegetaux extends Especes {
-	private int graineEtPollen = 1;
+	private int graineEtPollen = 1; // Utilisé lors de la reproduction
 
 	public Vegetaux() {
 		EcoSysteme.ajouterEspece(this);
 	}
 	
+
+	/** 
+	 * 
+	 * Retire le nombre nécessaire de graineEtPollen pour la reproduction
+	 * 
+	 */
 	protected abstract void enleveGraineEtPollen();
 
 	//GETTERS, SETTERS, EQUALS, TOSTRING

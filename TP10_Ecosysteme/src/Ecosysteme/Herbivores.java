@@ -10,7 +10,6 @@ public class Herbivores extends Animaux {
 		super(oeuf);
 		setEspece(EspecesAnimale.Herbivore);
 		setTypeEspece(TypeEspece.Herbivores);
-		// TODO Auto-generated constructor stub
 	}
 	public Herbivores(Sexe sexe, double taille, double poids, int esv) {
 		super(sexe, taille, poids, esv);
@@ -18,20 +17,29 @@ public class Herbivores extends Animaux {
 		setTypeEspece(TypeEspece.Herbivores);
 	}
 	
-	//	Les herbivores sont des animaux pouvant manger des végétaux de
-	//	n'importe quel type ou exclusivement des légumes.
+	/** 
+	 * 
+	 * Se nourrit
+	 * 
+	 * @param nourriture qui est consommée
+	 * @see Especes#estMange()
+	 */
 	public void seNourir(Vegetaux nourriture) {
 		nourriture.estMange();
 	}
 
-	//	Les herbivores sont des animaux pouvant manger des végétaux de
-	//	n'importe quel type ou exclusivement des légumes.
+	/** 
+	 * 
+	 * Se nourrit
+	 * 
+	 * @param nourriture qui est consommée
+	 * @see Especes#estMange()
+	 */
 	public void seNourir(Legumes nourriture) {
 		nourriture.estMange();
 	}
 	
 	// EQUALS, TOSTRING
-
 	@Override
 	public String toString() {
 		return "Herbivores [getEspece()=" + getEspece() + ", getSexe()=" + getSexe() + ", getTaille()=" + getTaille()

@@ -4,18 +4,29 @@
 package Ecosysteme;
 
 public abstract class Especes {
-	private TypeEspece typeEspece;
-	private boolean vivant = true;
+	private TypeEspece typeEspece; // type d'espece
+	private boolean vivant = true; // true par defaut
 
 	public Especes() {
-		// TODO Auto-generated constructor stub
 	}
 	
+	/** 
+	 * 
+	 * Lorsque l'espece est mangé alors elle meurt puis elle est retiré de la liste de l'ecosysteme
+	 * 
+	 * @see #mourir()
+	 * @see EcoSysteme#retirerEspece(Especes)
+	 */
 	protected void estMange() {
 		mourir();
 		EcoSysteme.retirerEspece(this);
 	}
 
+	/** 
+	 * 
+	 * L'attribut vivant est affecté à false
+	 * 
+	 */
 	public void mourir() {
 		this.vivant = false;
 	}

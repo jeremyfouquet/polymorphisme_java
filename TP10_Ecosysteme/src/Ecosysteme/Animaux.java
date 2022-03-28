@@ -6,11 +6,18 @@ package Ecosysteme;
 import java.util.Arrays;
 
 public abstract class Animaux extends Especes implements Vivipare, Ovipare {
-	EspecesAnimale espece;
-	Sexe sexe;
+	EspecesAnimale espece; // Type d'animal
+	Sexe sexe; // male ou femelle
 	double taille;
 	double poids;
-	int esv;
+	int esv; // esperance de vie
+
+	/**
+	 * @param sexe
+	 * @param taille
+	 * @param poids
+	 * @param esv
+	 */
 	public Animaux(Sexe sexe, double taille, double poids, int esv) {
 		this.sexe = sexe;
 		this.taille = taille;
@@ -18,6 +25,10 @@ public abstract class Animaux extends Especes implements Vivipare, Ovipare {
 		this.esv = esv;
 		EcoSysteme.ajouterEspece(this);
 	}
+
+	/**
+	 * @param oeuf optionnel si le paramettre oeuf existe alors on ne l'ajoute pas à l'ecosysteme c'est la class Oeuf qui s'en chargera
+	 */
 	public Animaux(String... oeuf) {
 		this.sexe = Arrays.asList(Sexe.values()).get(aleatoire());
 		this.taille = 1.0;

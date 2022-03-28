@@ -20,7 +20,14 @@ public class Charognards extends Animaux {
 		setTypeEspece(TypeEspece.Charognards);
 	}
 	
-	//	• Les charognards sont des animaux mangeant des animaux morts.
+	/** 
+	 * 
+	 * Se nourrit
+	 * 
+	 * @param nourriture qui est consommée
+	 * @exception MonException nourriture est vivant
+	 * @see Especes#estMange()
+	 */
 	public void seNourir(Animaux nourriture) throws MonException {
 		if (nourriture.isVivant()) {
 			throw new MonException("Se nourir est impossible : l'animal n'est pas mort !");

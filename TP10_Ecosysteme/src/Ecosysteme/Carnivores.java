@@ -3,6 +3,7 @@
  */
 package Ecosysteme;
 
+
 public class Carnivores extends Animaux {
 
 	public Carnivores(String... oeuf) {
@@ -17,14 +18,29 @@ public class Carnivores extends Animaux {
 		setEspece(EspecesAnimale.Carnivore);
 		setTypeEspece(TypeEspece.Carnivores);
 	}
-	//	• Les carnivores sont des animaux pouvant manger des herbivores
-	//	ainsi que d'autres carnivores.
+
+	/** 
+	 * 
+	 * Se nourrit
+	 * 
+	 * @param nourriture qui est consommée
+	 * @see Especes#estMange()
+	 */
 	public void seNourir(Herbivores nourriture) {
 		nourriture.estMange();
 	}
+
+	/** 
+	 * 
+	 * Se nourrit
+	 * 
+	 * @param nourriture qui est consommée
+	 * @see Especes#estMange()
+	 */
 	public void seNourir(Carnivores nourriture) {
 		nourriture.estMange();
 	}
+
 	// EQUALS, TOSTRING
 	@Override
 	public boolean equals(Object obj) {

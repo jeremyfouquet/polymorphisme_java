@@ -4,18 +4,24 @@
 package Ecosysteme;
 
 public class Oeuf extends Especes {
-	private boolean eclos = false;
-	private EspecesAnimale espece;
-	//	Ajouter l'objet œuf, cet objet aura des caractéristiques par défaut tant
-	//	qu'il n'a pas été fertilisé par un mal de son espèce et disparaîtra de
-	//	son environnement pour laisser place à un animal une fois éclos.
-	//	À noter que celui-ci peut être consommé par les animaux omnivores.
+	private boolean eclos = false; // false par defaut et true lorsque l'animal sort de l'oeuf
+	private EspecesAnimale espece; // permet de determiner quel espece sera instancier à partir de l'oeuf
+
+	/**
+	 * @param espece
+	 */
 	public Oeuf(EspecesAnimale espece) {
 		this.espece = espece;
 		setTypeEspece(TypeEspece.Oeuf);
 		EcoSysteme.ajouterEspece(this);
 	}
 
+	/** 
+	 * 
+	 * Fait eclore l'oeuf
+	 * 
+	 * @see EcoSysteme#remplacerEspece(Oeuf, Especes)
+	 */
 	public void eclos() {
 		this.eclos = true;
 		Especes eclosion = null;

@@ -6,8 +6,14 @@ package Ecosysteme;
 import exception.MonException;
 
 public interface Vivipare {
-	//	Du côté des animaux ceux-ci seront, soit oit ils seront vivipares
-	//	et pondront des œufs.
+	
+	/** 
+	 * 
+	 * Créé une nouvelle instance d'Oeuf
+	 * 
+	 * @exception MonException this est un male
+	 * @exception MonException this est mort
+	 */
 	default void seReproduire() throws MonException {		
 		if (this.getSexe() == Sexe.male) {
 			throw new MonException("Reproduction impossible : Les males ne pondent pas d'oeuf !");
@@ -17,7 +23,18 @@ public interface Vivipare {
 			new Oeuf(getEspece());
 		}
 	}
-	
+
+	/** 
+	 * 
+	 * Fertilise l'oeuf
+	 * 
+	 * @param oeuf oeuf à fertiliser
+	 * @exception MonException this est une femelle
+	 * @exception MonException this et oeuf ne sont pas de la même espece
+	 * @exception MonException oeuf est mort
+	 * @exception MonException this est mort
+	 * @see Oeuf#eclos()
+	 */
 	default void fertilise(Oeuf oeuf) throws MonException {		
 		if (this.getSexe() == Sexe.femelle) {
 			throw new MonException("Fertilisation echoué : Les femelles ne fertilisent pas !");

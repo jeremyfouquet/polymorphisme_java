@@ -16,22 +16,48 @@ public class Omnivores extends Animaux {
 		setTypeEspece(TypeEspece.Omnivores);
 	}
 
-	//	• Les omnivores eux peuvent manger des carnivores, des herbivores
-	//	des plantes ainsi que des œufs.		
+	/** 
+	 * 
+	 * Se nourrit
+	 * 
+	 * @param nourriture qui est consommée
+	 * @see Especes#estMange()
+	 */
 	public void seNourir(Carnivores nourriture) {	
 		nourriture.estMange();
 	}
+	/** 
+	 * 
+	 * Se nourrit
+	 * 
+	 * @param nourriture qui est consommée
+	 * @see Especes#estMange()
+	 */
 	public void seNourir(Herbivores nourriture) {
 		nourriture.estMange();
 	}
+	/** 
+	 * 
+	 * Se nourrit
+	 * 
+	 * @param nourriture qui est consommée
+	 * @see Especes#estMange()
+	 */
 	public void seNourir(Vegetaux nourriture) {
 		nourriture.estMange();
 	}
+	/** 
+	 * 
+	 * Se nourrit
+	 * 
+	 * @param nourriture qui est consommée
+	 * @see Especes#estMange()
+	 */
 	public void seNourir(Oeuf nourriture) {
 		nourriture.estMange();
 	}
-	// EQUALS, TOSTRING
 
+	// EQUALS, TOSTRING
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

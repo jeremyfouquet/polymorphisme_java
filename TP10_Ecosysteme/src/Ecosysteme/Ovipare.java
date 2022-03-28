@@ -9,11 +9,16 @@ import java.util.List;
 import exception.MonException;
 
 public interface Ovipare {
-	//	Du côté des animaux ceux-ci seront, soit ovipares et nécessiteront un
-	//	partenaire du sexe opposé pour se reproduire.
-	//	Lors de la reproduction des vivipares, l'enfant récupère
-	//	aléatoirement les caractéristiques (espérance de vie, poids, taille,
-	//	sexe) selon celle de son père ou de sa mère.
+
+	/** 
+	 * 
+	 * Créé une nouvelle instance (Carnivores | Herbivores | Charognards | Omnivores)
+	 * 
+	 * @param partenaire Ovipare avec lequel la reproduction sera faite
+	 * @see #caracteristiques(Ovipare)
+	 * @exception MonException partenaire et this sont de même sexe
+	 * @exception MonException partenaire ou this sont mort
+	 */
 	default void seReproduire(Ovipare partenaire) throws MonException {
 		if (partenaire.getSexe() == this.getSexe()) {
 			throw new MonException("Reproduction impossible : Les partenaires sont de même sexe !");
@@ -23,12 +28,29 @@ public interface Ovipare {
 			caracteristiques(partenaire);
 		}	
 	}
-	
+
+	/** 
+	 * 
+	 * Genere aleatoirement un chiffre entre 0 et 1
+	 * 
+	 * @return int chiffre generé aleatoirement
+	 */
 	default int aleatoire() {
 		int r = (int) (Math.random() * 2);
 		return r;
 	}
 	
+	/** 
+	 * 
+	 * Choisi aleatoirement les caracteristiques entre 2 Ovipares avant de créer une nouvelle instance à partir des caractéristique choisi
+	 * 
+	 * @param partenaire Ovipare avec lequel la reproduction sera faite
+	 * @see #aleatoire()
+	 * @see #getEspece()
+	 * @see #getTaille()
+	 * @see #getPoids()
+	 * @see #getEsperanceDeVie()
+	 */
 	private void caracteristiques(Ovipare partenaire) {
 		List<Double> ltailles = Arrays.asList(this.getTaille(), partenaire.getTaille()); 
 		List<Double> lpoids = Arrays.asList(this.getPoids(), partenaire.getPoids()); 

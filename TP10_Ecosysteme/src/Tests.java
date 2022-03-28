@@ -21,7 +21,7 @@ public class Tests {
 		Fleurs maFleur1 = new Fleurs();
 		Fleurs maFleur2 = new Fleurs();
 		int nbFleursAvant = EcoSysteme.especes.size();
-		maFleur1.eclore(true);
+		maFleur1.eclore();
 		try {
 			maFleur1.seReproduire(maFleur2);
 		} catch (MonException e) {
@@ -61,7 +61,7 @@ public class Tests {
 		}
 		System.out.printf("%s %s\n", "CAS 4", "PARTICULIER");
 		nbFleursAvant = EcoSysteme.especes.size();
-		maFleur2.eclore(true);
+		maFleur2.eclore();
 		try {
 			maFleur2.seReproduire(maFleur2);
 		} catch (MonException e) {
