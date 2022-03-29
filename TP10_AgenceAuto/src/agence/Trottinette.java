@@ -10,8 +10,8 @@ public class Trottinette extends Vehicule {
 	public Trottinette(int prix, TypeMoteur typeMoteur) {
 		super(prix, typeMoteur);
 		setNbroues(this.nbroues);
-		getMoteurs().add(new Electrique(125));
-		setCarburant(Carburant.Electrique);
+		getMoteurs().add(new Electrique(125, Carburant.Electrique));
+		setCarburant(TypeMoteur.Electrique);
 	}
 
 	public String klaxonner() {

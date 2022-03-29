@@ -10,11 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import agence.AgenceAuto;
-import agence.Carburant;
-import agence.TypeMoteur;
-import agence.TypeVehicule;
-import agence.Vehicule;
+import agence.*;
 import exception.MonException;
 
 @DisplayName("TestAjouterVehicule")
@@ -107,8 +103,8 @@ class TestAjouterVehicule {
 		} finally {
 			System.out.printf("La liste des vehicule AVANT l'ajout du vehicule est de %d vehicules au total\n", avant);
 			System.out.printf("La liste des vehicule APRES l'ajout du vehicule est de %d vehicules au total\n", apres);
-		    Carburant carburant = null != vehicule ? vehicule.getCarburant() : null;
-			boolean condition = avant == apres-1 && carburant.equals(Carburant.Electrique);
+		    TypeMoteur carburant = null != vehicule ? vehicule.getCarburant() : null;
+			boolean condition = avant == apres-1 && carburant.equals(TypeMoteur.Electrique);
 			if (condition) {
 				System.out.printf("%s %s\n", "Quelque soit le Moteur envoyé La Classe Velo le remplace automatiquement par un Moteur", carburant);
 			}

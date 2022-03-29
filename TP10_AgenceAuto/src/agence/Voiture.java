@@ -9,17 +9,17 @@ public class Voiture extends Vehicule {
 		setNbroues(this.nbroues);
 		switch (typeMoteur) {
 			case Essence:
-				getMoteurs().add(new Essence(500));
-				setCarburant(Carburant.Essence);
+				getMoteurs().add(new Essence(500, Carburant.Essence));
+				setCarburant(TypeMoteur.Essence);
 				break;
 			case Electrique:
-				getMoteurs().add(new Electrique(5000));
-				setCarburant(Carburant.Electrique);
+				getMoteurs().add(new Electrique(5000, Carburant.Electrique));
+				setCarburant(TypeMoteur.Electrique);
 				break;
 			case Hybride:
-				getMoteurs().add(new Essence(250));
-				getMoteurs().add(new Electrique(2000));
-				setCarburant(Carburant.Hybride);
+				getMoteurs().add(new Essence(250, Carburant.Essence));
+				getMoteurs().add(new Electrique(2000, Carburant.Electrique));
+				setCarburant(TypeMoteur.Hybride);
 				break;
 			default:
 				break;

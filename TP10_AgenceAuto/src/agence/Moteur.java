@@ -1,29 +1,54 @@
 package agence;
 
-import java.util.Date;
+import java.util.Objects;
 
 public abstract class Moteur {
-	private int capaciteReservoir;
-	private Date dateCT;
+	private Carburant typeMoteur;
 
-	public Moteur(int capaciteReservoir) {
+
+	private int capaciteReservoir;
+
+	public Moteur(int capaciteReservoir, Carburant typeMoteur) {
 		this.capaciteReservoir = capaciteReservoir;
-		dateCT = new Date();
+		this.typeMoteur = typeMoteur;
 	}
 	
-	public abstract double nbKilometreRestant();
+	protected abstract boolean reservoirPlein();
+
+	protected abstract double nbKilometreRestant();
 	
 	protected abstract void utiliserCarburant(double deplacement);
 	
-	//GETTERS ET SETTERS
+	// GETTERS, SETTERS, EQUALS, TOSTRING
+
 	public int getCapaciteReservoir() {
 		return capaciteReservoir;
 	}
-	public Date getDateCT() {
-		return dateCT;
-	}
-	public void setDateCT(Date dateCT) {
-		this.dateCT = dateCT;
+
+	public Carburant getTypeMoteur() {
+		return typeMoteur;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(capaciteReservoir, typeMoteur);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Moteur other = (Moteur) obj;
+		return capaciteReservoir == other.capaciteReservoir && typeMoteur == other.typeMoteur;
+	}
+	
+	@Override
+	public String toString() {
+		return "Moteur [typeMoteur=" + typeMoteur + ", capaciteReservoir=" + capaciteReservoir + ", getClass()="
+				+ getClass() + ", toString()=" + super.toString() + "]";
+	}
 }

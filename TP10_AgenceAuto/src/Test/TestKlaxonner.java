@@ -13,13 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import agence.AgenceAuto;
-import agence.Moto;
-import agence.Trottinette;
-import agence.TypeMoteur;
-import agence.TypeVehicule;
-import agence.Velo;
-import agence.Voiture;
+import agence.*;
 import exception.MonException;
 
 @DisplayName("TestKlaxonner")

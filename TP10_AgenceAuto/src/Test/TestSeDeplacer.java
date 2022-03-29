@@ -10,11 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import agence.AgenceAuto;
-import agence.Electrique;
-import agence.Essence;
-import agence.TypeMoteur;
-import agence.Voiture;
+import agence.*;
+import exception.MonException;
 
 @DisplayName("TestSeDeplacer")
 class TestSeDeplacer {
@@ -53,7 +50,7 @@ class TestSeDeplacer {
 		System.out.printf("Le vehicule souhaite se deplacer de %.1f Km sans carburant\n", km);
         voiture = new Voiture(1000, TypeMoteur.Essence);
 		AgenceAuto.vehicules.add(voiture);
-		double nbKmAvant = voiture.getMoteurs().get(0).nbKilometreRestant();
+		double nbKmAvant = voiture.nbKilometreRestant();
 		voiture.seDeplacer(km);
 		System.out.printf("Avant le deplacement le vehicule peut se deplacer de %.1f Km, Apres le deplacement le vehicule a parcouru %.1f Km\n", nbKmAvant, voiture.getNbkilometres());
 	    boolean condition = nbKmAvant == voiture.getNbkilometres();
@@ -68,13 +65,17 @@ class TestSeDeplacer {
         double km = 100;
 		System.out.printf("Le vehicule souhaite se deplacer de %.1f Km mais on ajoute cette fois ci %.1f unite de carburant\n", km, km/2);
         voiture = new Voiture(1000, TypeMoteur.Essence);
-        Essence moteur = (Essence) voiture.getMoteurs().get(0);
-        moteur.ajouterCarburant(km/2);
 		AgenceAuto.vehicules.add(voiture);
-		double nbKmAvant = voiture.getMoteurs().get(0).nbKilometreRestant();
-		voiture.seDeplacer(km);
-		System.out.printf("Avant le deplacement le vehicule peut se deplacer de %.1f Km, Apres le deplacement le vehicule a parcouru %.1f Km\n", nbKmAvant, voiture.getNbkilometres());
-	    boolean condition = nbKmAvant == voiture.getNbkilometres();
+		double nbKmAvant = voiture.getNbkilometres();
+        try {
+			voiture.ajouterCarburant(km/2, Carburant.Essence);
+			voiture.seDeplacer(km);
+		} catch (MonException e) {
+			System.out.printf("%s\n", e.getMessage());
+		}
+		double nbKmApres = voiture.getNbkilometres();
+		System.out.printf("Avant le deplacement le vehicule à un compteur à %.1f Km, Apres le deplacement le vehicule a un compteur à %.1f Km\n", nbKmAvant, nbKmApres);
+	    boolean condition = nbKmApres == km/2;
 		assertTrue(condition);
 		System.out.println();
 	}
@@ -86,13 +87,17 @@ class TestSeDeplacer {
         double km = 100;
 		System.out.printf("Le vehicule souhaite se deplacer de %.1f Km alors on ajoute %.1f unite de carburant\n", km, km);
         voiture = new Voiture(1000, TypeMoteur.Essence);
-        Essence moteur = (Essence) voiture.getMoteurs().get(0);
-        moteur.ajouterCarburant(km);
 		AgenceAuto.vehicules.add(voiture);
-		double nbKmAvant = voiture.getMoteurs().get(0).nbKilometreRestant();
-		voiture.seDeplacer(km);
-		System.out.printf("Avant le deplacement le vehicule peut se deplacer de %.1f Km, Apres le deplacement le vehicule a parcouru %.1f Km\n", nbKmAvant, voiture.getNbkilometres());
-	    boolean condition = nbKmAvant == voiture.getNbkilometres();
+		double nbKmAvant = voiture.getNbkilometres();
+        try {
+			voiture.ajouterCarburant(km, Carburant.Essence);
+			voiture.seDeplacer(km);
+		} catch (MonException e) {
+			System.out.printf("%s\n", e.getMessage());
+		}
+		double nbKmApres = voiture.getNbkilometres();
+		System.out.printf("Avant le deplacement le vehicule à un compteur à %.1f Km, Apres le deplacement le vehicule a un compteur à %.1f Km\n", nbKmAvant, nbKmApres);
+	    boolean condition = nbKmApres == km;
 		assertTrue(condition);
 		System.out.println();
 	}
@@ -103,17 +108,41 @@ class TestSeDeplacer {
 		System.out.printf("%s\n", testInfo.getDisplayName());
         double km = 100;
 		System.out.printf("Le vehicule souhaite se deplacer de %.1f Km alors on ajoute %.1f unite d'Essence et %.1f unite d'Electricite\n", km, km/2, (km/2)*10);
-        voiture = new Voiture(1000, TypeMoteur.Hybride);
-        Essence moteur1 = (Essence) voiture.getMoteurs().get(0);
-        Electrique moteur2 = (Electrique) voiture.getMoteurs().get(1);
-        moteur1.ajouterCarburant(km/2);
-        moteur2.ajouterCarburant((float)(km/2)*10);
+		voiture = new Voiture(1000, TypeMoteur.Hybride);
 		AgenceAuto.vehicules.add(voiture);
-		double nbKmAvant1 = voiture.getMoteurs().get(0).nbKilometreRestant();
-		double nbKmAvant2 = voiture.getMoteurs().get(1).nbKilometreRestant();
-		voiture.seDeplacer(km);
-		System.out.printf("Avant le deplacement le vehicule peut se deplacer de %.1f Km, Apres le deplacement le vehicule a parcouru %.1f Km\n", nbKmAvant1+nbKmAvant2, voiture.getNbkilometres());
-	    boolean condition = nbKmAvant1+nbKmAvant2 == voiture.getNbkilometres();
+		double nbKmAvant = voiture.getNbkilometres();
+        try {
+            voiture.ajouterCarburant(km/2, Carburant.Essence);
+			voiture.ajouterCarburant((km/2)*10, Carburant.Electrique);
+			voiture.seDeplacer(km);
+		} catch (MonException e) {
+			System.out.printf("%s\n", e.getMessage());
+		}
+		double nbKmApres = voiture.getNbkilometres();
+		System.out.printf("Avant le deplacement le vehicule à un compteur à %.1f Km, Apres le deplacement le vehicule a un compteur à %.1f Km\n", nbKmAvant, nbKmApres);
+	    boolean condition = nbKmApres == km;
+		assertTrue(condition);
+		System.out.println();
+	}
+	
+	@Test
+	@DisplayName("Test 5 : Normal")
+	void test5(TestInfo testInfo) {
+		System.out.printf("%s\n", testInfo.getDisplayName());
+        double km = 100;
+		System.out.printf("Le vehicule souhaite se deplacer de %.1f Km mais on tente d'ajoute %.1f unite de carburant Electrique dans un Vehicule Thermique\n", km, km*10);
+        voiture = new Voiture(1000, TypeMoteur.Essence);
+		AgenceAuto.vehicules.add(voiture);
+		double nbKmAvant = voiture.getNbkilometres();
+        try {
+			voiture.ajouterCarburant(km*10, Carburant.Electrique);
+			voiture.seDeplacer(km);
+		} catch (MonException e) {
+			System.out.printf("%s\n", e.getMessage());
+		}
+		double nbKmApres = voiture.getNbkilometres();
+		System.out.printf("Avant le deplacement le vehicule à un compteur à %.1f Km, Apres le deplacement le vehicule a un compteur à %.1f Km\n", nbKmAvant, nbKmApres);
+	    boolean condition = nbKmApres == 0;
 		assertTrue(condition);
 		System.out.println();
 	}
