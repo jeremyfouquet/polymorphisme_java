@@ -1,5 +1,5 @@
 /** 
- * Jeremy Fouquet
+ * @author	Jeremy Fouquet
  */
 package Geometrie;
 

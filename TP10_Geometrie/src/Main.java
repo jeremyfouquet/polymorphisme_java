@@ -1,3 +1,6 @@
+/** 
+ * @author	Jeremy Fouquet
+ */
 import Geometrie.Utilisateur;
 
 public class Main {

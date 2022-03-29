@@ -1,3 +1,6 @@
+/** 
+ * @author Jeremy Fouquet
+ */
 package agence;
 
 import java.util.ArrayList;
@@ -15,6 +18,17 @@ public class AgenceAuto {
 		vehiculesLoues = new ArrayList<Vehicule>();
 	}
 	
+	/** 
+	 * 
+	 * Créé une nouvelle instance de Fleurs
+	 * 
+	 * @param fleur l'espece à ajouter à la place de l'oeuf
+	 * @see #enleveGraineEtPollen()
+	 * @exception MonException Si eclos est false
+	 * @exception MonException Si plus de graineEtPollen
+	 * @exception MonException Si this.equals(fleur)
+	 * @exception MonException Si this ou fleur est mort
+	 */
 	public void achat(Vehicule vehicule) {
 		vehicules.remove(vehicule);
 	}

@@ -1,6 +1,6 @@
 /** 
- * Jeremy Fouquet
- */	
+ * @author	Jeremy Fouquet
+ */
 package Geometrie;
 
 import java.util.ArrayList;
