@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import exception.MonException;
 
@@ -91,7 +92,6 @@ public abstract class Vehicule {
 		this.louejusque = Double.NaN;
 	}
 	
-	// A VOIR POUR INSTALLER UN WHILLE QUI RETIRE 1 PAR 1 LES KILOMETRE PARCOURU
 	public void seDeplacer(double kilometresAParcourir) {
 		double avance = 1;
 		double parcouru = kilometresAParcourir;
@@ -195,24 +195,23 @@ public abstract class Vehicule {
 	
 	private boolean doitEtreRendu() {
 		boolean toReturn = false;
-		if(enCourtDeLocation()) {
+		if(enCoursDeLocation()) {
 			if (aRendre()) {
 				toReturn = true; 
 			}
  		}
 		return toReturn;
 	}
-	
-	
+
 	private boolean aRendre() {
 		return nbkilometres >= this.louejusque;
 	}
 	
-	private boolean enCourtDeLocation() {
+	private boolean enCoursDeLocation() {
 		return this.louejusque >= (double) 0;
 	}
 
-	//GETTERS ET SETTERS
+	//GETTERS, SETTERS, EQUALS, TOSTRING
 	public String getImmatriculation() {
 		return immatriculation;
 	}
@@ -257,5 +256,36 @@ public abstract class Vehicule {
 	}
 	public void setDateCT(Date dateCT) {
 		this.dateCT = dateCT;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(carburant, dateCT, dateMiseEnService, immatriculation, louejusque, moteurs, nbkilometres,
+				nbroues, prix);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vehicule other = (Vehicule) obj;
+		return carburant == other.carburant && Objects.equals(dateCT, other.dateCT)
+				&& Objects.equals(dateMiseEnService, other.dateMiseEnService)
+				&& Objects.equals(immatriculation, other.immatriculation)
+				&& Double.doubleToLongBits(louejusque) == Double.doubleToLongBits(other.louejusque)
+				&& Objects.equals(moteurs, other.moteurs)
+				&& Double.doubleToLongBits(nbkilometres) == Double.doubleToLongBits(other.nbkilometres)
+				&& nbroues == other.nbroues && Double.doubleToLongBits(prix) == Double.doubleToLongBits(other.prix);
+	}
+
+	@Override
+	public String toString() {
+		return "Vehicule [carburant=" + carburant + ", immatriculation=" + immatriculation + ", prix=" + prix
+				+ ", nbroues=" + nbroues + ", nbkilometres=" + nbkilometres + ", louejusque=" + louejusque + ", dateCT="
+				+ dateCT + ", dateMiseEnService=" + dateMiseEnService + ", moteurs=" + moteurs + ", getClass()="
+				+ getClass() + ", toString()=" + super.toString() + "]";
 	}
 }

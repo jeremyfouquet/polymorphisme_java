@@ -3,14 +3,12 @@ package agence;
 import java.util.Objects;
 
 public abstract class Moteur {
-	private Carburant typeMoteur;
-
-
+	private Carburant carburant;
 	private int capaciteReservoir;
 
 	public Moteur(int capaciteReservoir, Carburant typeMoteur) {
 		this.capaciteReservoir = capaciteReservoir;
-		this.typeMoteur = typeMoteur;
+		this.carburant = typeMoteur;
 	}
 	
 	protected abstract boolean reservoirPlein();
@@ -26,12 +24,12 @@ public abstract class Moteur {
 	}
 
 	public Carburant getTypeMoteur() {
-		return typeMoteur;
+		return carburant;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(capaciteReservoir, typeMoteur);
+		return Objects.hash(capaciteReservoir, carburant);
 	}
 
 	@Override
@@ -43,12 +41,12 @@ public abstract class Moteur {
 		if (getClass() != obj.getClass())
 			return false;
 		Moteur other = (Moteur) obj;
-		return capaciteReservoir == other.capaciteReservoir && typeMoteur == other.typeMoteur;
+		return capaciteReservoir == other.capaciteReservoir && carburant == other.carburant;
 	}
 	
 	@Override
 	public String toString() {
-		return "Moteur [typeMoteur=" + typeMoteur + ", capaciteReservoir=" + capaciteReservoir + ", getClass()="
+		return "Moteur [carburant=" + carburant + ", capaciteReservoir=" + capaciteReservoir + ", getClass()="
 				+ getClass() + ", toString()=" + super.toString() + "]";
 	}
 }
