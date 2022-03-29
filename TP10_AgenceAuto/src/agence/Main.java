@@ -1,3 +1,6 @@
+/** 
+ * @author Jeremy Fouquet
+ */
 package agence;
 
 public class Main {

@@ -9,9 +9,9 @@ import java.util.List;
 import exception.MonException;
 
 public class AgenceAuto {
-	public static int id;
-	public static List<Vehicule> vehicules;
-	public static List<Vehicule> vehiculesLoues;
+	public static int id; //Incrementé à chaque instance de vehicule et utilisé pour les immatriculations
+	public static List<Vehicule> vehicules; // liste des vehicules en ventes
+	public static List<Vehicule> vehiculesLoues; // liste des vehicules loués
 
 	public AgenceAuto() {
 		vehicules = new ArrayList<Vehicule>();
@@ -19,27 +19,38 @@ public class AgenceAuto {
 	}
 	
 	/** 
+	 * 	
+	 * acheter un vehicule parmis la liste des vehicules en ventes
 	 * 
-	 * Créé une nouvelle instance de Fleurs
-	 * 
-	 * @param fleur l'espece à ajouter à la place de l'oeuf
-	 * @see #enleveGraineEtPollen()
-	 * @exception MonException Si eclos est false
-	 * @exception MonException Si plus de graineEtPollen
-	 * @exception MonException Si this.equals(fleur)
-	 * @exception MonException Si this ou fleur est mort
+	 * @param vehicule Vehicule supprimé de la liste des vehicules en vente
 	 */
 	public void achat(Vehicule vehicule) {
 		vehicules.remove(vehicule);
 	}
 	
+	/** 
+	 * 	
+	 * Louer un vehicule pour un nombre de kilometre
+	 * 
+	 * @param vehicule Vehicule à louer
+	 * @param nbKilometresLoue nombre de kilometre que le vehicule pourra faire avant d'être remis en vente
+	 */
 	public void location(Vehicule vehicule, double nbKilometresLoue) {
 		vehicule.loue(nbKilometresLoue);
 		vehicules.remove(vehicule);
 		vehiculesLoues.add(vehicule);
 	}
 	
-	public void ajouterVehicule(TypeVehicule typeVehicule, int prix, TypeMoteur... typeMoteur) throws MonException {
+	
+	/** 
+	 * 	
+	 * Ajouter un vehicule à la liste des ventes
+	 * 
+	 * @param typeVehicule TypeVehicule à mettre en vente (Velo, Voiture, Trottinette, Moto)
+	 * @param prix Prix de vente
+	 * @param typeMoteur TypeMoteur optionnel (Electrique, Essence, Hybride)
+	 */
+	public void ajouterVehicule(TypeVehicule typeVehicule, double prix, TypeMoteur... typeMoteur) throws MonException {
 		TypeMoteur moteur = null;
 		boolean ismoteur = false;
 		for (TypeMoteur tm : typeMoteur) {

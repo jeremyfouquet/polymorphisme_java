@@ -1,10 +1,13 @@
+/** 
+ * @author Jeremy Fouquet
+ */
 package agence;
 
 public class Moto extends Vehicule {
 	private int nbroues = 2;
 	
 
-	public Moto(int prix, TypeMoteur typeMoteur) {
+	public Moto(double prix, TypeMoteur typeMoteur) {
 		super(prix, typeMoteur);
 		setNbroues(this.nbroues);
 		switch (typeMoteur) {

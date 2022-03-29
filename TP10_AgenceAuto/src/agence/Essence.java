@@ -1,29 +1,55 @@
 package agence;
 
+/** 
+ * @author Jeremy Fouquet
+ */
 import java.util.Objects;
 
 public class Essence extends Moteur {
-	private double quantiteReservoir = 0;
+	private double quantiteReservoir = 0; // carburant 1 unite == 1km
 
+	/**
+	 * @param capaciteReservoir
+	 * @param type
+	 */
 	public Essence(int capaciteReservoir, Carburant type) {
 		super(capaciteReservoir, type);
 	}
 	
+	
 	protected boolean reservoirPlein() {
-		return this.quantiteReservoir == getCapaciteReservoir();
+		return this.quantiteReservoir >= getCapaciteReservoir();
 	}
 
+	/**
+	 * 
+	 * Ajoute une quantité de carburant au reservoir si celui ci n'est pas plein
+	 * 
+	 * @param double quantité de carburant à ajouter
+	 */
 	protected void ajouterCarburant(double carburant) {
 		if (this.quantiteReservoir < getCapaciteReservoir()) {
 			this.quantiteReservoir += carburant;
 		}
 	}
 	
+	/**
+	 * 
+	 * Calcule le nombre de kilometre restant en fonction de la quantité du reservoir
+	 * 
+	 * @return double nombre de kilometre que la capacité du reservoire offre la possibilité de faire
+	 */
 	protected double nbKilometreRestant() {
 		double quantite = this.quantiteReservoir;
 		return quantite;
 	}
 	
+	/**
+	 * 
+	 * Consomme le carburant dans le reservoire en fonction du deplacement
+	 * 
+	 * @param deplacement deplacement convertie en fonction de l'unité du carburant
+	 */
 	protected void utiliserCarburant(double deplacement) {
 		quantiteReservoir -= deplacement;
 	}

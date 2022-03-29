@@ -1,13 +1,16 @@
+/** 
+ * @author Jeremy Fouquet
+ */
 package agence;
 
 public class Velo extends Vehicule {
 	private int nbroues = 2;
 	
-	public Velo(int prix) {
+	public Velo(double prix) {
 		super(prix);
 		setNbroues(this.nbroues);
 	}
-	public Velo(int prix, TypeMoteur typeMoteur) {
+	public Velo(double prix, TypeMoteur typeMoteur) {
 		super(prix, typeMoteur);
 		setNbroues(this.nbroues);
 		getMoteurs().add(new Electrique(125, Carburant.Electrique));

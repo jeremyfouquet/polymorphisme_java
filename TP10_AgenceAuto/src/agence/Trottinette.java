@@ -1,13 +1,16 @@
+/** 
+ * @author Jeremy Fouquet
+ */
 package agence;
 
 public class Trottinette extends Vehicule {
 	private int nbroues = 2;
 	
-	public Trottinette(int prix) {
+	public Trottinette(double prix) {
 		super(prix);
 		setNbroues(this.nbroues);
 	}
-	public Trottinette(int prix, TypeMoteur typeMoteur) {
+	public Trottinette(double prix, TypeMoteur typeMoteur) {
 		super(prix, typeMoteur);
 		setNbroues(this.nbroues);
 		getMoteurs().add(new Electrique(125, Carburant.Electrique));

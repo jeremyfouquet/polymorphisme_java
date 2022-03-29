@@ -1,3 +1,6 @@
+/** 
+ * @author Jeremy Fouquet
+ */
 package agence;
 
 import java.util.Arrays;
