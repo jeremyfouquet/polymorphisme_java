@@ -28,7 +28,7 @@ public class Segment {
 	 * Affiche les coordonnees x et y des 2 points du segment
 	 * 
 	 */
-	protected void afficherCoordonnnees() {
+	public void afficherCoordonnnees() {
 		char lettre = 'A';
 		for (Point point :this.points) {
 			System.out.printf("Les coordonnées du point %c sont : ", lettre);
@@ -46,7 +46,7 @@ public class Segment {
 	 * @return double distance du segment
 	 * @see Point#distance(Point)
 	 */
-	protected double calculerLongueur() {
+	public double calculerLongueur() {
 		double distance = this.points.get(0).distance(this.points.get(1));
 		return distance;
 	}
@@ -57,7 +57,7 @@ public class Segment {
 	 * 
 	 * @see #calculerLongueur()
 	 */
-	protected void afficherLongueur() {
+	public void afficherLongueur() {
 		System.out.printf("La longueur du segment est de %.1f cm\n", this.calculerLongueur());
 		System.out.println();
 	}
@@ -70,7 +70,7 @@ public class Segment {
 	 * @param oppose point oppose au segment et qui represente le centre de l'angle
 	 * @return double angle calculé à partir des 3 points
 	 */
-	protected double calculerAngle(Point oppose, String... rectangle){
+	public double calculerAngle(Point oppose, String... rectangle){
     	double CentreX = oppose.getX();
     	double CentreY = oppose.getY();
     	double P1X = this.getPoints().get(0).getX();

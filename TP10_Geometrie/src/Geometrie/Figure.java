@@ -5,35 +5,18 @@ package Geometrie;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
 
 public abstract class Figure {
-
 	private List<Segment> segments = new ArrayList<Segment>(); // Liste des segments formant la figure
-	private TypeFigure typefigure; // type de triangle ou de quadrilatere
+	private String typeFigure; // type de triangle ou de quadrilatere
 
-	/**
-	 * @param nbPoints
-	 */
-	public Figure(NbPoints nbPoints) {
+
+	public Figure() {
 		this.segments.add(new Segment());
-		List<TypeFigure> choix = new ArrayList<TypeFigure>();
-		choix.add(TypeFigure.Rectangle);
-		switch (nbPoints) {
-			case trois:
-				choix.add(TypeFigure.Isocele);
-				choix.add(TypeFigure.Equilateral);
-				break;
-			case quatre:
-				choix.add(TypeFigure.Carre);
-				choix.add(TypeFigure.Losange);
-				break;
-			default:
-				break;
-		};
-		this.typefigure = choixFigure(nbPoints, choix);
 	}
 
 	/** 
@@ -65,25 +48,33 @@ public abstract class Figure {
 	 * 
 	 * Propose de choisir parmis une type de triangle ou un type de quadrilatere
 	 * 
-	 * @param nbPoints determine la forme triangle ou quadrilatere
-	 * @return TypeFigure type choise par l'utilisateur
+	 * @param nomFigure determine la forme triangle ou quadrilatere
+	 * @return listeTypeFigure sous type choisi par l'utilisateur
 	 */
-	private TypeFigure choixFigure(NbPoints nbPoints, List<TypeFigure> choix) {
-		List<String> selection = Arrays.asList("oui", "non");
-		TypeFigure choixFinal = null;
-		while (choix.contains(choixFinal) != true) {
-			for(int i=0; i < choix.size() && choix.contains(choixFinal) != true; i++) {
+	protected String choixFigure(String nomFigure, List<String> listeTypeFigure) {
+		HashMap<String, String> selection = new HashMap<String, String>(); // HashMap utilisé pour verifier que la reponse est bonne; Permet de traduire le choix de l'utilisateur en TypeFigure
+		int i = 1;
+		for(String list : Arrays.asList("oui", "non")) {
+			selection.put(Integer.toString(i), list);
+			i++;
+		}
+		String choixFinal = null;
+		do {
+			// iteration de chacun des sous type de la figure tant qu'aucun choix n'a été fait (tant que "oui" n'est pas répondu)
+			for(int indice = 0; indice < listeTypeFigure.size() && listeTypeFigure.contains(choixFinal) != true; indice++) {
 				String reponse = "";
-				System.out.printf("Souhaitez vous dessiner un %s de type : %s ?\n", nbPoints.getForme(), choix.get(i));
-				System.out.printf("%s ou %s\n", selection.get(0), selection.get(1));
-				while (selection.contains(reponse) != true) {
-					reponse = Main.sc.nextLine();
+				System.out.printf("Souhaitez vous dessiner un %s de type : %s ?\n", nomFigure , listeTypeFigure.get(indice));
+				System.out.printf("1 -> %s\n", selection.get("1"));
+				System.out.printf("2 -> %s\n", selection.get("2"));
+				do {
+					reponse = Main.sc.nextLine();  // tant que la reponse n'est pas correcte on rentre en boucle
 				}
-				if(selection.get(0).equals(reponse)) {
-					choixFinal = choix.get(i);
+				while (selection.get(reponse) == null);
+				if (selection.get(reponse) == "oui") {
+					choixFinal = listeTypeFigure.get(indice);
 				}
 			}
-		}
+		} while (listeTypeFigure.contains(choixFinal) != true);
 		return choixFinal;
 	}
 	
@@ -205,20 +196,7 @@ public abstract class Figure {
 		System.out.printf("Le perimetre est de %.1f cm\n", this.calculerPerimetre());
 		System.out.println();
 	}
-	
-	// GETTERS, SETTERS, EQUALS, TOSTRING
-	public List<Segment> getSegments() {
-		return segments;
-	}
-	public void setSegments(List<Segment> segments) {
-		this.segments = segments;
-	}
-	public TypeFigure getTypefigure() {
-		return typefigure;
-	}
-	public void setTypefigure(TypeFigure typefigure) {
-		this.typefigure = typefigure;
-	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -228,11 +206,29 @@ public abstract class Figure {
 		if (getClass() != obj.getClass())
 			return false;
 		Figure other = (Figure) obj;
-		return Objects.equals(segments, other.segments) && typefigure == other.typefigure;
-	}	
+		return Objects.equals(segments, other.segments) && Objects.equals(typeFigure, other.typeFigure);
+	}
+
 	@Override
 	public String toString() {
-		return "Figure [segments=" + segments + ", typefigure=" + typefigure + "]";
+		return "Figure [segments=" + segments + ", typeFigure=" + typeFigure + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
+
+	// GETTERS, SETTERS, EQUALS, TOSTRING
+	public List<Segment> getSegments() {
+		return segments;
+	}
+	public String getTypeFigure() {
+		return typeFigure;
+	}
+
+	public void setTypeFigure(String typeFigure) {
+		this.typeFigure = typeFigure;
+	}
+
+	public void setSegments(List<Segment> segments) {
+		this.segments = segments;
 	}
 
 }

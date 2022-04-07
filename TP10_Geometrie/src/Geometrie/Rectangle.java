@@ -4,42 +4,42 @@
 package Geometrie;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Rectangle extends Figure {
+	private List<String> listCategorie = Arrays.asList("Rectangle", "Carre", "Losange");
 
-	/**
-	 * @param nbPoints
-	 */
-	public Rectangle(NbPoints nbPoints) {
-		super(nbPoints);
+	public Rectangle() {
+		// DSL pour les calcules ;S Un peu tiré par les cheveux je le reconnais XD
+		super();
+		setTypeFigure(choixFigure("Quadrilatere", listCategorie));
 		List<Double> S2 = new ArrayList<Double>(4);
 		List<Double> S3 = new ArrayList<Double>(4);
 		List<Double> S4 = new ArrayList<Double>(4);
 		Segment segmentBase = getSegments().get(0);
-		switch (getTypefigure()) {
-		case Rectangle:
+		switch (getTypeFigure()) {
+		case "Rectangle":
 			S2.add(segmentBase.getPoints().get(0).getX());
 			S2.add(segmentBase.getPoints().get(1).getX()/2);
 			S2.add(segmentBase.getPoints().get(0).getX());
 			S2.add(segmentBase.getPoints().get(0).getY());
 			S3.add(segmentBase.getPoints().get(1).getX());
 			break;
-		case Carre:
+		case "Carre":
 			S2.add(segmentBase.getPoints().get(0).getX());
 			S2.add(segmentBase.getPoints().get(1).getX());
 			S2.add(segmentBase.getPoints().get(0).getX());
 			S2.add(segmentBase.getPoints().get(0).getY());
 			S3.add(segmentBase.getPoints().get(1).getX());
 			break;
-		case Losange:
+		case "Losange":
 			S2.add(-(segmentBase.getPoints().get(1).getX()/2));
 			S2.add(hauteur(segmentBase.calculerLongueur()));
 			S2.add(segmentBase.getPoints().get(0).getX());
 			S2.add(segmentBase.getPoints().get(0).getY());
 			S3.add(segmentBase.getPoints().get(1).getX()/2);
-			break;
-		default :
 			break;
 		}
 		S3.add(S2.get(1));
@@ -53,7 +53,7 @@ public class Rectangle extends Figure {
 		getSegments().add(new Segment(S3));
 		getSegments().add(new Segment(S4));
 	}
-	
+
 	protected double calculerAire() {
 		double aire = getSegments().get(0).calculerLongueur() + getSegments().get(1).calculerLongueur();
 		return aire;
@@ -73,6 +73,28 @@ public class Rectangle extends Figure {
 			index++;
 		}
 		System.out.println();
+	}
+	
+	// EQUALS, TOSTRING
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rectangle other = (Rectangle) obj;
+		return Objects.equals(listCategorie, other.listCategorie);
+	}
+
+	@Override
+	public String toString() {
+		return "Rectangle [listCategorie=" + listCategorie + ", calculerNombreAngles()=" + calculerNombreAngles()
+				+ ", calculerPerimetre()=" + calculerPerimetre() + ", toString()=" + super.toString()
+				+ ", getSegments()=" + getSegments() + ", getTypeFigure()=" + getTypeFigure() + ", getClass()="
+				+ getClass() +"]";
 	}
 
 }

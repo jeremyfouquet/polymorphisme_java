@@ -4,60 +4,43 @@
 package Geometrie;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import exception.MonException;
+import exception.StopException;
 
 public class Utilisateur {
-	private HashMap<String, NbPoints> choix; // HashMap utilisé pour choixNbPoints(), permet de traduire le choix de l'utilisateur en NbPoints
 	private List<Segment> segments; // liste des segments realisés sans figure
 	private List<Figure> figures; // liste des figures réalisés
 
 
 	public Utilisateur() {
 		Main.sc = new Scanner(System.in);
-		this.choix = new HashMap<String, NbPoints>();
 		this.segments = new ArrayList<Segment>();
 		this.figures = new ArrayList<Figure>();
-		for (NbPoints nbPoints : NbPoints.values()) {
-			choix.put(nbPoints.getVal(), nbPoints);
-		}
-		try {
-			while(Main.STOP != true) { // le programme tourne en boucle tant que l'utilisateur ne l'interrompte pas
-				choixNbPoints();
-			}
-		} catch(MonException e) {
-			System.out.printf("%s\n", e.getMessage());
-		} finally {
-			Main.sc.close();
-		}
+		choixNbPoints();
 	}
 	
 	/** 
 	 * 
-	 * Propose à l'utilisateur de choisir entre 2, 3 ou 4 points
+	 * Propose à l'utilisateur de choisir entre 2, 3 ou 4 points ou le generateur (pas fait !!!!!!)
 	 * 
-	 * @exception MonException Si l'utilisateur ecrit "STOP"
-	 * @see	#tracer(NbPoints)
+	 * @see	#tracer(String)
 	 */
-	public void choixNbPoints() throws MonException  {
-		String reponse = "";
-		System.out.printf("%s\n", "Combien de points souhaitez vous dessiner ?");
-		for (NbPoints nbPoints : NbPoints.values()) {
-			System.out.printf("%s\n", nbPoints.getVal());
-		}
-		System.out.printf("%s\n", "ou STOP !");
-		while (this.choix.get(reponse) == null) {
-			reponse = Main.sc.nextLine();
-			if (reponse.equals("STOP")) {
-				Main.STOP = true;
-				throw new MonException("Au revoir !");
+	public void choixNbPoints() {
+		do{    
+			try {
+				String choix = choixEtSaisie("Combien de points souhaitez vous dessiner ?", Arrays.asList("2", "3", "4", "Je prefere utiliser le générateur de figure !"));  
+				tracer(choix);
+			} catch(StopException e) {
+				System.out.printf("%s\n", e.getMessage());
+				Main.sc.close();
+			} finally {
 			}
-		}
-		NbPoints choixFinal = this.choix.get(reponse);
-		tracer(choixFinal);
+		} while(Main.STOP != true);  // le programme tourne en boucle tant que l'utilisateur ne l'interrompte pas avec STOP
+		Main.sc.close();
 	}
 	
 	/** 
@@ -72,9 +55,9 @@ public class Utilisateur {
 	 * @see	Figure#afficheAire()
 	 * @see	Figure#affichePerimetre()
 	 */
-	public void tracer(NbPoints nbPoints) {
+	public void tracer(String nbPoints) {
 		switch (nbPoints) {
-			case deux:
+			case "2":
 				Segment segment = new Segment();
 				segments.add(segment);
 				System.out.printf("Le %s à été dessiné avec succes\n", segment.getClass().getSimpleName());
@@ -82,11 +65,11 @@ public class Utilisateur {
 				segment.afficherCoordonnnees();
 				segment.afficherLongueur();
 				break;
-			case trois:
-			case quatre:
-				Figure figure = nbPoints == NbPoints.trois ? new Triangle(nbPoints) : new Rectangle(nbPoints);
+			case "3":
+			case "4":
+				Figure figure = nbPoints == "3" ? new Triangle() : new Rectangle();
 				figures.add(figure);
-				System.out.printf("Le %s %s à été dessiné avec succes\n", figure.getClass().getSimpleName(), figure.getTypefigure());
+				System.out.printf("Le %s de type %s à été dessiné avec succes\n", figure.getClass().getSimpleName(), figure.getTypeFigure());
 				System.out.println();
 				figure.calculerLongueurSegment(true);
 				figure.afficheNombreAngles();
@@ -95,8 +78,65 @@ public class Utilisateur {
 				figure.affichePerimetre();
 				break;
 			default:
+				generateur();
 				break;
 		}
 	}
+	
+	/** 
+	 * 
+	 * Propose une liste de choix et retourne celle selectionnée par l'utilisateur
+	 * 
+	 * @param question question à poser à l'utilisateur
+	 * @param selections list de string de selection à proposer à l'utilisateur
+	 * @exception StopException Si l'utilisateur ecrit "STOP" arrete la saisie
+	 */
+	public String choixEtSaisie(String question, List<String> selections) throws StopException  {
+		String reponse = "";
+		HashMap<String, String> choix = new HashMap<String, String>(); // HashMap utilisé pour verifier que la reponse est bonne; Permet de traduire le choix de l'utilisateur en sa reponse
+		System.out.printf("%s\n", question);
+		int i = 1;
+		for (String select : selections) {
+			choix.put(Integer.toString(i), select);
+			System.out.printf("%d -> %s\n", i, select);
+			i++;
+		}
+		System.out.printf("%d -> %s\n", 0, "STOP !");
+		do {
+			reponse = Main.sc.nextLine();
+			if (reponse.equals("0")) {
+				Main.STOP = true;
+				throw new StopException("Au revoir !");
+			}
+		}
+		while (choix.get(reponse) == null);
+		return choix.get(reponse);
+	}
+	
+
+	// Coder un générateur de figure qui, en fonction du 
+	// nombre de côtés souhaité, du nombre d'angles droits
+	// et du nombre de côtés égaux, construit la figure la plus adéquate.
+	public void generateur() {
+		int nbCote = 0;
+		int nbAngle = 0;
+		int nbEgaux = 0;
+		try {
+			nbCote = Integer.parseInt(choixEtSaisie("Choisissez un nombre de côté", Arrays.asList("2", "3", "4")));  
+			nbAngle = Integer.parseInt(choixEtSaisie("Choisissez un nombre d'angle droit", Arrays.asList("1", "4")));
+			nbEgaux = Integer.parseInt(choixEtSaisie("Choisissez un nombre de côté égaux", Arrays.asList("2", "3", "4")));
+		} catch(StopException e) {
+			System.out.printf("%s\n", e.getMessage());
+		} finally {
+			System.out.printf("%s\n", "Bon ben désolé je pèche en Géométrie après ça ;p");
+			System.out.printf("nombre de côtés : %d\n", nbCote);
+			System.out.printf("nombre d'angles : %d\n", nbAngle);
+			System.out.printf("nombre de côtés égaux : %d\n", nbEgaux);
+			System.out.println();
+		}
+
+	}
+
+	
 
 }

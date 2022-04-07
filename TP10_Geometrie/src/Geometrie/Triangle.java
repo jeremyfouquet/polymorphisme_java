@@ -4,34 +4,34 @@
 package Geometrie;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Triangle extends Figure {
+	private List<String> listCategorie = Arrays.asList("Rectangle", "Isocele", "Equilateral");
 
-	/**
-	 * @param nbPoint
-	 */
-	public Triangle(NbPoints nbPoint) {
-		super(nbPoint);
+	public Triangle() {
+		// DSL pour les calcules ;S Un peu tiré par les cheveux
+		super();
+		setTypeFigure(choixFigure("Triangle", listCategorie));
 		List<Double> S2 = new ArrayList<Double>(4);
 		List<Double> S3 = new ArrayList<Double>(4);
 		double x3 = 0;
 		double y3 = 0;
 		Segment segmentBase = getSegments().get(0);
-		switch (getTypefigure()) {
-			case Isocele:
+		switch (getTypeFigure()) {
+			case "Isocele":
 				x3 = segmentBase.getPoints().get(1).getX()/2;
 				y3 = 20;
 				break;
-			case Equilateral:
+			case "Equilateral":
 				x3 = segmentBase.getPoints().get(1).getX()/2;
 				y3 = pointEquilateral(segmentBase.calculerLongueur());
 				break;
-			case Rectangle:
+			case "Rectangle":
 				x3 = segmentBase.getPoints().get(0).getX();
 				y3 = segmentBase.getPoints().get(1).getX()/2;
-				break;
-			default :
 				break;
 		}
 		S2.add(x3);
@@ -45,31 +45,29 @@ public class Triangle extends Figure {
 		getSegments().add(new Segment(S2));
 		getSegments().add(new Segment(S3));
 	}
-	
+
 	protected double calculerAire() {
 		Segment segment1 = getSegments().get(0);
 		Segment segment2 = getSegments().get(1);
 		Segment segment3 = getSegments().get(2);
 		double base = 0;
 		double hauteur = 0;
-		switch (getTypefigure()) {
-			case Equilateral:
+		switch (getTypeFigure()) {
+			case "Equilateral":
 				base = segment1.calculerLongueur();
 				hauteur = hauteur(base);
 				break;
-			case Isocele:
+			case "Isocele":
 				base = 
 					segment1.calculerLongueur() == segment2.calculerLongueur() ? segment3.calculerLongueur() :
 					segment1.calculerLongueur() == segment3.calculerLongueur() ? segment2.calculerLongueur() :
 					segment1.calculerLongueur();
 				hauteur = hauteur(segment1, segment2.getPoints().get(0));
 				break;
-			case Rectangle:
+			case "Rectangle":
 				List<Segment> segmentRectangle = segmentRectangle();
 				base = segmentRectangle.get(0).calculerLongueur();
 				hauteur = segmentRectangle.get(1).calculerLongueur();
-				break;
-			default :
 				break;
 		}
 		double aire = 0.5 * base * hauteur;
@@ -135,6 +133,28 @@ public class Triangle extends Figure {
 	private double pointEquilateral(double base) {
 		double hauteur =  Math.pow(base, 2) - Math.pow(base/2, 2);
 		return Math.sqrt(hauteur);
+	}
+	
+	// EQUALS, TOSTRING
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Triangle other = (Triangle) obj;
+		return Objects.equals(listCategorie, other.listCategorie);
+	}
+
+	@Override
+	public String toString() {
+		return "Triangle [listCategorie=" + listCategorie + ", calculerNombreAngles()=" + calculerNombreAngles()
+				+ ", calculerPerimetre()=" + calculerPerimetre() + ", toString()=" + super.toString()
+				+ ", getSegments()=" + getSegments() + ", getTypeFigure()=" + getTypeFigure() + ", getClass()="
+				+ getClass() + "]";
 	}
 	
 

@@ -24,7 +24,7 @@ public class Point {
 	 * @param p le point dont on souhaite connaitre la distance depuis this
 	 * @return double distance entre this et p
 	 */
-	protected double distance(Point p){
+	public double distance(Point p){
 		return Math.sqrt(sqr(p.getX()-this.x) + sqr(p.getY()-this.y));
 	}
 
