@@ -3,17 +3,16 @@
  */
 package agence;
 
-import java.util.Objects;
 
 public class Electrique extends Moteur {
 	private float quantiteReservoir = 0; // carburant 10 unite == 1km
 
 	/**
 	 * @param capaciteReservoir
-	 * @param type
 	 */
-	public Electrique(int capaciteReservoir, Carburant type) {
-		super(capaciteReservoir, type);
+	public Electrique(int capaciteReservoir) {
+		super(capaciteReservoir);
+		setCarburant(Carburant.Electrique);
 	}
 	
 	protected boolean reservoirPlein() {
@@ -63,17 +62,12 @@ public class Electrique extends Moteur {
 	public void setQuantiteReservoir(float quantiteReservoir) {
 		this.quantiteReservoir = quantiteReservoir;
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(quantiteReservoir);
-	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -84,7 +78,7 @@ public class Electrique extends Moteur {
 	@Override
 	public String toString() {
 		return "Electrique [quantiteReservoir=" + quantiteReservoir + ", getCapaciteReservoir()="
-				+ getCapaciteReservoir() + ", getTypeMoteur()=" + getTypeMoteur() + ", toString()=" + super.toString()
+				+ getCapaciteReservoir() + ", getCarburant()=" + getCarburant() + ", toString()=" + super.toString()
 				+ ", getClass()=" + getClass() + "]";
 	}
 

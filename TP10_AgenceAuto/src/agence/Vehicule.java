@@ -9,10 +9,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import exception.MonException;
+import exception.MoteurException;
 
 public abstract class Vehicule {
-	private TypeMoteur carburant; // type de moteur (Electrique, Essence, Hybride)
+	private static int id = 0;; //Incrementé à chaque instance de vehicule et utilisé pour les immatriculations
+	private TypeMoteur typeMoteur; // type de moteur (Electrique, Essence, Hybride)
 	private String immatriculation; // immatriculation unique à chaque vehicule
 	private double prix; // prix du vehicule
 	private int nbroues; // nombre de roues du vehicule
@@ -29,7 +30,8 @@ public abstract class Vehicule {
 	 * @param prix
 	 */
 	public Vehicule(double prix) {
-		this.immatriculation = this.getClass().getSimpleName()+AgenceAuto.id++;
+		id++;
+		this.immatriculation = this.getClass().getSimpleName()+id;
 		dateMiseEnService = new Date();
 	}
 
@@ -42,6 +44,8 @@ public abstract class Vehicule {
 	 */
 	public Vehicule(double prix, TypeMoteur typeMoteur) {
 		this(prix);
+		this.typeMoteur = typeMoteur;
+		
 	}
 	
 	/**
@@ -62,13 +66,7 @@ public abstract class Vehicule {
 		double km = Double.POSITIVE_INFINITY;
 		if(this.moteurs.size() > 0) {
 			km = 0;
-			for (Carburant typeMoteur : carburant.getCarburant()) {
-				Moteur moteur = null;
-				for(Moteur m : this.moteurs) {
-					if(m.getTypeMoteur().equals(typeMoteur)) {
-						moteur = m;
-					}
-				}
+			for(Moteur moteur : this.moteurs) {
 				km += moteur.nbKilometreRestant();
 			}
 		} else {
@@ -83,9 +81,9 @@ public abstract class Vehicule {
 	 * 
 	 * @param quantite quantite de carburant souhaité ajouté au vehicule
 	 * @param carburant Electrique ou Essence
-	 * @exception MonException Si le carburant ne convient à aucun moteur
+	 * @exception MoteurException Si le carburant ne convient à aucun moteur
 	 */
-	public void ajouterCarburant(double quantite, Carburant carburant) throws MonException {
+	public void ajouterCarburant(double quantite, Carburant carburant) throws MoteurException {
 		if(this.moteurs.size() > 0) {
 			double ajoute = quantite;
 			boolean stop = false;
@@ -105,7 +103,7 @@ public abstract class Vehicule {
 					}
 					ajoute -= mis;
 				} else {
-					throw new MonException("Vous vous trompez de carburant attention !");
+					throw new MoteurException("Vous vous trompez de carburant attention !");
 				}
 			}
 			if(stop) {
@@ -125,24 +123,16 @@ public abstract class Vehicule {
 	public void kilometreParcouru() {
 		System.out.printf("%s %.1f %s\n", "Le vehicule a parcouru", this.nbkilometres, "kilomètres");
 	}
-	
-	/**
-	 * 
-	 * Retrourne le vehicule loué parmis les vehicule à vendre
-	 */
-	public void rendreLocation() {
-		AgenceAuto.vehiculesLoues.remove(this);
-		AgenceAuto.vehicules.add(this);
-		this.louejusque = Double.NaN;
-	}
 
 	/**
 	 * 
 	 * Parcoure km par km une distance souhaité (pour les vehicule à moteur : tant que le reservoir de carburant n'est pas vide)
 	 * 
 	 * @param kilometresAParcourir distance à parcourir
+	 * @param agence l'agenceAuto dans laquel rendre le vehicule en cas de kilometre epuisé
+	 * @see AgenceAuto#rendreLocation(Vehicule)
 	 */
-	public void seDeplacer(double kilometresAParcourir) {
+	public void seDeplacer(double kilometresAParcourir, AgenceAuto agence) {
 		double avance = 1;
 		double parcouru = kilometresAParcourir;
 		boolean stop = false;
@@ -161,7 +151,7 @@ public abstract class Vehicule {
 			} else {
 				nbkilometres += avance;
 				if(doitEtreRendu()) {
-					 rendreLocation();
+					 agence.rendreLocation(this);
 					 System.out.printf("%s\n", "La location à été rendu car les kilomètres sont épuisés");
 					 stop = true;
 				}
@@ -228,15 +218,11 @@ public abstract class Vehicule {
 	 * @return Moteur moteur souhaité
 	 */
 	private Moteur trouveLeMoteurPourLeBonCarburant(Carburant carburant) {
-		List<Moteur> moteur = new ArrayList<Moteur>(1);
-		for (Moteur m : this.moteurs) {
-			if (m.getTypeMoteur() == carburant) {
-				moteur.add(m);
-			}
-		}
 		Moteur moteurTrouve = null;
-		if (moteur.size() > 0) {
-			moteurTrouve = moteur.get(0);
+		for (Moteur moteur : this.moteurs) {
+			if (moteur.getCarburant() == carburant) {
+				moteurTrouve = moteur;
+			}
 		}
 		return moteurTrouve;
 	}
@@ -311,55 +297,77 @@ public abstract class Vehicule {
 	}
 
 	//GETTERS, SETTERS, EQUALS, TOSTRING
+
+	public TypeMoteur getTypeMoteur() {
+		return typeMoteur;
+	}
+
+	public void setTypeMoteur(TypeMoteur typeMoteur) {
+		this.typeMoteur = typeMoteur;
+	}
+
 	public String getImmatriculation() {
 		return immatriculation;
 	}
+
+	public void setImmatriculation(String immatriculation) {
+		this.immatriculation = immatriculation;
+	}
+
 	public double getPrix() {
 		return prix;
 	}
+
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
+
 	public int getNbroues() {
 		return nbroues;
 	}
+
 	public void setNbroues(int nbroues) {
 		this.nbroues = nbroues;
 	}
+
 	public double getNbkilometres() {
 		return nbkilometres;
 	}
+
 	public void setNbkilometres(double nbkilometres) {
 		this.nbkilometres = nbkilometres;
 	}
+
 	public double getLouejusque() {
 		return louejusque;
 	}
+
 	public void setLouejusque(double louejusque) {
 		this.louejusque = louejusque;
 	}
-	public List<Moteur> getMoteurs() {
-		return moteurs;
-	}
-	public TypeMoteur getCarburant() {
-		return carburant;
-	}
-	public void setCarburant(TypeMoteur carburant) {
-		this.carburant = carburant;
-	}
-	public Date getDateMiseEnService() {
-		return dateMiseEnService;
-	}
+
 	public Date getDateCT() {
 		return dateCT;
 	}
+
 	public void setDateCT(Date dateCT) {
 		this.dateCT = dateCT;
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(carburant, dateCT, dateMiseEnService, immatriculation, louejusque, moteurs, nbkilometres,
-				nbroues, prix);
+
+	public Date getDateMiseEnService() {
+		return dateMiseEnService;
+	}
+
+	public void setDateMiseEnService(Date dateMiseEnService) {
+		this.dateMiseEnService = dateMiseEnService;
+	}
+
+	public List<Moteur> getMoteurs() {
+		return moteurs;
+	}
+
+	public void setMoteurs(List<Moteur> moteurs) {
+		this.moteurs = moteurs;
 	}
 
 	@Override
@@ -371,18 +379,18 @@ public abstract class Vehicule {
 		if (getClass() != obj.getClass())
 			return false;
 		Vehicule other = (Vehicule) obj;
-		return carburant == other.carburant && Objects.equals(dateCT, other.dateCT)
-				&& Objects.equals(dateMiseEnService, other.dateMiseEnService)
+		return Objects.equals(dateCT, other.dateCT) && Objects.equals(dateMiseEnService, other.dateMiseEnService)
 				&& Objects.equals(immatriculation, other.immatriculation)
 				&& Double.doubleToLongBits(louejusque) == Double.doubleToLongBits(other.louejusque)
 				&& Objects.equals(moteurs, other.moteurs)
 				&& Double.doubleToLongBits(nbkilometres) == Double.doubleToLongBits(other.nbkilometres)
-				&& nbroues == other.nbroues && Double.doubleToLongBits(prix) == Double.doubleToLongBits(other.prix);
+				&& nbroues == other.nbroues && Double.doubleToLongBits(prix) == Double.doubleToLongBits(other.prix)
+				&& typeMoteur == other.typeMoteur;
 	}
 
 	@Override
 	public String toString() {
-		return "Vehicule [carburant=" + carburant + ", immatriculation=" + immatriculation + ", prix=" + prix
+		return "Vehicule [typeMoteur=" + typeMoteur + ", immatriculation=" + immatriculation + ", prix=" + prix
 				+ ", nbroues=" + nbroues + ", nbkilometres=" + nbkilometres + ", louejusque=" + louejusque + ", dateCT="
 				+ dateCT + ", dateMiseEnService=" + dateMiseEnService + ", moteurs=" + moteurs + ", getClass()="
 				+ getClass() + ", toString()=" + super.toString() + "]";

@@ -14,11 +14,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
 import agence.*;
-import exception.MonException;
+import exception.MoteurException;
 
 @DisplayName("TestKlaxonner")
 class TestKlaxonner {
-	static AgenceAuto agence;
+	AgenceAuto agence;
+	List<Vehicule> vehiculeEnVente;
     
 	@BeforeAll
 	  	static void initAll(TestInfo testInfo) {
@@ -30,6 +31,7 @@ class TestKlaxonner {
 		void setUp() throws Exception {
 		try {
 			agence = new AgenceAuto();
+			vehiculeEnVente = agence.getVehicules();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,25 +50,25 @@ class TestKlaxonner {
 	@DisplayName("Test 1 : Normal")
 	void test1(TestInfo testInfo) {
 		System.out.printf("%s\n", testInfo.getDisplayName());
-        int index = AgenceAuto.vehicules.size();
+        int index = vehiculeEnVente.size();
         Moto moto = null;
         Voiture voiture = null;
         Velo velo = null;
         Trottinette trottinette = null;
 		try {
-			agence.ajouterVehicule(TypeVehicule.Moto, 2000, TypeMoteur.Essence);
-	        index = AgenceAuto.vehicules.size();
-			moto = index > 0 ? (Moto) AgenceAuto.vehicules.get(index-1) : null;
-			agence.ajouterVehicule(TypeVehicule.Voiture, 2000, TypeMoteur.Essence);
-	        index = AgenceAuto.vehicules.size();
-			voiture = index > 0 ? (Voiture) AgenceAuto.vehicules.get(index-1) : null;
-			agence.ajouterVehicule(TypeVehicule.Velo, 1000);
-	        index = AgenceAuto.vehicules.size();
-			velo = index > 0 ? (Velo) AgenceAuto.vehicules.get(index-1) : null;
-			agence.ajouterVehicule(TypeVehicule.Trottinette, 1000);
-	        index = AgenceAuto.vehicules.size();
-			trottinette = index > 0 ? (Trottinette) AgenceAuto.vehicules.get(index-1) : null;
-		} catch (MonException e) {
+			agence.ajouterVehicule("Moto", 2000, TypeMoteur.Essence);
+	        index = vehiculeEnVente.size();
+			moto = index > 0 ? (Moto) vehiculeEnVente.get(index-1) : null;
+			agence.ajouterVehicule("Voiture", 2000, TypeMoteur.Essence);
+	        index = vehiculeEnVente.size();
+			voiture = index > 0 ? (Voiture) vehiculeEnVente.get(index-1) : null;
+			agence.ajouterVehicule("Velo", 1000);
+	        index = vehiculeEnVente.size();
+			velo = index > 0 ? (Velo) vehiculeEnVente.get(index-1) : null;
+			agence.ajouterVehicule("Trottinette", 1000);
+	        index = vehiculeEnVente.size();
+			trottinette = index > 0 ? (Trottinette) vehiculeEnVente.get(index-1) : null;
+		} catch (MoteurException e) {
 			System.out.printf("%s\n", e.getMessage());
 		} finally {
 			List<String> klaxonnes = new ArrayList<String>();

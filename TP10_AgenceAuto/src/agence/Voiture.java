@@ -4,6 +4,8 @@
 package agence;
 
 public class Voiture extends Vehicule {
+
+
 	private int nbroues = 4;
 	
 
@@ -12,19 +14,14 @@ public class Voiture extends Vehicule {
 		setNbroues(this.nbroues);
 		switch (typeMoteur) {
 			case Essence:
-				getMoteurs().add(new Essence(500, Carburant.Essence));
-				setCarburant(TypeMoteur.Essence);
+				getMoteurs().add(new Essence(500));
 				break;
 			case Electrique:
-				getMoteurs().add(new Electrique(5000, Carburant.Electrique));
-				setCarburant(TypeMoteur.Electrique);
+				getMoteurs().add(new Electrique(5000));
 				break;
 			case Hybride:
-				getMoteurs().add(new Essence(250, Carburant.Essence));
-				getMoteurs().add(new Electrique(2000, Carburant.Electrique));
-				setCarburant(TypeMoteur.Hybride);
-				break;
-			default:
+				getMoteurs().add(new Essence(250));
+				getMoteurs().add(new Electrique(2000));
 				break;
 		}
 	}
@@ -33,6 +30,30 @@ public class Voiture extends Vehicule {
 		String klaxonne = "TUUT TUUT";
 		System.out.printf("%s %s\n", "La Voiture fait", klaxonne);
 		return klaxonne;
+	}
+	
+	//EQUALS ET TOSTRING
+	
+	@Override
+	public String toString() {
+		return "Voiture [nbroues=" + nbroues + ", nbKilometreRestant()=" + nbKilometreRestant() + ", prochainCT()="
+				+ prochainCT() + ", getTypeMoteur()=" + getTypeMoteur() + ", getImmatriculation()="
+				+ getImmatriculation() + ", getPrix()=" + getPrix() + ", getNbroues()=" + getNbroues()
+				+ ", getNbkilometres()=" + getNbkilometres() + ", getLouejusque()=" + getLouejusque() + ", getDateCT()="
+				+ getDateCT() + ", getDateMiseEnService()=" + getDateMiseEnService() + ", getMoteurs()=" + getMoteurs()
+				+ ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Voiture other = (Voiture) obj;
+		return nbroues == other.nbroues;
 	}
 
 }

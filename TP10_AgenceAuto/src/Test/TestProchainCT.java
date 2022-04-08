@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -17,7 +18,8 @@ import agence.*;
 
 @DisplayName("TestProchainCT")
 class TestProchainCT {
-	static AgenceAuto agence;
+	AgenceAuto agence;
+	List<Vehicule> vehiculeEnVente;
     
 	@BeforeAll
 	  	static void initAll(TestInfo testInfo) {
@@ -29,6 +31,7 @@ class TestProchainCT {
 		void setUp() throws Exception {
 		try {
 			agence = new AgenceAuto();
+			vehiculeEnVente = agence.getVehicules();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,7 +53,7 @@ class TestProchainCT {
 		int ct = 4;
 		System.out.printf("Lors du premier contrôle technique le temps autorisé est de %d années depuis la date de mise en circulation du vehicule\n", ct);
         Voiture voiture = new Voiture(1000, TypeMoteur.Essence);
-		AgenceAuto.vehicules.add(voiture);
+		vehiculeEnVente.add(voiture);
 		int prochainCT = voiture.prochainCT();
 	    boolean condition = prochainCT == ct;
 		assertTrue(condition);
@@ -64,7 +67,7 @@ class TestProchainCT {
 		int ct = 2;
 		System.out.printf("Apres le premier contrôle technique les suivants se font tous les %d ans\n", ct);
         Voiture voiture = new Voiture(1000, TypeMoteur.Essence);
-		AgenceAuto.vehicules.add(voiture);
+		vehiculeEnVente.add(voiture);
         voiture.faireCT();
 		int prochainCT = voiture.prochainCT();
 	    boolean condition = prochainCT == ct;
@@ -79,9 +82,9 @@ class TestProchainCT {
 		int ct = 2;
 		int dernierCT = 3;
 		System.out.printf("Apres le premier contrôle technique les suivants se font tous les %d ans\n", ct);
-		System.out.printf("Dans le cas où le dernier CT à été fait il y a %d ans un message de rappel sera signalé\n", dernierCT);
+		System.out.printf("Cela fait %d ans depuis le dernier CT, alors un rappel devrait precisé que le CT est dépassé depuis %d année\n", dernierCT, dernierCT - ct);
         Voiture voiture = new Voiture(1000, TypeMoteur.Essence);
-		AgenceAuto.vehicules.add(voiture);
+		vehiculeEnVente.add(voiture);
         Calendar c1 = Calendar.getInstance();
         c1.add(Calendar.YEAR, -dernierCT);
         Date dateCT = c1.getTime();

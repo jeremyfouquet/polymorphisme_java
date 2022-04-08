@@ -3,21 +3,18 @@
  */
 package agence;
 
-import java.util.Objects;
-
 public abstract class Moteur {
-	private Carburant carburant; // carburant nécéssaire au moteur (Electrique, Essence, Hybride)
+	private Carburant carburant;
 	private int capaciteReservoir; // capacité maximum du reservoir
 
 	/**
 	 * @param capaciteReservoir
-	 * @param typeMoteur
 	 */
-	public Moteur(int capaciteReservoir, Carburant typeMoteur) {
+	public Moteur(int capaciteReservoir) {
 		this.capaciteReservoir = capaciteReservoir;
-		this.carburant = typeMoteur;
 	}
-	
+
+
 	/**
 	 * 
 	 * Verifie si le reservoire est plein
@@ -47,16 +44,18 @@ public abstract class Moteur {
 	public int getCapaciteReservoir() {
 		return capaciteReservoir;
 	}
-
-	public Carburant getTypeMoteur() {
+	
+	public Carburant getCarburant() {
 		return carburant;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(capaciteReservoir, carburant);
+	public void setCarburant(Carburant carburant) {
+		this.carburant = carburant;
 	}
 
+	public void setCapaciteReservoir(int capaciteReservoir) {
+		this.capaciteReservoir = capaciteReservoir;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -66,12 +65,11 @@ public abstract class Moteur {
 		if (getClass() != obj.getClass())
 			return false;
 		Moteur other = (Moteur) obj;
-		return capaciteReservoir == other.capaciteReservoir && carburant == other.carburant;
+		return capaciteReservoir == other.capaciteReservoir;
 	}
 	
 	@Override
 	public String toString() {
-		return "Moteur [carburant=" + carburant + ", capaciteReservoir=" + capaciteReservoir + ", getClass()="
-				+ getClass() + ", toString()=" + super.toString() + "]";
+		return "Moteur [capaciteReservoir=" + capaciteReservoir + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
 	}
 }

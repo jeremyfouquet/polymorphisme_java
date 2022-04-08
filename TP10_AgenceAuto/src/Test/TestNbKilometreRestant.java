@@ -2,6 +2,8 @@ package Test;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,11 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
 import agence.*;
-import exception.MonException;
+import exception.MoteurException;
 
 @DisplayName("TestNbKilometreRestant")
 class TestNbKilometreRestant {
-	static AgenceAuto agence;
+	AgenceAuto agence;
+	List<Vehicule> vehiculeEnVente;
     
 	@BeforeAll
 	  	static void initAll(TestInfo testInfo) {
@@ -27,6 +30,7 @@ class TestNbKilometreRestant {
 		void setUp() throws Exception {
 		try {
 			agence = new AgenceAuto();
+			vehiculeEnVente = agence.getVehicules();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,12 +50,12 @@ class TestNbKilometreRestant {
 	void test1(TestInfo testInfo) {
 		System.out.printf("%s\n", testInfo.getDisplayName());
         double km = 100;
-		System.out.printf("Le vehicule reçoit %.1f unites de carburant et souhaite  savoir combien il reste de Km à parcourir\n", km);
+		System.out.printf("Le vehicule doit pouvoir parcourir %.1f Km avec %.1f unites de carburant\n", km, km);
         Voiture voiture = new Voiture(1000, TypeMoteur.Essence);
-		AgenceAuto.vehicules.add(voiture);
+		vehiculeEnVente.add(voiture);
 		try {
 			voiture.ajouterCarburant(km, Carburant.Essence);
-		} catch (MonException e) {
+		} catch (MoteurException e) {
 			System.out.printf("%s\n", e.getMessage());
 		}
 		double nbKm = voiture.nbKilometreRestant();
@@ -68,13 +72,13 @@ class TestNbKilometreRestant {
         double km = 100;
         Carburant c1 = Carburant.Essence;
         Carburant c2 = Carburant.Electrique;
-		System.out.printf("Le vehicule reçoit %.1f unites d'essence puis %.1f d'unites d'electricite et souhaite  savoir combien il reste de Km à parcourir\n", km, km*10);
+		System.out.printf("Le vehicule doit pouvoir parcourir %.1f Km avec %.1f unites de %s et %.1f unites de %s\n", km*2, km, c1, km*10, c2);
         Voiture voiture = new Voiture(1000, TypeMoteur.Hybride);
-		AgenceAuto.vehicules.add(voiture);
+		vehiculeEnVente.add(voiture);
 		try {
 			voiture.ajouterCarburant(km, c1);
 			voiture.ajouterCarburant(km*10, c2);
-		} catch (MonException e) {
+		} catch (MoteurException e) {
 			System.out.printf("%s\n", e.getMessage());
 		}
 		double nbKm = voiture.nbKilometreRestant();
@@ -92,10 +96,10 @@ class TestNbKilometreRestant {
         Carburant c1 = Carburant.Essence;
 		System.out.printf("%s\n", "On tente de donner du carburant à un vehicule sans moteur");
         Velo v = new Velo(1000);
-		AgenceAuto.vehicules.add(v);
+		vehiculeEnVente.add(v);
 		try {
 			v.ajouterCarburant(km, c1);
-		} catch (MonException e) {
+		} catch (MoteurException e) {
 			System.out.printf("%s\n", e.getMessage());
 		}
 		double nbKm = v.nbKilometreRestant();

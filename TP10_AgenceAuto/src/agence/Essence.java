@@ -1,19 +1,19 @@
 package agence;
 
+
 /** 
  * @author Jeremy Fouquet
  */
-import java.util.Objects;
 
 public class Essence extends Moteur {
 	private double quantiteReservoir = 0; // carburant 1 unite == 1km
 
 	/**
 	 * @param capaciteReservoir
-	 * @param type
 	 */
-	public Essence(int capaciteReservoir, Carburant type) {
-		super(capaciteReservoir, type);
+	public Essence(int capaciteReservoir) {
+		super(capaciteReservoir);
+		setCarburant(Carburant.Essence);
 	}
 	
 	
@@ -63,17 +63,12 @@ public class Essence extends Moteur {
 	public void setQuantiteReservoir(double quantiteReservoir) {
 		this.quantiteReservoir = quantiteReservoir;
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(quantiteReservoir);
-	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -84,7 +79,7 @@ public class Essence extends Moteur {
 	@Override
 	public String toString() {
 		return "Essence [quantiteReservoir=" + quantiteReservoir + ", getCapaciteReservoir()=" + getCapaciteReservoir()
-				+ ", getTypeMoteur()=" + getTypeMoteur() + ", toString()=" + super.toString() + ", getClass()="
+				+ ", getCarburant()=" + getCarburant() + ", toString()=" + super.toString() + ", getClass()="
 				+ getClass() + "]";
 	}
 
