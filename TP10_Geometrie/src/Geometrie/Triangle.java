@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import exception.StopException;
+
 public class Triangle extends Figure {
 	private List<String> listCategorie = Arrays.asList("Rectangle", "Isocele", "Equilateral");
 
@@ -15,6 +17,16 @@ public class Triangle extends Figure {
 		// DSL pour les calcules ;S Un peu tiré par les cheveux
 		super();
 		setTypeFigure(choixFigure("Triangle", listCategorie));
+		ajoutSegments();
+	}
+
+	public Triangle(Utilisateur auto) {
+		super();
+		setTypeFigure(choixFigureAdapte(auto));
+		ajoutSegments();
+	}
+	
+	protected void ajoutSegments() {
 		List<Double> S2 = new ArrayList<Double>(4);
 		List<Double> S3 = new ArrayList<Double>(4);
 		double x3 = 0;
@@ -44,6 +56,33 @@ public class Triangle extends Figure {
 		S3.add(y3);
 		getSegments().add(new Segment(S2));
 		getSegments().add(new Segment(S3));
+	}
+	
+	protected String choixFigureAdapte(Utilisateur auto) {
+		String typeTriangle = null;
+		int angleRectangle = 0;
+		int coteEgaux = 0;
+		try {
+			angleRectangle = Integer.parseInt(auto.choixEtSaisie("Choisissez un nombre d'angle droit", Arrays.asList("0", "1")));
+			if(angleRectangle == 1) {
+				coteEgaux = Integer.parseInt(auto.choixEtSaisie("Choisissez un nombre de côté égaux", Arrays.asList("0", "2")));
+				if(coteEgaux == 2) {
+					typeTriangle = "Isocele";
+				} else {
+					typeTriangle = "Rectangle";
+				}
+			} else {
+				coteEgaux = Integer.parseInt(auto.choixEtSaisie("Choisissez un nombre de côté égaux", Arrays.asList("2", "3")));
+				if(coteEgaux == 2) {
+					typeTriangle = "Isocele";
+				} else {
+					typeTriangle = "Equilaterale";
+				}
+			}
+		} catch(StopException e) {
+			System.out.printf("%s\n", e.getMessage());
+		}
+		return typeTriangle;
 	}
 
 	protected double calculerAire() {

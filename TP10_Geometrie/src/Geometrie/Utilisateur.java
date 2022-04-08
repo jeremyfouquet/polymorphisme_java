@@ -6,6 +6,7 @@ package Geometrie;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,7 +33,11 @@ public class Utilisateur {
 	public void choixNbPoints() {
 		do{    
 			try {
-				String choix = choixEtSaisie("Combien de points souhaitez vous dessiner ?", Arrays.asList("2", "3", "4", "Je prefere utiliser le générateur de figure !"));  
+				List<String> listeChoix = Arrays.asList("2", "3", "4", "Je prefere utiliser le générateur de figure !");
+				if(figures.size() > 0) {
+					listeChoix = Arrays.asList("2", "3", "4", "Je prefere utiliser le générateur de figure !", "Voir un dessin de la derniere figure ( parce que c'est fun !)");				
+				}
+				String choix = choixEtSaisie("Combien de points souhaitez vous dessiner ?", listeChoix);  
 				tracer(choix);
 			} catch(StopException e) {
 				System.out.printf("%s\n", e.getMessage());
@@ -60,25 +65,20 @@ public class Utilisateur {
 			case "2":
 				Segment segment = new Segment();
 				segments.add(segment);
-				System.out.printf("Le %s à été dessiné avec succes\n", segment.getClass().getSimpleName());
-				System.out.println();
-				segment.afficherCoordonnnees();
-				segment.afficherLongueur();
+				afficherSegment(segment);
 				break;
 			case "3":
 			case "4":
 				Figure figure = nbPoints == "3" ? new Triangle() : new Rectangle();
 				figures.add(figure);
-				System.out.printf("Le %s de type %s à été dessiné avec succes\n", figure.getClass().getSimpleName(), figure.getTypeFigure());
-				System.out.println();
-				figure.calculerLongueurSegment(true);
-				figure.afficheNombreAngles();
-				figure.afficheDegreeAngles();
-				figure.afficheAire();
-				figure.affichePerimetre();
+				afficherFigure(figure);
+				break;
+			case "Voir un dessin de la derniere figure ( parce que c'est fun !)":
+				Figure f = figures.get(figures.size()-1);
+				DrawTriangle.dessine(f);
 				break;
 			default:
-				generateur();
+				choixCotes();
 				break;
 		}
 	}
@@ -114,29 +114,66 @@ public class Utilisateur {
 	}
 	
 
-	// Coder un générateur de figure qui, en fonction du 
-	// nombre de côtés souhaité, du nombre d'angles droits
-	// et du nombre de côtés égaux, construit la figure la plus adéquate.
-	public void generateur() {
+	/** 
+	 * 
+	 * Choisi un nombre de côté entre 3 et 4
+	 * 
+	 * @see #generateurDeFigure(int)
+	 */
+	public void choixCotes() {
 		int nbCote = 0;
-		int nbAngle = 0;
-		int nbEgaux = 0;
 		try {
-			nbCote = Integer.parseInt(choixEtSaisie("Choisissez un nombre de côté", Arrays.asList("2", "3", "4")));  
-			nbAngle = Integer.parseInt(choixEtSaisie("Choisissez un nombre d'angle droit", Arrays.asList("1", "4")));
-			nbEgaux = Integer.parseInt(choixEtSaisie("Choisissez un nombre de côté égaux", Arrays.asList("2", "3", "4")));
+			nbCote = Integer.parseInt(choixEtSaisie("Choisissez un nombre de côtés", Arrays.asList("3", "4")));  
 		} catch(StopException e) {
 			System.out.printf("%s\n", e.getMessage());
 		} finally {
-			System.out.printf("%s\n", "Bon ben désolé je pèche en Géométrie après ça ;p");
-			System.out.printf("nombre de côtés : %d\n", nbCote);
-			System.out.printf("nombre d'angles : %d\n", nbAngle);
-			System.out.printf("nombre de côtés égaux : %d\n", nbEgaux);
+			generateurDeFigure(nbCote);
 			System.out.println();
 		}
-
 	}
 
+	/** 
+	 * 
+	 * Générateur de figure
+	 * 
+	 * @param nbCote nombre de côté choisi par l'utilisateur
+	 * @see #afficherFigure(Figure)
+	 */
+	public void generateurDeFigure(int nbCote) {
+		Figure figure = nbCote == 3 ? new Triangle(this) : new Rectangle(this);
+		figures.add(figure);
+		afficherFigure(figure);
+	}
+
+	/** 
+	 * 
+	 * Affiche les détails du segment dessiné
+	 * 
+	 * @param segment segment à afficher
+	 * 
+	 */
+	public void afficherSegment(Segment segment) {
+				System.out.printf("Le %s à été dessiné avec succes\n", segment.getClass().getSimpleName());
+				System.out.println();
+				segment.afficherCoordonnnees();
+				segment.afficherLongueur();
+	}
+
+	/** 
+	 * 
+	 * Affiche les détails de la figure déssiné
+	 * @param figure figure à afficher
+	 */
+	public void afficherFigure(Figure figure) {
+			figures.add(figure);
+			System.out.printf("Le %s de type %s à été dessiné avec succes\n", figure.getClass().getSimpleName(), figure.getTypeFigure());
+			System.out.println();
+			figure.calculerLongueurSegment(true);
+			figure.afficheNombreAngles();
+			figure.afficheDegreeAngles();
+			figure.afficheAire();
+			figure.affichePerimetre();
+	}
 	
 
 }

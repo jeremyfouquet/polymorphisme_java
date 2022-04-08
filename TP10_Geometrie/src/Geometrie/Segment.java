@@ -12,7 +12,7 @@ public class Segment {
 
 	public Segment() {
 		points.add(new Point(0, 0));
-		points.add(new Point(10, 0));
+		points.add(new Point(200, 0));
 	}
 	
 	/**

@@ -18,6 +18,24 @@ public abstract class Figure {
 	public Figure() {
 		this.segments.add(new Segment());
 	}
+	
+	public Figure(Utilisateur auto) {
+		this();
+	}
+	
+	/** 
+	 * 
+	 * ajout les segments à la figure
+	 * 
+	 */
+	protected abstract void ajoutSegments();
+
+	/** 
+	 * 
+	 * Choisi automatiquement en fonction du nombre d'angle droit et de coté égaux une figure adéquate
+	 * 
+	 */	
+	protected abstract String choixFigureAdapte(Utilisateur auto);
 
 	/** 
 	 * 
@@ -46,7 +64,7 @@ public abstract class Figure {
 
 	/** 
 	 * 
-	 * Propose de choisir parmis une type de triangle ou un type de quadrilatere
+	 * Propose de choisir parmis un type de triangle ou un type de quadrilatere
 	 * 
 	 * @param nomFigure determine la forme triangle ou quadrilatere
 	 * @return listeTypeFigure sous type choisi par l'utilisateur
