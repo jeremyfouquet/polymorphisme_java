@@ -3,12 +3,14 @@
  */
 package Ecosysteme;
 
-import exception.MonException;
+import java.util.List;
+
+import exception.ActionException;
 
 public class Legumes extends Vegetaux {
 
-	public Legumes() {
-		super();
+	public Legumes(List<Especes> especes) {
+		super(especes);
 		setTypeEspece(TypeEspece.Legumes);
 	}
 
@@ -16,18 +18,24 @@ public class Legumes extends Vegetaux {
 	 * 
 	 * Créé une nouvelle instance de Legumes
 	 * 
+	 * @param especes liste des especes de l'ecosysteme
 	 * @see #enleveGraineEtPollen()
-	 * @exception MonException Si plus de graineEtPollen
+	 * @exception ActionException Si plus de graineEtPollen
 	 */
-	public void seReproduire() throws MonException {
+	public void seReproduire(List<Especes> especes) throws ActionException {
 		if (getGraineEtPollen() == 0) {
-			throw new MonException("Reproduction impossible : Il n'y a plus de graine !");
+			throw new ActionException("Reproduction impossible : Il n'y a plus de graine !");
 		} else {
-			new Legumes();
+			new Legumes(especes);
 			enleveGraineEtPollen();
 		}
 	}
 	
+	/** 
+	 * 
+	 * decremente la graineEtPollen de 1
+	 * 
+	 */
 	protected void enleveGraineEtPollen() {
 		setGraineEtPollen(getGraineEtPollen()-1);
 	}

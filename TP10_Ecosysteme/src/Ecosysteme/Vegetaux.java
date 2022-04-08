@@ -3,11 +3,16 @@
  */
 package Ecosysteme;
 
-public abstract class Vegetaux extends Especes {
-	private int graineEtPollen = 1; // Utilisé lors de la reproduction
+import java.util.List;
 
-	public Vegetaux() {
-		EcoSysteme.ajouterEspece(this);
+public abstract class Vegetaux extends Especes {
+	private int graineEtPollen = 1; // Utilisé lors de la reproduction; initialisé à 1 par default pour l'application test, il serait possible et plus ouvert de donner le libre choix à l'utilisateur d'initialiser lui même cet attribut
+
+	/**
+	 * @param especes // liste des especes de l'ecosysteme
+	 */
+	public Vegetaux(List<Especes> especes) {
+		ajouterEspece(especes);
 	}
 	
 
@@ -25,11 +30,7 @@ public abstract class Vegetaux extends Especes {
 	public void setGraineEtPollen(int graineEtPollen) {
 		this.graineEtPollen = graineEtPollen;
 	}
-	@Override
-	public String toString() {
-		return "Vegetaux [graineEtPollen=" + graineEtPollen + ", isVivant()=" + isVivant() + ", getTypeEspece()="
-				+ getTypeEspece() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
-	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -42,4 +43,9 @@ public abstract class Vegetaux extends Especes {
 		return graineEtPollen == other.graineEtPollen;
 	}
 
+	@Override
+	public String toString() {
+		return "Vegetaux [graineEtPollen=" + graineEtPollen + ", isVivant()=" + isVivant() + ", getTypeEspece()="
+				+ getTypeEspece() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + "]";
+	}
 }

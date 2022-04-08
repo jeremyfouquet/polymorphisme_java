@@ -3,7 +3,7 @@
  */
 package exception;
 
-public class MonException extends Exception {
+public class ActionException extends Exception {
 
 	/** 
 	 * DESCRIPTION
@@ -17,7 +17,7 @@ public class MonException extends Exception {
 	 *  
 	 * @author	Jeremy Fouquet
 	 */
-	public MonException(String info) {
+	public ActionException(String info) {
 		super(info);
 	}
 

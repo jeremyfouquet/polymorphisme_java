@@ -3,19 +3,21 @@
  */
 package Ecosysteme;
 
-import exception.MonException;
+import java.util.List;
+
+import exception.ActionException;
 
 public class Charognards extends Animaux {
 
-	public Charognards(String... oeuf) {
-		super(oeuf);
+	public Charognards(List<Especes> especes, String... oeuf) {
+		super(especes, oeuf);
 		setEspece(EspecesAnimale.Charognard);
 		setTypeEspece(TypeEspece.Charognards);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Charognards(Sexe sexe, double taille, double poids, int esv) {
-		super(sexe, taille, poids, esv);
+	public Charognards(Sexe sexe, double taille, double poids, int esv, List<Especes> especes) {
+		super(sexe, taille, poids, esv, especes);
 		setEspece(EspecesAnimale.Charognard);
 		setTypeEspece(TypeEspece.Charognards);
 	}
@@ -25,19 +27,21 @@ public class Charognards extends Animaux {
 	 * Se nourrit
 	 * 
 	 * @param nourriture qui est consommée
-	 * @exception MonException nourriture est vivant
+	 * @param especes liste des especes de l'ecosysteme
+	 * @exception ActionException nourriture est vivant
 	 * @see Especes#estMange()
 	 */
-	public void seNourir(Animaux nourriture) throws MonException {
+	public void seNourir(Animaux nourriture, List<Especes> especes) throws ActionException {
 		if (nourriture.isVivant()) {
-			throw new MonException("Se nourir est impossible : l'animal n'est pas mort !");
+			throw new ActionException("Se nourir est impossible : l'animal n'est pas mort !");
 		} else {
-			nourriture.estMange();
+			nourriture.estMange(especes);
 		}
 	}
 
 	
 	// EQUALS, TOSTRING
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

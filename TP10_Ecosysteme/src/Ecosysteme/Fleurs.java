@@ -3,14 +3,16 @@
  */
 package Ecosysteme;
 
-import exception.MonException;
+import java.util.List;
+
+import exception.ActionException;
 
 public class Fleurs extends Vegetaux {
 
 	private boolean eclos = false; // false par defaut, la reproduction n'est possible que l'orsque cet attribut est true
 
-	public Fleurs() {
-		super();
+	public Fleurs(List<Especes> especes) {
+		super(especes);
 		setTypeEspece(TypeEspece.Fleurs);
 	}
 	
@@ -18,24 +20,25 @@ public class Fleurs extends Vegetaux {
 	 * 
 	 * Créé une nouvelle instance de Fleurs
 	 * 
+	 * @param especes liste des especes de l'ecosysteme
 	 * @param fleur l'espece à ajouter à la place de l'oeuf
 	 * @see #enleveGraineEtPollen()
-	 * @exception MonException Si eclos est false
-	 * @exception MonException Si plus de graineEtPollen
-	 * @exception MonException Si this.equals(fleur)
-	 * @exception MonException Si this ou fleur est mort
+	 * @exception ActionException Si eclos est false
+	 * @exception ActionException Si plus de graineEtPollen
+	 * @exception ActionException Si this.equals(fleur)
+	 * @exception ActionException Si this ou fleur est mort
 	 */
-	public void seReproduire(Fleurs fleur) throws MonException {
+	public void seReproduire(Fleurs fleur, List<Especes> especes) throws ActionException {
 		if(this.eclos != true) {
-			throw new MonException("Reproduction impossible : La fleur n'est pas eclos !");
+			throw new ActionException("Reproduction impossible : La fleur n'est pas eclos !");
 		} else if (getGraineEtPollen() == 0) {
-			throw new MonException("Reproduction impossible : Pollen insuffisant !");
+			throw new ActionException("Reproduction impossible : Pollen insuffisant !");
 		} else if (this.equals(fleur)) {
-			throw new MonException("Reproduction impossible : Une fleur ne peut se reproduire avec elle même !");
+			throw new ActionException("Reproduction impossible : Une fleur ne peut se reproduire avec elle même !");
 		} else if (this.isVivant() != true || fleur.isVivant() != true) {
-			throw new MonException("Reproduction impossible : La fleur est morte !");
+			throw new ActionException("Reproduction impossible : La fleur est morte !");
 		} else {
-			new Fleurs();
+			new Fleurs(especes);
 			enleveGraineEtPollen();
 		}
 	}
@@ -60,12 +63,7 @@ public class Fleurs extends Vegetaux {
 	public void setEclos(boolean eclos) {
 		this.eclos = eclos;
 	}	
-	@Override
-	public String toString() {
-		return "Fleurs [eclos=" + eclos + ", getGraineEtPollen()=" + getGraineEtPollen() + ", toString()="
-				+ super.toString() + ", isVivant()=" + isVivant() + ", getTypeEspece()=" + getTypeEspece()
-				+ ", getClass()=" + getClass() + "]";
-	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,6 +74,12 @@ public class Fleurs extends Vegetaux {
 			return false;
 		Fleurs other = (Fleurs) obj;
 		return eclos == other.eclos;
+	}
+	@Override
+	public String toString() {
+		return "Fleurs [eclos=" + eclos + ", getGraineEtPollen()=" + getGraineEtPollen() + ", toString()="
+				+ super.toString() + ", isVivant()=" + isVivant() + ", getTypeEspece()=" + getTypeEspece()
+				+ ", getClass()=" + getClass() + "]";
 	}
 
 }

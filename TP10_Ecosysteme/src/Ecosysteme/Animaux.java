@@ -4,32 +4,35 @@
 package Ecosysteme;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class Animaux extends Especes implements Vivipare, Ovipare {
-	EspecesAnimale espece; // Type d'animal
-	Sexe sexe; // male ou femelle
-	double taille;
-	double poids;
-	int esv; // esperance de vie
+	private EspecesAnimale espece; // Type d'animal
+	private Sexe sexe; // male ou femelle
+	private double taille;
+	private double poids;
+	private int esv; // esperance de vie
 
 	/**
 	 * @param sexe
 	 * @param taille
 	 * @param poids
 	 * @param esv
+	 * @param especes // liste des especes de l'ecosysteme
 	 */
-	public Animaux(Sexe sexe, double taille, double poids, int esv) {
+	public Animaux(Sexe sexe, double taille, double poids, int esv, List<Especes> especes) {
 		this.sexe = sexe;
 		this.taille = taille;
 		this.poids = poids;
 		this.esv = esv;
-		EcoSysteme.ajouterEspece(this);
+		ajouterEspece(especes);
 	}
 
 	/**
 	 * @param oeuf optionnel si le paramettre oeuf existe alors on ne l'ajoute pas à l'ecosysteme c'est la class Oeuf qui s'en chargera
+	 * @param especes // liste des especes de l'ecosysteme
 	 */
-	public Animaux(String... oeuf) {
+	public Animaux(List<Especes> especes, String... oeuf) {
 		this.sexe = Arrays.asList(Sexe.values()).get(aleatoire());
 		this.taille = 1.0;
 		this.poids = 100;
@@ -41,11 +44,12 @@ public abstract class Animaux extends Especes implements Vivipare, Ovipare {
 			}
 		}
 		if (ajouter) {
-			EcoSysteme.ajouterEspece(this);
+			ajouterEspece(especes);
 		}
 	}
 		
 	//GETTERS, SETTERS, EQUALS, TOSTRING
+	
 	public EspecesAnimale getEspece() {
 		return espece;
 	}
@@ -76,6 +80,7 @@ public abstract class Animaux extends Especes implements Vivipare, Ovipare {
 	public void setEsperanceDeVie(int esperanceDeVie) {
 		this.esv = esperanceDeVie;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

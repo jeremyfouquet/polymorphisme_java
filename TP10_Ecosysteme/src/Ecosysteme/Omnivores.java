@@ -3,15 +3,18 @@
  */
 package Ecosysteme;
 
+import java.util.List;
+
 public class Omnivores extends Animaux {
 
-	public Omnivores(String... oeuf) {
-		super(oeuf);
+	public Omnivores(List<Especes> especes, String... oeuf) {
+		super(especes, oeuf);
 		setEspece(EspecesAnimale.Omnivore);
 		setTypeEspece(TypeEspece.Omnivores);
 	}
-	public Omnivores(Sexe sexe, double taille, double poids, int esv) {
-		super(sexe, taille, poids, esv);
+
+	public Omnivores(Sexe sexe, double taille, double poids, int esv, List<Especes> especes) {
+		super(sexe, taille, poids, esv, especes);
 		setEspece(EspecesAnimale.Omnivore);
 		setTypeEspece(TypeEspece.Omnivores);
 	}
@@ -21,43 +24,51 @@ public class Omnivores extends Animaux {
 	 * Se nourrit
 	 * 
 	 * @param nourriture qui est consommée
+	 * @param especes liste des especes de l'ecosysteme
 	 * @see Especes#estMange()
 	 */
-	public void seNourir(Carnivores nourriture) {	
-		nourriture.estMange();
+	public void seNourir(Carnivores nourriture, List<Especes> especes) {	
+		nourriture.estMange(especes);
 	}
+
 	/** 
 	 * 
 	 * Se nourrit
 	 * 
 	 * @param nourriture qui est consommée
+	 * @param especes liste des especes de l'ecosysteme
 	 * @see Especes#estMange()
 	 */
-	public void seNourir(Herbivores nourriture) {
-		nourriture.estMange();
+	public void seNourir(Herbivores nourriture, List<Especes> especes) {
+		nourriture.estMange(especes);
 	}
+
 	/** 
 	 * 
 	 * Se nourrit
 	 * 
 	 * @param nourriture qui est consommée
+	 * @param especes liste des especes de l'ecosysteme
 	 * @see Especes#estMange()
 	 */
-	public void seNourir(Vegetaux nourriture) {
-		nourriture.estMange();
+	public void seNourir(Vegetaux nourriture, List<Especes> especes) {
+		nourriture.estMange(especes);
 	}
+
 	/** 
 	 * 
 	 * Se nourrit
 	 * 
 	 * @param nourriture qui est consommée
+	 * @param especes liste des especes de l'ecosysteme
 	 * @see Especes#estMange()
 	 */
-	public void seNourir(Oeuf nourriture) {
-		nourriture.estMange();
+	public void seNourir(Oeuf nourriture, List<Especes> especes) {
+		nourriture.estMange(especes);
 	}
 
 	// EQUALS, TOSTRING
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -68,6 +79,7 @@ public class Omnivores extends Animaux {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Omnivores [getEspece()=" + getEspece() + ", getSexe()=" + getSexe() + ", getTaille()=" + getTaille()

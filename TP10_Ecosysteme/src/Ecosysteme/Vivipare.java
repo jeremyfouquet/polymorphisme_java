@@ -3,7 +3,9 @@
  */
 package Ecosysteme;
 
-import exception.MonException;
+import java.util.List;
+
+import exception.ActionException;
 
 public interface Vivipare {
 	
@@ -11,16 +13,17 @@ public interface Vivipare {
 	 * 
 	 * Créé une nouvelle instance d'Oeuf
 	 * 
-	 * @exception MonException this est un male
-	 * @exception MonException this est mort
+	 * @param especes liste des especes de l'ecosysteme
+	 * @exception ActionException this est un male
+	 * @exception ActionException this est mort
 	 */
-	default void seReproduire() throws MonException {		
+	default void seReproduire(List<Especes> especes) throws ActionException {		
 		if (this.getSexe() == Sexe.male) {
-			throw new MonException("Reproduction impossible : Les males ne pondent pas d'oeuf !");
+			throw new ActionException("Reproduction impossible : Les males ne pondent pas d'oeuf !");
 		} else if (this.isVivant() != true) {
-			throw new MonException("Reproduction impossible : L'animal est mort !");
+			throw new ActionException("Reproduction impossible : L'animal est mort !");
 		} else {
-			new Oeuf(getEspece());
+			new Oeuf(getEspece(), especes);
 		}
 	}
 
@@ -28,27 +31,29 @@ public interface Vivipare {
 	 * 
 	 * Fertilise l'oeuf
 	 * 
+	 * @param especes liste des especes de l'ecosysteme
 	 * @param oeuf oeuf à fertiliser
-	 * @exception MonException this est une femelle
-	 * @exception MonException this et oeuf ne sont pas de la même espece
-	 * @exception MonException oeuf est mort
-	 * @exception MonException this est mort
+	 * @exception ActionException this est une femelle
+	 * @exception ActionException this et oeuf ne sont pas de la même espece
+	 * @exception ActionException oeuf est mort
+	 * @exception ActionException this est mort
 	 * @see Oeuf#eclos()
 	 */
-	default void fertilise(Oeuf oeuf) throws MonException {		
+	default void fertilise(Oeuf oeuf, List<Especes> especes) throws ActionException {		
 		if (this.getSexe() == Sexe.femelle) {
-			throw new MonException("Fertilisation echoué : Les femelles ne fertilisent pas !");
+			throw new ActionException("Fertilisation echoué : Les femelles ne fertilisent pas !");
 		} else if (this.getEspece().equals(oeuf.getEspece()) != true) {
-			throw new MonException("Fertilisation echoué : L'animale n'est pas de la même espece que l'oeuf !");
+			throw new ActionException("Fertilisation echoué : L'animale n'est pas de la même espece que l'oeuf !");
 		} else if (oeuf.isVivant() != true) {
-			throw new MonException("Fertilisation echoué : L'oeuf est mort !");
+			throw new ActionException("Fertilisation echoué : L'oeuf est mort !");
 		} else if (this.isVivant() != true){
-			throw new MonException("Fertilisation echoué : L'animal est mort !");
+			throw new ActionException("Fertilisation echoué : L'animal est mort !");
 		} else {
-			oeuf.eclos();
+			oeuf.eclos(especes);
 		}
 	}
 
+	// PROTOTYPE
 	public Sexe getSexe();
 	public EspecesAnimale getEspece();
 	public boolean isVivant();

@@ -3,6 +3,8 @@
  */
 package Ecosysteme;
 
+import java.util.List;
+
 public abstract class Especes {
 	private TypeEspece typeEspece; // type d'espece
 	private boolean vivant = true; // true par defaut
@@ -10,17 +12,6 @@ public abstract class Especes {
 	public Especes() {
 	}
 	
-	/** 
-	 * 
-	 * Lorsque l'espece est mangé alors elle meurt puis elle est retiré de la liste de l'ecosysteme
-	 * 
-	 * @see #mourir()
-	 * @see EcoSysteme#retirerEspece(Especes)
-	 */
-	protected void estMange() {
-		mourir();
-		EcoSysteme.retirerEspece(this);
-	}
 
 	/** 
 	 * 
@@ -29,6 +20,37 @@ public abstract class Especes {
 	 */
 	public void mourir() {
 		this.vivant = false;
+	}
+	
+	/** 
+	 * 
+	 * Lorsque l'espece est mangé alors elle est retiré de la liste de l'ecosysteme
+	 * 
+	 * @params especes liste des especes de l'ecosysteme
+	 * @see EcoSysteme#retirerEspece(Especes)
+	 */
+	protected void estMange(List<Especes> especes) {
+		retirerEspece(especes);
+	}
+	
+	/** 
+	 * 
+	 * Ajoute une nouvelle espece à la liste des especes de l'ecosysteme
+	 * 
+	 * @param especes listes des espeses présentes dans l'écosysteme
+	 */
+	protected void ajouterEspece(List<Especes> especes) {
+		especes.add(this);
+	}
+	
+	/** 
+	 * 
+	 * Retire une espece à la liste des especes de l'ecosysteme
+	 * 
+	 * @param especes liste des especes de l'ecosysteme
+	 */
+	private void retirerEspece(List<Especes> especes) {
+		especes.remove(this);
 	}
 
 	//GETTERS, SETTERS, EQUALS, TOSTRING
@@ -45,10 +67,7 @@ public abstract class Especes {
 	public void setTypeEspece(TypeEspece typeEspece) {
 		this.typeEspece = typeEspece;
 	}
-	@Override
-	public String toString() {
-		return "Especes [typeEspece=" + typeEspece + ", vivant=" + vivant + "]";
-	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -59,6 +78,11 @@ public abstract class Especes {
 			return false;
 		Especes other = (Especes) obj;
 		return typeEspece == other.typeEspece && vivant == other.vivant;
+	}
+	@Override
+	public String toString() {
+		return "Especes [typeEspece=" + typeEspece + ", vivant=" + vivant + ", getClass()=" + getClass()
+				+ ", toString()=" + super.toString() + "]";
 	}
 		
 }
