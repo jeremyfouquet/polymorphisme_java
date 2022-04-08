@@ -105,22 +105,31 @@ Pour finir, un véhicule vendu disparaîtra de la liste des véhicules disponibl
 
 # Auto-Évaluation :
 
-**Lisibilité du code** : 1/1
+**Lisibilité du code** : 0,5/1 bon defois je m'y perd moi même
 
-**Commentaire** : 1/1
+**Commentaire** : 1/1 j'ai un peu plus commenté certaines methodes complexe (à certaine étapes de celle ci)
 
-**Modélisation** : 2/2
+**Modélisation** : 2/2 je pense que c'est tout bon cette fois
 
-**Pertinence des tests** : 2/2
+**Pertinence des tests** : 1/2 mouais je sais pas, je sais jamais par où commencé, quoi mettre, où m'arréter
 
-**Ajout perso** : 2/2 
+**Ajout perso** : 2/2 y'en a y'en a (hashMap, Interface de saisie, Generateur de figure, ...)
 
-**Avancement du TP** : 4/4
+**Avancement du TP** : 4/4 fini
 
-**Bonne implémentation des concept vu en cours** : 6/6
+**Bonne implémentation des concept vu en cours** : 5/6
+Je gonfle ma note sait-on jamais  ;P Non en fait je pense avoir bien mieux compris que depuis le premier TP.
+Déjà les portés honnetement j'ai encore un peu de difficulté à comprendre quand utiliser static à par dans le main, mais sinon c'est bon j'ai bien compris le public, protected et le private.
+Pour les Enums pareil j'en utilisais trop, apres ta correction du TP9 j'ai nettoyé celui ci il y en avait partout c'était une horreur :S
+J'ai aussi modifié aussi la porté des classes principal que je mettait systematiquement en static.
 
-**Bonne pratique** : 2/2 
+**Bonne pratique** : 1.5/2 
+J'ai amélioré l'optimisation notamment l'utilisation d'un tableau d'immatriculation dans l'Exo 3 au lieu de stocker chaque objet comme je faisait à chaque fois.
+J'ai modifier dans l'Exo 1 les While en Do While pour les saisie essentiellement.
+En parlant de saisie j'ai aussi fait attention à bien donner un choix simple numéraire 1 -> Valeur de mon choix
 
 **Mauvais pratique** : 0/-2
 
-# TOTAL : /20
+
+# TOTAL : 17/20
+Je suis audacieux pour ce dernier TP ;P
