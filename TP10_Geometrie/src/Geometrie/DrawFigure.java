@@ -7,10 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Iterator;
 
-public class DrawTriangle extends JComponent {
+public class DrawFigure extends JComponent {
 	private Figure figure;
 
-	public DrawTriangle(Figure figure) {
+	public DrawFigure(Figure figure) {
     	this.figure = figure;
     	this.dessine(this);
 	}
@@ -27,7 +27,7 @@ public class DrawTriangle extends JComponent {
         return new Dimension(500, 300);
     }
 
-    public void dessine(DrawTriangle dessin) {
+    public void dessine(DrawFigure dessin) {
         JFrame jFrame = new JFrame();
         jFrame.add(dessin);
 //        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // empeche a saisie de s'arreté à la fermeture de la pop up du dessin
