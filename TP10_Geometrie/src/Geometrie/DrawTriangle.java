@@ -5,14 +5,20 @@
 package Geometrie;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Iterator;
 
 public class DrawTriangle extends JComponent {
-	static Figure figure;
+	private Figure figure;
+
+	public DrawTriangle(Figure figure) {
+    	this.figure = figure;
+    	this.dessine(this);
+	}
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (Segment s : DrawTriangle.figure.getSegments()) {
+        for (Segment s : figure.getSegments()) {
         	g.drawLine((int)s.getPoints().get(0).getX(), (int)s.getPoints().get(0).getY(), (int)s.getPoints().get(1).getX(), (int)s.getPoints().get(1).getY());
 		}
     }
@@ -21,11 +27,10 @@ public class DrawTriangle extends JComponent {
         return new Dimension(500, 300);
     }
 
-    public static void dessine(Figure figure) {
-    	DrawTriangle.figure = figure;
+    public void dessine(DrawTriangle dessin) {
         JFrame jFrame = new JFrame();
-        jFrame.add(new DrawTriangle());
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.add(dessin);
+//        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // empeche a saisie de s'arreté à la fermeture de la pop up du dessin
         jFrame.pack();
         jFrame.setVisible(true);
     }

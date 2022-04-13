@@ -75,7 +75,7 @@ public class Utilisateur {
 				break;
 			case "Voir un dessin de la derniere figure ( parce que c'est fun !)":
 				Figure f = figures.get(figures.size()-1);
-				DrawTriangle.dessine(f);
+				new DrawTriangle(f);
 				break;
 			default:
 				choixCotes();
